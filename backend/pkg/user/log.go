@@ -6,7 +6,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 func hashPassword(password string) string {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 8)
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 5)
 	if err != nil {
 		fmt.Printf("Erreur lors du cryptage du mots de passe : %v \n", err)
 		return ""

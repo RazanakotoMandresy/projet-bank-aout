@@ -12,6 +12,7 @@ type User struct {
 	Updated_at        time.Time
 	Deleted_at        gorm.DeletedAt
 	UUID              string `gorm:"id;primary_key"`
+	AppUserName       string `gorm:"unique"`
 	Name              string `json:"name"`
 	Email             string `gorm:"unique"`
 	FirstName         string `json:"firstName"`

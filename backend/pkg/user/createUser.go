@@ -4,15 +4,20 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"strings"
+
 	"time"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
+	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 )
 
 // create User mitovy amin'i register ihany
 type CreateUserRequest struct {
+	AppUserName       string `json:"AppUserName"`
 	Name              string `json:"name"`
 	FirstName         string `json:"firstName"`
 	Moneys            uint   `json:"money"`
@@ -23,42 +28,54 @@ type CreateUserRequest struct {
 	Email             string `json:"Email"`
 }
 
-func (h handler) CreateUser(ctx *gin.Context) {
-	body := new(CreateUserRequest)
+type JsonResCreated struct {
+	Token    string      `json:"token"`
+	UserJson models.User `json:"user"`
+}
 
+func (h handler) CreateUser(ctx *gin.Context) {
+	godotenv.Load("../common/envs/.env")
+	body := new(CreateUserRequest)
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		ctx.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	var user models.User
 	passwordHashed := hashPassword(body.Password)
-	user.Name = body.Name
-	user.FirstName = body.FirstName
-	user.Numero = body.Numero
-	user.Password = passwordHashed
-	user.Date_de_naissance = "on donnera un temps quand on aura un front e chois de date"
-	user.Residance = body.Residance
-	user.Moneys = 0
-	user.UUID = uuid.NewString()
-	user.Email = body.Email
-	user.Created_at = time.Now()
-	user.Updated_at = time.Now()
-	user.ID = uint(rand.Uint32())
+
 	if body.Name == "" || body.FirstName == "" || body.Date_de_naissance == "" || body.Residance == "" {
 		ctx.JSON(http.StatusBadRequest, "vous devez remplier tous les champs")
 		return
 	}
+	user := models.User{
+		AppUserName:       body.AppUserName,
+		Name:              body.Name,
+		FirstName:         body.FirstName,
+		Numero:            body.Numero,
+		Password:          passwordHashed,
+		Date_de_naissance: "on donnera plus tard",
+		Moneys:            0,
+		UUID:              uuid.NewString(),
+		Residance:         body.Residance,
+		Email:             body.Email,
+		Created_at:        time.Now(),
+		Updated_at:        time.Now(), 
+		ID:                uint(rand.Uint32()),
+	}
+
 	if result := h.DB.Create(&user); result.Error != nil {
-		if result.Error.Error() == "ERROR: duplicate key value violates unique constraint \"uni_users_numero\" (SQLSTATE 23505)" {
-			err := fmt.Sprintf("le numero %v est deja utiliser par un autres comptes ", body.Numero)
+		strErr := result.Error.Error()
+		if strings.ContainsAny(strErr, "23505") {
+			err := fmt.Sprintf("Problemes de duplication : -%v", strErr)
 			ctx.JSON(http.StatusBadRequest, err)
 			return
 		}
-		ctx.AbortWithError(http.StatusNotFound, result.Error)
-		ctx.JSON(http.StatusBadRequest, result.Error)
+		ctx.AbortWithError(http.StatusBadRequest, result.Error)
+		ctx.JSON(http.StatusBadRequest, result.Error.Error())
 		return
 	}
-
-	ctx.JSON(http.StatusCreated, &user)
+	tokenString := middleware.TokenManage(user)
+	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
+	res := JsonResCreated{Token: tokenString, UserJson: user}
+	ctx.JSON(http.StatusCreated, res)
 }

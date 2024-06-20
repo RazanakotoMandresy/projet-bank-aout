@@ -1,10 +1,12 @@
 package user
 
 import (
+	"errors"
 	"fmt"
 
 	"golang.org/x/crypto/bcrypt"
 )
+
 func hashPassword(password string) string {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 5)
 	if err != nil {
@@ -13,11 +15,11 @@ func hashPassword(password string) string {
 	}
 	return string(bytes)
 }
-func isTruePassword(hashedPassword, password string) string {
+func isTruePassword(hashedPassword, password string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 	if err != nil {
 		fmt.Printf("mauvais mots de passes %v", err)
-		return "Mauvais mots de passes"
+		return errors.New("mauvais mots de passes")
 	}
-	return ""
+	return nil
 }

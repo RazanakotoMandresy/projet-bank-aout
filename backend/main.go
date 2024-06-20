@@ -1,17 +1,20 @@
 package main
 
 import (
+	"os"
+
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/db"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/user"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	viper.SetConfigFile("./pkg/common/envs/.env")
-	viper.ReadInConfig()
-	port := viper.Get("PORT").(string)
-	dbUrl := viper.Get("DB_URL").(string)
+	godotenv.Load("./pkg/common/envs/.env")
+
+	port := os.Getenv("PORT")
+	dbUrl := os.Getenv("DB_URL")
+
 	router := gin.Default()
 	dbHandler := db.Init(dbUrl)
 	user.RegisterRoutes(router, dbHandler)

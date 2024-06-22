@@ -17,6 +17,6 @@ func RegisterRoutes(router *gin.Engine, db *gorm.DB) {
 	routes := router.Group("/user")
 	routes.POST("/register", h.CreateUser)
 	routes.POST("/login", h.Login)
-	routes.PUT("/:id", middleware.RequireAuth, h.UpdateInfo)
+	routes.PATCH("/:uuid", middleware.RequireAuth, h.UpdateInfo)
 	routes.GET("/", h.GetUsers)
 }

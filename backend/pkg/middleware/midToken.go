@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 
 	"os"
@@ -18,8 +17,9 @@ func TokenManage(user models.User, c *gin.Context) (string, error) {
 	// Generate a JWT token
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"sub": user.ID,
-		"exp": time.Now().Add(time.Hour * 24 * 30).Unix(),
+		"sub":  user.ID,
+		"uuid": user.UUID,
+		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 
 	// Sign and get the complete encoded token as a string using the secret
@@ -40,24 +40,17 @@ func TokenManage(user models.User, c *gin.Context) (string, error) {
 	return tokenString, nil
 }
 func RequireAuth(c *gin.Context) {
-	// Get the cookie off the
-
 	tokenString, err := c.Cookie("Authorization")
-	fmt.Println("TOKEN STRINGGG", tokenString)
-
 	if err != nil {
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
-
-	// Decode/validate it
 	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+			return nil, errors.New("unexpected signing method")
 		}
 
 		return []byte(os.Getenv("SECRET")), nil
 	})
-
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, "IDK MAN")
@@ -65,11 +58,10 @@ func RequireAuth(c *gin.Context) {
 		var user models.User
 		DB := db.Init(os.Getenv("DB_URL"))
 		DB.First(&user, claims["sub"])
-		fmt.Println("USER ID", user.ID)
 		if user.ID == 0 {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, "ID 0")
 		}
-		c.Set("user", user)
+		c.Set("uuid", user.UUID)
 		c.Next()
 	} else {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, "ELSE")

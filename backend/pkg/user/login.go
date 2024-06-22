@@ -23,7 +23,6 @@ func (h handler) Login(ctx *gin.Context) {
 	var users models.User
 	email := models.User{Email: body.Email}
 	GetPasswordHashed := h.DB.First(&users, email)
-	// GetPasswordHashed := h.DB.Find(&users)
 
 	if GetPasswordHashed.Error != nil {
 		ctx.JSON(http.StatusInternalServerError, GetPasswordHashed.Error.Error())
@@ -36,6 +35,6 @@ func (h handler) Login(ctx *gin.Context) {
 	}
 	tokenString, _ := middleware.TokenManage(users, ctx)
 	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
-	// res := JsonResCreated{Token: tokenString, UserJson: users}
-	ctx.JSON(http.StatusOK, gin.H{"token": tokenString, "user": users})
+	// res := JsonResCreated{Token: tokenString, UserJson: users}	
+	ctx.JSON(http.StatusOK, gin.H{"token": tokenString, "user": users })
 }

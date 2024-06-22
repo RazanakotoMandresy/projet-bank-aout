@@ -12,12 +12,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 
-	// "github.com/google/uuid"
 	"github.com/joho/godotenv"
 )
 
 // create User mitovy amin'i register ihany
-type CreateUserRequest struct {
+type UserRequest struct {
 	AppUserName       string `json:"AppUserName"`
 	Name              string `json:"name"`
 	FirstName         string `json:"firstName"`
@@ -36,7 +35,7 @@ type JsonResCreated struct {
 
 func (h handler) CreateUser(ctx *gin.Context) {
 	godotenv.Load("../common/envs/.env")
-	body := new(CreateUserRequest)
+	body := new(UserRequest)
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		ctx.JSON(http.StatusBadRequest, err.Error())
@@ -56,7 +55,7 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		Password:          passwordHashed,
 		Date_de_naissance: "on donnera plus tard",
 		Moneys:            0,
-		UUID:              uuid.New(),
+		UUID:              uuid.New().String(),
 		Residance:         body.Residance,
 		Email:             body.Email,
 		Created_at:        time.Now(),
@@ -76,7 +75,5 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		return
 	}
 	tokenString, _ := middleware.TokenManage(user, ctx)
-	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
-	res := JsonResCreated{Token: tokenString, UserJson: user}
-	ctx.JSON(http.StatusCreated, res)
+	ctx.JSON(http.StatusCreated, gin.H{"token": tokenString, "users": user})
 }

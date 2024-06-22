@@ -51,32 +51,25 @@ func RequireAuth(c *gin.Context) {
 
 	// Decode/validate it
 	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		// Don't forget to validate the alg is what you expect:
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
 
-		// hmacSampleSecret is a []byte containing your secret, e.g. []byte("my_secret_key")
 		return []byte(os.Getenv("SECRET")), nil
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		// Chec k the expiry date
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, "IDK MAN")
 		}
-		// Find the user with token Subject
 		var user models.User
-		//  initializers.DB.First(&user,claims["sub"])
 		DB := db.Init(os.Getenv("DB_URL"))
-		// var DB *gorm.DB
-		DB.Find(&user, claims["sub"])
+		DB.First(&user, claims["sub"])
+		fmt.Println("USER ID", user.ID)
 		if user.ID == 0 {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, "ID 0")
 		}
-		// Attach the request
 		c.Set("user", user)
-		//Continue
 		c.Next()
 	} else {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, "ELSE")

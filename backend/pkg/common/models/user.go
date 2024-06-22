@@ -3,15 +3,17 @@ package models
 import (
 	"time"
 
+	// "github.com/google/uuid"
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type User struct {
-	ID                uint
+	ID                uint32 `gorm:"id;primarykey"`
 	Created_at        time.Time
 	Updated_at        time.Time
+	UUID              uuid.UUID `gorm:"uuid"`
 	Deleted_at        gorm.DeletedAt
-	// UUID              string `gorm:"id;primary_key"`
 	AppUserName       string `gorm:"unique"`
 	Name              string `json:"name"`
 	Email             string `gorm:"unique"`

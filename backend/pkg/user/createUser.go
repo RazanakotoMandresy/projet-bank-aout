@@ -2,7 +2,6 @@ package user
 
 import (
 	"fmt"
-	"math/rand"
 	"net/http"
 	"strings"
 
@@ -11,6 +10,8 @@ import (
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+
 	// "github.com/google/uuid"
 	"github.com/joho/godotenv"
 )
@@ -55,12 +56,12 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		Password:          passwordHashed,
 		Date_de_naissance: "on donnera plus tard",
 		Moneys:            0,
-		// UUID:              uuid.NewString(),
+		UUID:              uuid.New(),
 		Residance:         body.Residance,
 		Email:             body.Email,
 		Created_at:        time.Now(),
-		Updated_at:        time.Now(), 
-		ID:                uint(rand.Uint32()),
+		Updated_at:        time.Now(),
+		ID:                uuid.New().ID(),
 	}
 
 	if result := h.DB.Create(&user); result.Error != nil {
@@ -74,7 +75,7 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, result.Error.Error())
 		return
 	}
-	tokenString , _:= middleware.TokenManage(user , ctx)
+	tokenString, _ := middleware.TokenManage(user, ctx)
 	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
 	res := JsonResCreated{Token: tokenString, UserJson: user}
 	ctx.JSON(http.StatusCreated, res)

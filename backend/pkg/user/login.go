@@ -1,7 +1,7 @@
 package user
 
 import (
-	"fmt"
+	// "fmt"
 	"net/http"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
@@ -27,7 +27,6 @@ func (h handler) Login(ctx *gin.Context) {
 
 	if GetPasswordHashed.Error != nil {
 		ctx.JSON(http.StatusInternalServerError, GetPasswordHashed.Error.Error())
-		fmt.Println(GetPasswordHashed.Error.Error())
 		return
 	}
 	err := isTruePassword(users.Password, body.Password)
@@ -35,8 +34,8 @@ func (h handler) Login(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	tokenString := middleware.TokenManage(users)
+	tokenString, _ := middleware.TokenManage(users, ctx)
 	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
-	res := JsonResCreated{Token: tokenString, UserJson: users}
-	ctx.JSON(http.StatusOK, res)
+	// res := JsonResCreated{Token: tokenString, UserJson: users}
+	ctx.JSON(http.StatusOK, gin.H{"token": tokenString, "user": users})
 }

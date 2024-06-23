@@ -1,7 +1,6 @@
 package user
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 
@@ -34,16 +33,29 @@ func (h handler) UpdateInfo(ctx *gin.Context) {
 			ctx.JSON(http.StatusBadRequest, err.Error())
 			return
 		}
-		user.AppUserName = body.AppUserName
-		user.Numero = body.Numero
-		user.Residance = body.Residance
+		switch {
+		case body.AppUserName == "":
+			body.AppUserName = user.AppUserName
+		default:
+			user.AppUserName = body.AppUserName
+		}
+		switch {
+		case body.Numero == 0:
+			body.Numero = user.Numero
+		default:
+			user.Numero = body.Numero
+		}
+		switch {
+		case body.Residance == "":
+			body.Residance = user.Residance
+		default:
+			user.Residance = body.Residance
+		}
 		h.DB.Save(user)
 		ctx.JSON(http.StatusOK, &user)
 		return
 	}
 	fmt.Println("uuidJWT", uuid)
 	fmt.Println("uuidPar", uuidParams)
-	err := fmt.Sprintf("uuidJWT : %v , uuidPar %v", uuid, uuidParams)
-	ctx.AbortWithStatusJSON(http.StatusBadRequest, errors.New(err).Error())
-
+	ctx.AbortWithStatusJSON(http.StatusBadRequest, "ceci c'est pas votre compte")
 }

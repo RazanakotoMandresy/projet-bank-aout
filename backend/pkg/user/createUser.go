@@ -37,8 +37,8 @@ func (h handler) CreateUser(ctx *gin.Context) {
 	godotenv.Load("../common/envs/.env")
 	body := new(UserRequest)
 	if err := ctx.BindJSON(&body); err != nil {
-		ctx.AbortWithError(http.StatusBadRequest, err)
-		ctx.JSON(http.StatusBadRequest, err.Error())
+		// ctx.AbortWithError(http.StatusBadRequest, err)
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
 		return
 	}
 	passwordHashed := hashPassword(body.Password)

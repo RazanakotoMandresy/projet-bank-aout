@@ -52,6 +52,7 @@ func (h handler) UpdateInfo(ctx *gin.Context) {
 			user.Residance = body.Residance
 		}
 		h.DB.Save(user)
+
 		ctx.JSON(http.StatusOK, &user)
 		return
 	}

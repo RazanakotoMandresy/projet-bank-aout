@@ -53,13 +53,13 @@ func RequireAuth(c *gin.Context) {
 	})
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, "IDK MAN")
+			c.AbortWithStatusJSON(http.StatusUnauthorized, "TOKEN Deja expirer")
 		}
 		var user models.User
 		DB := db.Init(os.Getenv("DB_URL"))
 		DB.First(&user, claims["sub"])
 		if user.ID == 0 {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, "ID 0")
+			c.AbortWithStatusJSON(http.StatusUnauthorized, "Pas de ID ")
 		}
 		c.Set("uuid", user.UUID)
 		c.Next()

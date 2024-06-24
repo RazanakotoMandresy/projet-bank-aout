@@ -27,3 +27,7 @@ func (h handler) Depot(ctx *gin.Context) {
 	// manomboka appli web , miditra moramora anaty expo amzay
 	h.DB.Save(userTosend)
 }
+
+// mbola amboarina ny log ana depot aveo ???????
+// manana ny vola ao anatiny max ny gab (machine fanaovana depot et retrait)
+

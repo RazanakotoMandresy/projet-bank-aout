@@ -9,7 +9,7 @@ import (
 
 type Money struct {
 	ID         uuid.UUID `gorm:"id;primarykey"`
-	Created_at time.Time
+	Created_at time.Time 
 	Updated_at time.Time
 	Deleted_at gorm.DeletedAt
 	SendBy     string `json:"sentBy"`

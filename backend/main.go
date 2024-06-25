@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 
+	adminbank "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/adminBank"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/db"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/money"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/user"
@@ -20,5 +21,6 @@ func main() {
 	dbHandler := db.Init(dbUrl)
 	user.RegisterRoutes(router, dbHandler)
 	money.TransactionRoutes(router, dbHandler)
+	adminbank.AdminRoutes(router, dbHandler)
 	router.Run(port)
 }

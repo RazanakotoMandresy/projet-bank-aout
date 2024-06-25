@@ -10,6 +10,7 @@ import (
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 
 	"github.com/joho/godotenv"
@@ -28,11 +29,6 @@ type UserRequest struct {
 	Email             string `json:"Email"`
 }
 
-type JsonResCreated struct {
-	Token    string      `json:"token"`
-	UserJson models.User `json:"user"`
-}
-
 func (h handler) CreateUser(ctx *gin.Context) {
 	godotenv.Load("../common/envs/.env")
 	body := new(UserRequest)
@@ -41,7 +37,7 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
 		return
 	}
-	passwordHashed := hashPassword(body.Password)
+	passwordHashed := middleware.HashPassword(body.Password)
 
 	if body.Name == "" || body.FirstName == "" || body.Date_de_naissance == "" || body.Residance == "" {
 		ctx.JSON(http.StatusBadRequest, "vous devez remplier tous les champs")
@@ -74,6 +70,11 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, result.Error.Error())
 		return
 	}
-	tokenString, _ := middleware.TokenManage(user, ctx)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub":  user.ID,
+		"uuid": user.UUID,
+		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
+	})
+	tokenString, _ := middleware.TokenManage(token, ctx)
 	ctx.JSON(http.StatusCreated, gin.H{"token": tokenString, "users": user})
 }

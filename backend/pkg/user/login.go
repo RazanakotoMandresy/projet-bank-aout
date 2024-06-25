@@ -3,10 +3,12 @@ package user
 import (
 	// "fmt"
 	"net/http"
+	"time"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 type LoginRequest struct {
@@ -28,13 +30,18 @@ func (h handler) Login(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, GetPasswordHashed.Error.Error())
 		return
 	}
-	err := isTruePassword(users.Password, body.Password)
+	err := middleware.IsTruePassword(users.Password, body.Password)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	tokenString, _ := middleware.TokenManage(users, ctx)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub":  users.ID,
+		"uuid": users.UUID,
+		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
+	})
+	tokenString, _ := middleware.TokenManage(token, ctx)
 	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
-	// res := JsonResCreated{Token: tokenString, UserJson: users}	
-	ctx.JSON(http.StatusOK, gin.H{"token": tokenString, "user": users })
+	// res := JsonResCreated{Token: tokenString, UserJson: users}
+	ctx.JSON(http.StatusOK, gin.H{"token": tokenString, "user": users})
 }

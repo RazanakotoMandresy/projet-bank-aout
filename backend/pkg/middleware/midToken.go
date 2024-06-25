@@ -13,15 +13,9 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func TokenManage(user models.User, c *gin.Context) (string, error) {
+func TokenManage(token *jwt.Token, c *gin.Context) (string, error) {
 	// Generate a JWT token
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"sub":  user.ID,
-		"uuid": user.UUID,
-		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
-	})
-
+	// token generate Token
 	// Sign and get the complete encoded token as a string using the secret
 	tokenString, err := token.SignedString([]byte(os.Getenv("SECRET")))
 

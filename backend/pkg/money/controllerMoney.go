@@ -18,3 +18,4 @@ func TransactionRoutes(router *gin.Engine, db *gorm.DB) {
 	routes.PUT("/depot/:uuid", h.Depot)
 	routes.POST("/:uuid", middleware.RequireAuth, h.SendMoney)
 }
+ 

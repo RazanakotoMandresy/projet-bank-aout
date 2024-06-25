@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"errors"
 	"fmt"
 
 	"golang.org/x/crypto/bcrypt"
@@ -18,8 +17,8 @@ func HashPassword(password string) string {
 func IsTruePassword(hashedPassword, password string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 	if err != nil {
-		fmt.Printf("mauvais mots de passes %v", err)
-		return errors.New("mauvais mots de passes")
+		fmt.Println(err)
+		return err
 	}
 	return nil
 }

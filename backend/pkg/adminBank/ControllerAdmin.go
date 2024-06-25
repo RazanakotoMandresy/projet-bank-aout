@@ -12,7 +12,7 @@ type handler struct {
 func AdminRoutes(router *gin.Engine, db *gorm.DB) {
 	h := &handler{
 		DB: db,
-	}
+	}   
 	routes := router.Group("/admin")
 	routes.POST("/", h.CreateAdminAccount)
 }

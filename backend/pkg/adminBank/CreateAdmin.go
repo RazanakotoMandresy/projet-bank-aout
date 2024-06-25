@@ -1,7 +1,9 @@
 package adminbank
 
 import (
+	"fmt"
 	"net/http"
+
 	"time"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
@@ -19,6 +21,7 @@ type BankAdminReq struct {
 	Deleted_at gorm.DeletedAt
 	Name       string `json:"name"`
 	Passwords  string `json:"passwords"`
+	RootPass   string `json:"root"`
 }
 
 func (h handler) CreateAdminAccount(ctx *gin.Context) {
@@ -27,7 +30,23 @@ func (h handler) CreateAdminAccount(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
 		return
 	}
+	if body.RootPass == "" {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "les mots de passes de super admin est obligatoire"})
+		return
+	}
+	err := middleware.IsTruePassword("$2a$05$/8PnBDSt7ZAxkdtW6c7.vOOusUebMZzT8ZMF4PtPc.DkI09XBi0I2", body.RootPass)
+	// doesn't work
+	// err := middleware.IsTruePassword(os.Getenv("SECRET_ADMIN"), body.RootPass)
+
+	fmt.Println(body.RootPass)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
+
 	passwordHashed := middleware.HashPassword(body.Passwords)
+	fmt.Println("passwordHASHED", passwordHashed)
+	fmt.Println("BODY", body.Passwords)
 	admin := models.Admin{
 		ID:         uuid.New().ID(),
 		UUID:       uuid.New(),
@@ -46,5 +65,9 @@ func (h handler) CreateAdminAccount(ctx *gin.Context) {
 		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 	tokenString, _ := middleware.TokenManage(token, ctx)
-	ctx.JSON(http.StatusOK, gin.H{"admin": admin, "token": tokenString})
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"token": tokenString,
+		"admin": admin,
+	})
 }

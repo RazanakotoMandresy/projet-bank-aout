@@ -1,9 +1,7 @@
 package adminbank
 
 import (
-	"fmt"
 	"net/http"
-
 	"time"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
@@ -38,15 +36,13 @@ func (h handler) CreateAdminAccount(ctx *gin.Context) {
 	// doesn't work
 	// err := middleware.IsTruePassword(os.Getenv("SECRET_ADMIN"), body.RootPass)
 
-	fmt.Println(body.RootPass)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
 
 	passwordHashed := middleware.HashPassword(body.Passwords)
-	fmt.Println("passwordHASHED", passwordHashed)
-	fmt.Println("BODY", body.Passwords)
+
 	admin := models.Admin{
 		ID:         uuid.New().ID(),
 		UUID:       uuid.New(),

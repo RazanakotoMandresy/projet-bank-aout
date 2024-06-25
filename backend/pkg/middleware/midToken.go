@@ -56,6 +56,7 @@ func RequireAuth(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, "Pas de ID ")
 		}
 		c.Set("uuid", user.UUID)
+		c.Set("role", user.Role)
 		c.Next()
 	} else {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, "ELSE")

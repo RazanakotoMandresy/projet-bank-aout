@@ -17,13 +17,15 @@ type UpdateRequest struct {
 func (h handler) UpdateInfo(ctx *gin.Context) {
 	// update info rehefa mijery profileska misy diso ou somthing , manova pseudo numero, ny vola ao aminao ao ihany
 	uuidAny, _ := ctx.Get("uuid")
+	roleAny, _ := ctx.Get("role")
 	uuidParams := ctx.Param("uuid")
 	body := new(UpdateRequest)
+	role := fmt.Sprint(roleAny)
+	fmt.Println("ROLLEEE", role)
 	uuid := fmt.Sprint(uuidAny)
 	if uuid == uuidParams {
 		var user models.User
 		result := h.DB.First(&user)
-		fmt.Println(user)
 		if result.Error != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, result.Error.Error())
 			return

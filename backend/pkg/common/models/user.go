@@ -2,7 +2,7 @@ package models
 
 import (
 	"time"
- 
+
 	"gorm.io/gorm"
 )
 
@@ -21,4 +21,5 @@ type User struct {
 	Password          string `json:"password"`
 	Date_de_naissance string `json:"naissance"`
 	Residance         string `json:"residance"`
+	Role              string `json:"role"`
 }

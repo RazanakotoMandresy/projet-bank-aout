@@ -43,6 +43,7 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, "vous devez remplier tous les champs")
 		return
 	}
+
 	user := models.User{
 		AppUserName:       body.AppUserName,
 		Name:              body.Name,
@@ -57,6 +58,7 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		Created_at:        time.Now(),
 		Updated_at:        time.Now(),
 		ID:                uuid.New().ID(),
+		Role:              "user",
 	}
 
 	if result := h.DB.Create(&user); result.Error != nil {
@@ -70,9 +72,11 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, result.Error.Error())
 		return
 	}
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub":  user.ID,
 		"uuid": user.UUID,
+		"role": user.Role,
 		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 	tokenString, _ := middleware.TokenManage(token, ctx)

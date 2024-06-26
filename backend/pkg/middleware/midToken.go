@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/db"
-	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
+	// "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/db"
+	// "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -49,14 +49,15 @@ func RequireAuth(c *gin.Context) {
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, "TOKEN Deja expirer")
 		}
-		var user models.User
-		DB := db.Init(os.Getenv("DB_URL"))
-		DB.First(&user, claims["sub"])
-		if user.ID == 0 {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, "Pas de ID ")
-		}
-		c.Set("uuid", user.UUID)
-		c.Set("role", user.Role)
+		// var user models.User
+		// var admin models.Admin
+		// DB := db.Init(os.Getenv("DB_URL"))
+		// DB.First(&user, claims["sub"])
+		// DB.First(&admin, claims["sub"])
+		// if user.ID == 0 || admin.ID == 0 {
+		// 	c.AbortWithStatusJSON(http.StatusUnauthorized, "Pas d'utilisateur avec c'id")
+		// }
+		c.Set("uuid", claims["uuid"])
 		c.Next()
 	} else {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, "ELSE")

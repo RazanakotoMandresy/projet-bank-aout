@@ -15,13 +15,9 @@ type UpdateRequest struct {
 }
 
 func (h handler) UpdateInfo(ctx *gin.Context) {
-	// update info rehefa mijery profileska misy diso ou somthing , manova pseudo numero, ny vola ao aminao ao ihany
 	uuidAny, _ := ctx.Get("uuid")
-	roleAny, _ := ctx.Get("role")
 	uuidParams := ctx.Param("uuid")
 	body := new(UpdateRequest)
-	role := fmt.Sprint(roleAny)
-	fmt.Println("ROLLEEE", role)
 	uuid := fmt.Sprint(uuidAny)
 	if uuid == uuidParams {
 		var user models.User
@@ -58,7 +54,5 @@ func (h handler) UpdateInfo(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, &user)
 		return
 	}
-	fmt.Println("uuidJWT", uuid)
-	fmt.Println("uuidPar", uuidParams)
 	ctx.AbortWithStatusJSON(http.StatusBadRequest, "ceci c'est pas votre compte")
 }

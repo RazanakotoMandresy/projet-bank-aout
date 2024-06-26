@@ -15,4 +15,5 @@ type Admin struct {
 	Deleted_at gorm.DeletedAt
 	Name       string `gorm:"name;unique"`
 	Passwords  string `json:"passwords"`
+	Role       string
 }

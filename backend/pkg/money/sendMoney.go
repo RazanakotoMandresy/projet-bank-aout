@@ -1,7 +1,7 @@
 package money
 
 import (
-	"fmt"      
+	"fmt"
 	"net/http"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
@@ -60,12 +60,11 @@ func (h handler) SendMoney(ctx *gin.Context) {
 func (h handler) GetUserByuuid(userUUID string) (*models.User, error) {
 	var users models.User
 	result := h.DB.First(&users, "uuid = ?", userUUID)
-
 	if result.Error != nil {
 		err := fmt.Errorf("utilisateur avec l'id %v n'est pas dans %v", userUUID, users)
 		return nil, err
 	}
-
 	return &users, nil
 
 }
+ 

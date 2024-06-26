@@ -50,6 +50,7 @@ func (h handler) CreateAdminAccount(ctx *gin.Context) {
 		Updated_at: time.Now(),
 		Name:       body.Name,
 		Passwords:  passwordHashed,
+		Role:       "admin",
 	}
 	if result := h.DB.Create(&admin); result.Error != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"err": result.Error})

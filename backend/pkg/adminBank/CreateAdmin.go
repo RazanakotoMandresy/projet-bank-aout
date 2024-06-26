@@ -12,6 +12,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Code to create an admin
 type BankAdminReq struct {
 	ID         uint32 `gorm:"id;primaryKey"`
 	Created_at time.Time
@@ -52,10 +53,12 @@ func (h handler) CreateAdminAccount(ctx *gin.Context) {
 		Passwords:  passwordHashed,
 		Role:       "admin",
 	}
+	// create the adminss in the db
 	if result := h.DB.Create(&admin); result.Error != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"err": result.Error})
 		return
 	}
+	// signing the claims'token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub":  admin.ID,
 		"uuid": admin.UUID,

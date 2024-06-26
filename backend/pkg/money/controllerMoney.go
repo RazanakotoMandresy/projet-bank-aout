@@ -5,7 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
-	
+
+// models money
 type handler struct {
 	DB *gorm.DB
 }
@@ -18,4 +19,3 @@ func TransactionRoutes(router *gin.Engine, db *gorm.DB) {
 	routes.PUT("/depot/:uuid", h.Depot)
 	routes.POST("/:uuid", middleware.RequireAuth, h.SendMoney)
 }
- 

@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// models bank
 type Bank struct {
 	ID         uint32 `gorm:"id;primaryKey"`
 	Created_at time.Time

@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
-
+// models an'i admin
 type Admin struct {
 	ID         uint32    `gorm:"id;unique"`
 	UUID       uuid.UUID `gorm:"uuid;primaryKey"`

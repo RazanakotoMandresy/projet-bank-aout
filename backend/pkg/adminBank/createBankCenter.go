@@ -13,9 +13,12 @@ type BankReq struct {
 	Lieux string `json:"lieux"`
 }
 
+// code create bank
 func (h handler) CreateBank(ctx *gin.Context) {
 	uuidAny, _ := ctx.Get("uuid")
+	// maka anle uuid avy ao anaty le token ?
 	body := new(BankReq)
+	// mamadika anle uuidAny ho string
 	uuid := fmt.Sprint(uuidAny)
 	admin, err := h.GetByuuid(uuid)
 	if err != nil {
@@ -24,6 +27,7 @@ func (h handler) CreateBank(ctx *gin.Context) {
 		})
 		return
 	}
+	// code defensif sur le role meme si il est impossible qu'il soit appele satria ny uuid an'i admin ihany ny getevana
 	if admin.Role != "admin" {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"err": "vous n'avez pas le role necessaire ",
@@ -33,7 +37,7 @@ func (h handler) CreateBank(ctx *gin.Context) {
 
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"err": err,
+			"err": err.Error(),
 		})
 		return
 	}

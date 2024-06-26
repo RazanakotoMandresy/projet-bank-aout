@@ -9,7 +9,6 @@ import (
 type DepoReq struct {
 	Value int `json:"value"`
 }
-
 func (h handler) Depot(ctx *gin.Context) {
 	userTosendUUid := ctx.Param("uuid")
 	body := new(DepoReq)

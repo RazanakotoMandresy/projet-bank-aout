@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// models money
 type Money struct {
 	ID         uuid.UUID `gorm:"id;primarykey"`
 	Created_at time.Time

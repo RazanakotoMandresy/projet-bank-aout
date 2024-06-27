@@ -1,0 +1,42 @@
+.home {
+  position: fixed;
+  margin-top: 7%;
+}
+.home .image-home {
+  position: fixed;
+  margin-left: 50%;
+}
+.home .image-home img {
+  width: 100%;
+  height: 100%;
+}
+
+.home .titre h1 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: #348b7b;
+  font-size: 100px;
+}
+.home .titre {
+  margin-top: -4%;
+  position: fixed;
+  margin-left: 50%;
+}
+.home .desc {
+  text-align: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.home .desc a {
+  text-decoration: none;
+  background-color: #ffce68;
+  padding: 2%;
+  border-radius: 25px;
+  transition: width 2s;
+  width: 100%;
+  color: black;
+}
+.home .desc a:hover {
+    color: #ffce68;
+    width: 150%;
+    background-color: black;
+}

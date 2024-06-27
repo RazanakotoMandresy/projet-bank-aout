@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type DepoReq struct {
+type DepoRetraiReq struct {
 	Value uint   `json:"value"`
 	Lieux string `json:"lieux"`
 }
@@ -16,7 +16,7 @@ type DepoReq struct {
 func (h handler) Depot(ctx *gin.Context) {
 
 	userTosendUUid := ctx.Param("uuid")
-	body := new(DepoReq)
+	body := new(DepoRetraiReq)
 	userTosend, err := h.GetUserByuuid(userTosendUUid)
 
 	if err != nil {
@@ -63,7 +63,52 @@ func (h handler) Depot(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"msg": msg})
 
 }
+func (h handler) Retrait(ctx *gin.Context) {
 
-func bankMoneyDepot() {
+	userTosendUUid := ctx.Param("uuid")
+	body := new(DepoRetraiReq)
 
+	userTosend, err := h.GetUserByuuid(userTosendUUid)
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
+
+	if err := ctx.BindJSON(&body); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
+
+	if body.Lieux == "" || body.Value == 0 {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "Lieux et value sont obligatoire"})
+	}
+	moneyReq := body.Value
+	var bank models.Bank
+	result := h.DB.First(&bank, "lieux = ?", body.Lieux)
+	if result.Error != nil {
+		err := fmt.Sprintf("le lieux %v n'existe pas", body.Lieux)
+
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"err": err,
+		})
+		return
+	}
+	// check si l'argent que l'user veut deposer est superieur a ce que la depotoire de la banque peut donner
+	if userTosend.Moneys < moneyReq {
+
+		err := fmt.Sprintf("erreur , l'argent que vous voulez retirer est %v mais votre argents est de :  %v", moneyReq, userTosend.Moneys)
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		return
+
+	}
+
+	userTosend.Moneys = (userTosend.Moneys - moneyReq)
+	bank.Money = (bank.Money + moneyReq)
+
+	h.DB.Save(bank)
+	h.DB.Save(userTosend)
+
+	msg := fmt.Sprintf("vous venez de faire un retrait de %v votre solde est de : %v", moneyReq, userTosend.Moneys)
+	ctx.JSON(http.StatusOK, gin.H{"msg": msg})
 }

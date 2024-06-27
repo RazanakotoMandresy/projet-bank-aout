@@ -1,0 +1,69 @@
+package money
+
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
+	"github.com/gin-gonic/gin"
+)
+
+type DepoReq struct {
+	Value uint   `json:"value"`
+	Lieux string `json:"lieux"`
+}
+
+func (h handler) Depot(ctx *gin.Context) {
+
+	userTosendUUid := ctx.Param("uuid")
+	body := new(DepoReq)
+	userTosend, err := h.GetUserByuuid(userTosendUUid)
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
+
+	if err := ctx.BindJSON(&body); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
+
+	if body.Lieux == "" || body.Value == 0 {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "Lieux et value sont obligatoire"})
+	}
+	moneyReq := body.Value
+	var bank models.Bank
+	result := h.DB.First(&bank, "lieux = ?", body.Lieux)
+	if result.Error != nil {
+		err := fmt.Sprintf("le lieux %v n'existe pas", body.Lieux)
+
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"err": err,
+		})
+		return
+	}
+	// check si l'argent que l'user veut deposer est superieur a ce que la depotoire de la banque peut donner
+
+	if bank.Money < moneyReq {
+
+		err := fmt.Sprintf("erreur , l'argent que vous voulez depose est %v qui est largement superieur a la valeur du money virtuel dans ce bank %v", moneyReq, bank.Money)
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		return
+
+	}
+
+	userTosend.Moneys = (userTosend.Moneys + moneyReq)
+	bank.Money = (bank.Money - moneyReq)
+
+	h.DB.Save(bank)
+	h.DB.Save(userTosend)
+
+	msg := fmt.Sprintf("vous venez de faire un depot de %v votre solde est de : %v", moneyReq, userTosend.Moneys)
+	ctx.JSON(http.StatusOK, gin.H{"msg": msg})
+
+}
+
+func bankMoneyDepot() {
+
+}

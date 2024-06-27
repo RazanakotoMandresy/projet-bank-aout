@@ -11,7 +11,7 @@ import (
 
 // ny uuid anaty params de ny uuid an'i envoyeur
 type sendMoneyRequest struct {
-	Value int `json:"value"`
+	Value uint `json:"value"`
 }
 
 func (h handler) SendMoney(ctx *gin.Context) {
@@ -36,7 +36,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	}
 
 	message := fmt.Sprintf("%v a envoye un argent d'un montant de %v a %v", userConnected.AppUserName, value, userRecepteur.AppUserName)
-	userConnected.Moneys = (userConnected.Moneys - value - int(fraisTransfer))
+	userConnected.Moneys = (userConnected.Moneys - value - uint(fraisTransfer))
 	userRecepteur.Moneys = (userRecepteur.Moneys + value)
 	// to do avadika float32 ny money
 	h.DB.Save(userRecepteur)
@@ -67,4 +67,3 @@ func (h handler) GetUserByuuid(userUUID string) (*models.User, error) {
 	return &users, nil
 
 }
- 

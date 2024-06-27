@@ -12,6 +12,6 @@ type Bank struct {
 	Created_at time.Time
 	Updated_at time.Time
 	Deleted_at gorm.DeletedAt
-	Money      int
+	Money      uint
 	Lieux      string
 }

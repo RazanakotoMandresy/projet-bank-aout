@@ -15,6 +15,6 @@ type Money struct {
 	Deleted_at gorm.DeletedAt
 	SendBy     string `json:"sentBy"`
 	SentTo     string `json:"sentTo"`
-	Value      int    `json:"value"`
+	Value      uint    `json:"value"`
 	TransResum string `json:"tansResume"`
 }

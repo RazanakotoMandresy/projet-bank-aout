@@ -80,5 +80,7 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 	tokenString, _ := middleware.TokenManage(token, ctx)
-	ctx.JSON(http.StatusCreated, gin.H{"token": tokenString, "users": user})
+	ctx.JSON(http.StatusCreated, gin.H{
+		"token": tokenString,
+	})
 }

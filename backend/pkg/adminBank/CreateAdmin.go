@@ -68,6 +68,5 @@ func (h handler) CreateAdminAccount(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"token": tokenString,
-		"admin": admin,
 	})
 }

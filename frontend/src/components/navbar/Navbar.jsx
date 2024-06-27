@@ -8,13 +8,13 @@ const Navbar = () => {
         <li className="logo">E-Bank Mada</li>
         <div className="cent">
           <li>
-            <Link to={"/"}> En savoir plus </Link>
+            <Link to={"/info"}> plus d'info </Link>
           </li>
           <li>
-            <Link> Avantages</Link>
+            <Link>Fonctionnalites</Link>
           </li>
           <li>
-            <Link> Reseaux sociaux</Link>
+            <Link>contactes</Link>
           </li>
         </div>
         <div className="right">
@@ -22,7 +22,7 @@ const Navbar = () => {
             <Link> Login</Link>
           </li>
           <li>
-            <Link> Register</Link>
+            <Link className="register"> Register</Link>
           </li>
         </div>
       </ul>

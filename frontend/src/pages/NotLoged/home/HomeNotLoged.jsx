@@ -1,15 +1,11 @@
 import React from "react";
 import "./home.css";
 import { Link } from "react-router-dom";
+import ImageH1 from "../ImageH1";
 const HomeNotLoged = () => {
   return (
     <div className="home">
-      <div className="image-home">
-        <img src="carte-credit.png" alt="" />
-      </div>
-      <div className="titre">
-        <h1>E-BANK MADA</h1>
-      </div>
+      <ImageH1/>
       <div className="desc">
         <h2>Banque numerique,pour gerer votre argent</h2>
         <h3>Securiser , disponible en version web et mobile</h3>

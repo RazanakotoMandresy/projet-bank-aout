@@ -27,6 +27,16 @@
 .navbar .right li {
   padding-left: 20px;
 }
+.navbar .right li .register {
+  background-color: black;
+  color: #fff;
+  padding: 20px;
+  border-radius: 25px;
+}
+.navbar .right li .register:hover {
+  background-color: #ffce68;
+  color: black;
+}
 /* right */
 
 /* centre */
@@ -41,7 +51,7 @@
 }
 .navbar .cent li a {
   text-align: center;
-  padding: 0 40px 0 40px ;
+  padding: 0 40px 0 40px;
   opacity: 1;
 }
 .navbar .cent li a:hover {

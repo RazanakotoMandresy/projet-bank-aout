@@ -19,10 +19,12 @@ const Navbar = () => {
         </div>
         <div className="right">
           <li>
-            <Link> Login</Link>
+            <Link to={"/login"}> Login</Link>
           </li>
           <li>
-            <Link className="register"> Register</Link>
+            <Link className="register" to={"/register"}>
+              Register
+            </Link>
           </li>
         </div>
       </ul>

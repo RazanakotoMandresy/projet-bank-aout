@@ -10,7 +10,7 @@ const NextLog = () => {
       <h4> lieux de residance</h4>
       <input type="text" name="" id="" placeholder=" nom" />
       <h4> mots de passe pour notre application</h4>
-    <input type="password" name="" id="" />
+      <input type="password" name="" id="" />
     </>
   );
 };

@@ -2,7 +2,6 @@ package user
 
 import (
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -12,9 +11,6 @@ type handler struct {
 }
 
 func RegisterRoutes(router *gin.Engine, db *gorm.DB) {
-	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowOrigins = []string{"*"}
-	router.Use(cors.New(corsConfig))
 	h := &handler{
 		DB: db,
 	}

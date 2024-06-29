@@ -5,6 +5,7 @@ import HomeNotLoged from "./pages/NotLoged/home/HomeNotLoged";
 import Info from "./pages/NotLoged/Info/Info";
 import Register from "./pages/loginRegister/Register";
 import Login from "./pages/loginRegister/Login";
+import Home from "./pages/homeLoged/Home";
 function App() {
   return (
     <div>
@@ -14,6 +15,7 @@ function App() {
         <Route path="/info" element={<Info />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/:id" element={<Home />} />
       </Routes>
     </div>
   );

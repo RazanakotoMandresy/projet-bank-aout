@@ -2,6 +2,7 @@ package user
 
 import (
 	// "fmt"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -20,6 +21,7 @@ func (h handler) Login(ctx *gin.Context) {
 	body := new(LoginRequest)
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
+		fmt.Println( "1" ,err.Error())
 		return
 	}
 	var users models.User
@@ -28,11 +30,13 @@ func (h handler) Login(ctx *gin.Context) {
 
 	if GetPasswordHashed.Error != nil {
 		ctx.JSON(http.StatusInternalServerError, GetPasswordHashed.Error.Error())
+		fmt.Println("2",GetPasswordHashed.Error)
 		return
 	}
 	err := middleware.IsTruePassword(users.Password, body.Password)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, err.Error())
+		fmt.Println("3",err.Error())
 		return
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
@@ -45,5 +49,5 @@ func (h handler) Login(ctx *gin.Context) {
 	// res := JsonResCreated{Token: tokenString, UserJson: users}
 	ctx.JSON(http.StatusOK, gin.H{
 		"token": tokenString,
-})
+	})
 }

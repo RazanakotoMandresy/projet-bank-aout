@@ -43,7 +43,7 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		FirstName:   body.FirstName,
 
 		Password:          passwordHashed,
-		Date_de_naissance: "on donnera plus tard",
+		Date_de_naissance: body.Date_de_naissance,
 		Moneys:            0,
 		UUID:              uuid.New().String(),
 		Residance:         body.Residance,
@@ -75,7 +75,5 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 	tokenString, _ := middleware.TokenManage(token, ctx)
-	ctx.JSON(http.StatusCreated, gin.H{
-		"token": tokenString,
-	})
+	ctx.JSON(http.StatusCreated, tokenString)
 }

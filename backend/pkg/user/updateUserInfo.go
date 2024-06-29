@@ -38,12 +38,6 @@ func (h handler) UpdateInfo(ctx *gin.Context) {
 			user.AppUserName = body.AppUserName
 		}
 		switch {
-		case body.Numero == 0:
-			body.Numero = user.Numero
-		default:
-			user.Numero = body.Numero
-		}
-		switch {
 		case body.Residance == "":
 			body.Residance = user.Residance
 		default:

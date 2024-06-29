@@ -22,7 +22,6 @@ type UserRequest struct {
 	Name              string `json:"name"`
 	FirstName         string `json:"firstName"`
 	Moneys            uint   `json:"money"`
-	Numero            uint   `json:"Numero"`
 	Password          string `json:"password"`
 	Date_de_naissance string `json:"naissance"`
 	Residance         string `json:"residance"`
@@ -33,22 +32,16 @@ func (h handler) CreateUser(ctx *gin.Context) {
 	godotenv.Load("../common/envs/.env")
 	body := new(UserRequest)
 	if err := ctx.BindJSON(&body); err != nil {
-		// ctx.AbortWithError(http.StatusBadRequest, err)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		fmt.Println(err)
 		return
 	}
 	passwordHashed := middleware.HashPassword(body.Password)
-
-	if body.Name == "" || body.FirstName == "" || body.Date_de_naissance == "" || body.Residance == "" {
-		ctx.JSON(http.StatusBadRequest, "vous devez remplier tous les champs")
-		return
-	}
-
 	user := models.User{
-		AppUserName:       body.AppUserName,
-		Name:              body.Name,
-		FirstName:         body.FirstName,
-		Numero:            body.Numero,
+		AppUserName: body.AppUserName,
+		Name:        body.Name,
+		FirstName:   body.FirstName,
+
 		Password:          passwordHashed,
 		Date_de_naissance: "on donnera plus tard",
 		Moneys:            0,
@@ -66,10 +59,12 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		if strings.ContainsAny(strErr, "23505") {
 			err := fmt.Sprintf("Problemes de duplication : -%v", strErr)
 			ctx.JSON(http.StatusBadRequest, err)
+			fmt.Println(err)
 			return
 		}
 		ctx.AbortWithError(http.StatusBadRequest, result.Error)
 		ctx.JSON(http.StatusBadRequest, result.Error.Error())
+		fmt.Println(result.Error)
 		return
 	}
 

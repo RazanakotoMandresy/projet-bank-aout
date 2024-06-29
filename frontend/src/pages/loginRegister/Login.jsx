@@ -1,20 +1,17 @@
 import React, { useEffect } from "react";
 import "./log.css";
 import ImageH1 from "../NotLoged/ImageH1";
-import { getUsers } from "../../logics/AxiosLogics/AxiosLogics";
 
 const Login = () => {
-  const getUser = async () => {
+  const login = async () => {
     try {
-      // const data = await getUsers();
-      const data = await getUsers()
-      console.log("user", data);
+        
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    getUser();
+    // getUser();
   }, []);
   return (
     <>

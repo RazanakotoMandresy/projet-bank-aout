@@ -12,6 +12,7 @@ const Register = () => {
   const [residance, setResidance] = useState("");
   const [AppUserName, setAppUserName] = useState("");
   const [password, setPasswords] = useState("");
+  const [naissance, setNaissance] = useState("");
   const registerSubmit = async (e) => {
     e.preventDefault();
     const register = {
@@ -22,16 +23,14 @@ const Register = () => {
       residance,
       AppUserName,
       password,
+      naissance,
     };
     try {
-      // const { data } = await RegisterFunc(register);
-      const { data } = await axios.post(
-        "http://localhost:3000/user/register",
-        register
-      );
+      const { data } = await RegisterFunc(register);
+      localStorage.setItem("token", data);
       console.log(data);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
     }
   };
   return (
@@ -91,7 +90,15 @@ const Register = () => {
           ) : (
             <>
               <h4> date de naissance</h4>
-              <input type="date" name="naissance" id="naissance" />
+              <input
+                type="date"
+                name="naissance"
+                id="naissance"
+                value={naissance}
+                onChange={(e) => {
+                  setNaissance(e.target.value);
+                }}
+              />
               <h4> lieux de residance</h4>
               <input
                 type="text"

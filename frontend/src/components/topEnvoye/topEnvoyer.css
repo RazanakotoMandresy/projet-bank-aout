@@ -1,0 +1,26 @@
+.envoyee {
+  background-color: #fff;
+  position: fixed;
+  max-width: 30%;
+  margin: 8.5% 0 0 69%;
+  border-radius: 25px;
+  max-height: 50%;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.envoyee ul li img {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}
+.envoyee ul li a {
+  font-style: italic;
+}
+.envoyee ul li {
+  text-align: center;
+    background-color: #d7fe03;
+  border-radius: 25px;
+  padding: 2px;
+  display: inline-block;
+  width: 30%;
+  margin: 0 5px 0 5px;
+}

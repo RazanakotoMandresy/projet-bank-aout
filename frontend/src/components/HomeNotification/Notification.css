@@ -1,0 +1,21 @@
+.notification {
+  position: fixed;
+  margin: 25% 0 0 69%;
+  background-color: #000;
+  max-width: 30%;
+  height: 50%;
+  overflow: scroll;
+  border-radius: 25px 0 25px 25px;
+  color: #83af3b;
+}
+
+.notification ul li img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.notification ul li {
+  list-style-type: none;
+  display: inline-block;
+  font-size: 20px;
+}

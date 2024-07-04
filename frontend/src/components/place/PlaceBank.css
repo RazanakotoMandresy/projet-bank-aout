@@ -1,3 +1,15 @@
 .place {
-    background-color: #fff;
+  background-color: black;
+  padding: 20px;
+  border-radius: 25px;
+}
+.place a {
+  float: inline-end;
+  background-color: #fff;
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 50%;
+}
+.place a:hover {
+  background-color: greenyellow;
 }

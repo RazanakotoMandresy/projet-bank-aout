@@ -1,4 +1,13 @@
 .historique {
+  width: 460px;
   background-color: black;
-  
+  margin: 15% 0 0 0;
+  height: 500px;
+  overflow-x: scroll;
+  border-radius: 25px;
+  padding: 20px;
+}
+.historique ul {
+  list-style: none;
+  text-align: left;
 }

@@ -3,23 +3,24 @@ import ImageH1 from "../NotLoged/ImageH1";
 import "./log.css";
 import { RegisterFunc } from "../../logics/AxiosLogics/AxiosLogics";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 const Register = () => {
   const [suivant, setSuivant] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [name, setName] = useState("");
   const [Email, setEmail] = useState("");
-  const [numero, setNumero] = useState(0);
   const [residance, setResidance] = useState("");
   const [AppUserName, setAppUserName] = useState("");
   const [password, setPasswords] = useState("");
   const [naissance, setNaissance] = useState("");
+  const [redirect, setRedirect] = useState(false);
+
   const registerSubmit = async (e) => {
     e.preventDefault();
     const register = {
       firstName,
       name,
       Email,
-      numero,
       residance,
       AppUserName,
       password,
@@ -28,10 +29,14 @@ const Register = () => {
     try {
       const { data } = await RegisterFunc(register);
       localStorage.setItem("token", data.token);
+      setRedirect(true);
     } catch (error) {
       console.log(error.response.data);
     }
   };
+  if (redirect) {
+    return <Navigate to="/home" />;
+  }
   return (
     <>
       <ImageH1 />
@@ -72,17 +77,6 @@ const Register = () => {
                 value={Email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                }}
-              />
-              <h4> numero</h4>
-              <input
-                type="number"
-                name="numero"
-                id="numero"
-                placeholder="le numero de telephone ou l'on peut vous joindre"
-                value={numero}
-                onChange={(e) => {
-                  setNumero(e.target.value);
                 }}
               />
             </>

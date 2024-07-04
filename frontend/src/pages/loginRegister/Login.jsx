@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./log.css";
 import ImageH1 from "../NotLoged/ImageH1";
 import { LoginFunc } from "../../logics/AxiosLogics/AxiosLogics";
+import { Navigate, useNavigate } from "react-router-dom";
+import { MdOutlineSignalCellularConnectedNoInternet4Bar } from "react-icons/md";
 
 const Login = () => {
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
   const login = async (e) => {
     e.preventDefault();
     const logUser = { Email, password };
     try {
       const { data } = await LoginFunc(logUser);
-      console.log(data);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.token); 
+      setEmail("");
+      setPassword("");
+      setRedirect(true);
     } catch (error) {
       console.log(error.response.data);
     }
   };
-
+  if (redirect) {
+    return <Navigate to="/home"/>;
+  }
   return (
     <>
       <ImageH1 />

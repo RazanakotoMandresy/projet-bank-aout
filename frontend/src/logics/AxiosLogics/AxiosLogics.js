@@ -6,3 +6,6 @@ export const RegisterFunc = async (registerUser) => {
 export const LoginFunc = async (logUser) => {
   return await AxiosInstances.post("/user/login", logUser);
 };
+export const GetUser = async (authentified) => {
+  return await AxiosInstances.get("/user/logedUser", authentified);
+};

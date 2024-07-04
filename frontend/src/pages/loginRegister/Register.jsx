@@ -27,8 +27,7 @@ const Register = () => {
     };
     try {
       const { data } = await RegisterFunc(register);
-      localStorage.setItem("token", data);
-      console.log(data);
+      localStorage.setItem("token", data.token);
     } catch (error) {
       console.log(error.response.data);
     }

@@ -12,6 +12,7 @@ const Login = () => {
     try {
       const { data } = await LoginFunc(logUser);
       console.log(data);
+      localStorage.setItem("token", data.token);
     } catch (error) {
       console.log(error.response.data);
     }

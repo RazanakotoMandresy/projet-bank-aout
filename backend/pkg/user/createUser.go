@@ -38,10 +38,9 @@ func (h handler) CreateUser(ctx *gin.Context) {
 	}
 	passwordHashed := middleware.HashPassword(body.Password)
 	user := models.User{
-		AppUserName: body.AppUserName,
-		Name:        body.Name,
-		FirstName:   body.FirstName,
-
+		AppUserName:       body.AppUserName,
+		Name:              body.Name,
+		FirstName:         body.FirstName,
 		Password:          passwordHashed,
 		Date_de_naissance: body.Date_de_naissance,
 		Moneys:            0,
@@ -67,7 +66,6 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		fmt.Println(result.Error)
 		return
 	}
-
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub":  user.ID,
 		"uuid": user.UUID,
@@ -75,5 +73,6 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 	tokenString, _ := middleware.TokenManage(token, ctx)
-	ctx.JSON(http.StatusCreated, tokenString)
+	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
+	ctx.JSON(http.StatusCreated, gin.H{"token":tokenString})
 }

@@ -1,8 +1,6 @@
 package user
 
 import (
-	// "fmt"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -21,22 +19,18 @@ func (h handler) Login(ctx *gin.Context) {
 	body := new(LoginRequest)
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
-		fmt.Println( "1" ,err.Error())
 		return
 	}
 	var users models.User
 	email := models.User{Email: body.Email}
 	GetPasswordHashed := h.DB.First(&users, email)
-
 	if GetPasswordHashed.Error != nil {
-		ctx.JSON(http.StatusInternalServerError, GetPasswordHashed.Error.Error())
-		fmt.Println("2",GetPasswordHashed.Error)
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, GetPasswordHashed.Error)
 		return
 	}
 	err := middleware.IsTruePassword(users.Password, body.Password)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, err.Error())
-		fmt.Println("3",err.Error())
+		ctx.JSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
@@ -46,8 +40,6 @@ func (h handler) Login(ctx *gin.Context) {
 	})
 	tokenString, _ := middleware.TokenManage(token, ctx)
 	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
-	// res := JsonResCreated{Token: tokenString, UserJson: users}
-	ctx.JSON(http.StatusOK, gin.H{
-		"token": tokenString,
-	})
+	// ctx.SecureJSON(http.StatusCreated, tokenJson{Token: tokenString})
+	ctx.JSON(http.StatusCreated, tokenString)
 }

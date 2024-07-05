@@ -5,13 +5,17 @@ import (
 	"net/http"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
+	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 // get user by uuid de manome ny nom
 func (h handler) getUser(ctx *gin.Context) {
-	uuidAny, _ := ctx.Get("uuid")
-	uuid := fmt.Sprint(uuidAny)
+	uuid, err := middleware.ExtractTokenUUID(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err":err.Error()})
+		return
+	}
 	fmt.Println("uuid", uuid)
 	var user models.User
 	result := h.DB.First(&user, "uuid = ?", uuid)

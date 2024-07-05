@@ -1,10 +1,10 @@
 package user
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
+	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,10 +15,13 @@ type UpdateRequest struct {
 }
 
 func (h handler) UpdateInfo(ctx *gin.Context) {
-	uuidAny, _ := ctx.Get("uuid")
 	uuidParams := ctx.Param("uuid")
 	body := new(UpdateRequest)
-	uuid := fmt.Sprint(uuidAny)
+	uuid, err := middleware.ExtractTokenUUID(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		return
+	}
 	if uuid == uuidParams {
 		var user models.User
 		result := h.DB.First(&user)

@@ -2,12 +2,15 @@ package middleware
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
+	"strings"
+
+	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-	"os"
-	"time"
 )
 
 func TokenManage(token *jwt.Token, c *gin.Context) (string, error) {
@@ -22,37 +25,63 @@ func TokenManage(token *jwt.Token, c *gin.Context) (string, error) {
 		})
 		return "", errors.New("failed to create token")
 	}
-
-	// Respond
-	c.SetSameSite(http.SameSiteLaxMode)
-	c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
+	// ovaia header bearer token le cookie teo
+	// Reponse Anle cookie anle usersi
 	return tokenString, nil
 }
 func RequireAuth(c *gin.Context) {
 	// maka anle authorization
-	tokenString, err := c.Cookie("Authorization")
-
+	// innutitlisable satir tss ininiona aoa anaty cookie
+	// extractio  du string dans extract token
+	tokenString, err := ExtarctToken(c)
 	if err != nil {
-		c.AbortWithStatus(http.StatusUnauthorized)
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
 	}
-
 	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("unexpected signing method")
 		}
 		return []byte(os.Getenv("SECRET")), nil
 	})
-
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, "TOKEN Deja expirer")
 			return
 		}
-		// set anle uuid
-		c.Set("uuid", claims["uuid"])
 		c.Next()
 	} else {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, "Erreur token invalide")
 		return
 	}
+}
+func ExtractTokenUUID(ctx *gin.Context) (string, error) {
+	tokenString, err := ExtarctToken(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return "", err
+	}
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("unexpected signing method")
+		}
+		return []byte(os.Getenv("SECRET")), nil
+	})
+	if err != nil {
+		return "", err
+	}
+	claims, ok := token.Claims.(jwt.MapClaims)
+	stringUUID := fmt.Sprint(claims["uuid"])
+	fmt.Println("String UUUIDDDDDDDDDDDDDDDDDDDDD", stringUUID)
+	if ok && token.Valid {
+		return fmt.Sprint(claims["uuid"]), nil
+	}
+	return "", errors.New("une erreur lors du get de l'uuid")
+}
+func ExtarctToken(ctx *gin.Context) (string, error) {
+	bearerToken := ctx.Request.Header.Get("Authorization")
+	if len(strings.Split(bearerToken, " ")) == 2 {
+		return strings.Split(bearerToken, " ")[1], nil
+	}
+	return "", errors.New("pas de bearer token")
 }

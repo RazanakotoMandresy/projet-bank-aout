@@ -2,28 +2,31 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./log.css";
 import ImageH1 from "../NotLoged/ImageH1";
 import { LoginFunc } from "../../logics/AxiosLogics/AxiosLogics";
-import { Navigate, useNavigate } from "react-router-dom";
-import { MdOutlineSignalCellularConnectedNoInternet4Bar } from "react-icons/md";
+import { Navigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [cookies, setCookie] = useCookies(["initialName"]);
   const login = async (e) => {
     e.preventDefault();
     const logUser = { Email, password };
     try {
       const { data } = await LoginFunc(logUser);
-      localStorage.setItem("token", data.token); 
+      localStorage.setItem("token", data.token);
       setEmail("");
       setPassword("");
-      setRedirect(true);
+      // setRedirect(true);
+      setCookie("Authorization", token);
+      console.log(cookies);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
     }
   };
   if (redirect) {
-    return <Navigate to="/home"/>;
+    return <Navigate to="/home" />;
   }
   return (
     <>

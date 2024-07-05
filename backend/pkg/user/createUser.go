@@ -74,5 +74,5 @@ func (h handler) CreateUser(ctx *gin.Context) {
 	})
 	tokenString, _ := middleware.TokenManage(token, ctx)
 	ctx.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
-	ctx.JSON(http.StatusCreated, gin.H{"token":tokenString})
+	ctx.JSON(http.StatusCreated, gin.H{"token": tokenString})
 }

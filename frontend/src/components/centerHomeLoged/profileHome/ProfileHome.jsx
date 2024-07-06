@@ -1,18 +1,22 @@
 import React from "react";
 import { FiEdit, FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import "./profilHome.css"
-const ProfileHome = () => {
+import "./profilHome.css";
+const ProfileHome = ({ datas }) => {
   return (
     <div className="profileH">
       <img src="carte-credit.png" alt="" />
-      <h1>AppUserName</h1>
-      <h2>FirstName name</h2>
+      <h1>{datas.AppUserName}</h1>
+      <h2>
+        {datas.name} {datas.firstName}
+      </h2>
       <div className="parmProfil">
-        <Link>
+        <Link to={"/setting/:uuid"}>
           Parametre generales <FiSettings />
         </Link>
-        <Link>Editer le profile <FiEdit/></Link>
+        <Link to={`/profile/${datas.UUID}`} >
+          Editer le profile <FiEdit />
+        </Link>
       </div>
     </div>
   );

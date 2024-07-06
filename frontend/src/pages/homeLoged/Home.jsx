@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import HomeHeader from "../../components/HomeHeader/HomeHeader";
 import Notification from "../../components/HomeNotification/Notification";
 import TopEnvoye from "../../components/topEnvoye/TopEnvoye";
@@ -8,27 +8,32 @@ import Historique from "../../components/historique/Historique";
 import "./Home.css";
 import { GetUser } from "../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
+
 const Home = () => {
-  const getHome = async () => {
+  const [datas, setData] = useState({});
+  const [connected, setConnected] = useState(false);
+  const getUser = async () => {
     try {
       const { data } = await GetUser(Authentified);
-      console.log(data);
+      setData(data);
+      setConnected(true);
     } catch (error) {
-      console.log(error);
+      console.log("vous pouvez vous conneter sur login");
     }
   };
+
   useEffect(() => {
-    getHome();
+    getUser();
   }, []);
   return (
     <div className="Home">
-      <HomeHeader />
+      <HomeHeader datas={datas} />
       <div className="balance">
-        <h2>Ar 4546564</h2>
+        <h2>Ar {datas.money} </h2>
         <PlaceBank />
         <Historique />
       </div>
-      <CenterHomeLoged />
+      <CenterHomeLoged datas={datas} />
       <TopEnvoye />
       <Notification />
     </div>

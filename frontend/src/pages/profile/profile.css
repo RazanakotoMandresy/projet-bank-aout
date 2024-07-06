@@ -1,0 +1,27 @@
+.profile .leftSide {
+  position: fixed;
+  margin-top: 7%;
+  width: 100%;
+  text-align: center;
+  width: 40%;
+  background-color: brown;
+  border-radius: 25px;
+}
+.profile .leftSide .imagePP button {
+  background: none;
+  border: none;
+}
+.profile .leftSide .imagePP button label {
+  position: fixed;
+  font-size: 20px;
+  background-color: aliceblue;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 6%;
+  margin-left: -3%;  
+}
+.profile .leftSide .imagePP button img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}

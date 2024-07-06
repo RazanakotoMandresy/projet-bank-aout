@@ -57,6 +57,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, moneyTransaction)
 }
 
+// try to getBy App userName ou uuid , si userName tsy  mila manao uuid su uuid tsy mila manao appUserName
 func (h handler) GetUserByuuid(userUUID string) (*models.User, error) {
 	var users models.User
 	result := h.DB.First(&users, "uuid = ?", userUUID)

@@ -1,6 +1,5 @@
 export const Authentified = {
-    headers: {
-      Authorization: `${localStorage.getItem("token")}`,
-    },
-  };
-  
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+};

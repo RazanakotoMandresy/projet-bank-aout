@@ -5,7 +5,7 @@ import { LoginFunc } from "../../logics/AxiosLogics/AxiosLogics";
 import { Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-const Login = () => {
+const Login = ({ ChangeBtn }) => {
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
@@ -18,8 +18,7 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       setEmail("");
       setPassword("");
-      // setRedirect(true);
-      setCookie("Authorization", token);
+      setRedirect(true);
       console.log(cookies);
     } catch (error) {
       console.log(error);
@@ -57,7 +56,9 @@ const Login = () => {
               setPassword(e.target.value);
             }}
           />
-          <button type="submit">Se connecter</button>
+          <button type="submit" onClick={ChangeBtn}>
+            Se connecter
+          </button>
         </form>
       </div>
     </>

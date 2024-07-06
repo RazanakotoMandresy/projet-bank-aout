@@ -10,7 +10,6 @@ import (
 
 type UpdateRequest struct {
 	AppUserName string `json:"AppUserName"`
-	Numero      uint   `json:"Numero"`
 	Residance   string `json:"residance"`
 }
 

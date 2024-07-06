@@ -1,15 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./log.css";
 import ImageH1 from "../NotLoged/ImageH1";
 import { LoginFunc } from "../../logics/AxiosLogics/AxiosLogics";
 import { Navigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
 
 const Login = ({ ChangeBtn }) => {
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
-  const [cookies, setCookie] = useCookies(["initialName"]);
   const login = async (e) => {
     e.preventDefault();
     const logUser = { Email, password };
@@ -19,13 +17,12 @@ const Login = ({ ChangeBtn }) => {
       setEmail("");
       setPassword("");
       setRedirect(true);
-      console.log(cookies);
     } catch (error) {
       console.log(error);
     }
   };
   if (redirect) {
-    return <Navigate to="/home" />;
+    return <Navigate to="/" />;
   }
   return (
     <>

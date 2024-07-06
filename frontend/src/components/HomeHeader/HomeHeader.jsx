@@ -1,11 +1,11 @@
 import React from "react";
 import { FiPlusCircle, FiSettings } from "react-icons/fi";
 import "./HomeHeader.css";
-const HomeHeader = ({ datas }) => {
+const HomeHeader = () => {
   return (
     <div className="head">
       <ul>
-        <li className="left"> Bonjour {datas.firstName}</li>
+        <li className="left"> Bonjour jkjnj</li>
         <li className="right">
           <FiPlusCircle /> ajouter un fammille
         </li>

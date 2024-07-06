@@ -3,11 +3,11 @@ import "./centerHomeLoged.css";
 import Transaction from "./Transaction/Transaction";
 import ProfileHome from "./profileHome/ProfileHome";
 
-const CenterHomeLoged = ({datas}) => {
+const CenterHomeLoged = () => {
   return (
     <div className="center">
       <Transaction />
-      <ProfileHome datas={datas} />
+      <ProfileHome />
     </div>
   );
 };

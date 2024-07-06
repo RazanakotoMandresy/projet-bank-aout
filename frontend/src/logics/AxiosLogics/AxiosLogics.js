@@ -9,3 +9,10 @@ export const LoginFunc = async (logUser) => {
 export const GetUser = async (authentified) => {
   return await AxiosInstances.get("/user/logedUser", authentified);
 };
+export const UpdateUserProfile = async (userUUID, userData, authentified) => {
+  return await AxiosInstances.patch(
+    `/user/${userUUID}`,
+    userData,
+    authentified
+  );
+};

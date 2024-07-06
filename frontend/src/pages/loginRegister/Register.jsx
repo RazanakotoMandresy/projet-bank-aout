@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import ImageH1 from "../NotLoged/ImageH1";
 import "./log.css";
 import { RegisterFunc } from "../../logics/AxiosLogics/AxiosLogics";
-import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+
+import { Navigate } from "react-router-dom";
 const Register = () => {
   const [suivant, setSuivant] = useState(true);
   const [firstName, setFirstName] = useState("");

@@ -71,8 +71,6 @@ func ExtractTokenUUID(ctx *gin.Context) (string, error) {
 		return "", err
 	}
 	claims, ok := token.Claims.(jwt.MapClaims)
-	stringUUID := fmt.Sprint(claims["uuid"])
-	fmt.Println("String UUUIDDDDDDDDDDDDDDDDDDDDD", stringUUID)
 	if ok && token.Valid {
 		return fmt.Sprint(claims["uuid"]), nil
 	}

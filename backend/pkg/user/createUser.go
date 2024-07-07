@@ -51,6 +51,7 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		Updated_at:        time.Now(),
 		ID:                uuid.New().ID(),
 		Role:              "user",
+		Image:             "",
 	}
 
 	if result := h.DB.Create(&user); result.Error != nil {

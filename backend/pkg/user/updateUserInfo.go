@@ -2,6 +2,7 @@ package user
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
@@ -45,6 +46,7 @@ func (h handler) UpdateInfo(ctx *gin.Context) {
 		default:
 			user.Residance = body.Residance
 		}
+		user.Updated_at = time.Now()
 		h.DB.Save(user)
 
 		ctx.JSON(http.StatusOK, &user)

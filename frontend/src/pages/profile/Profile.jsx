@@ -6,13 +6,12 @@ import { useAppContext } from "../../App";
 import ProfileToModified from "./ProfileToModified";
 const Profile = () => {
   const { userData } = useAppContext();
-
   return (
     <div className="profile">
       <div className="leftSide">
         <div className="imagePP">
           <button>
-            <img src="http://localhost:5173/carte-credit.png" alt="" />
+            <img src={`http://localhost:3000/${userData.image}`} alt="" />
             <label>
               <FiCamera />
             </label>

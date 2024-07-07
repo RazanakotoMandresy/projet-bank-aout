@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	adminbank "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/adminBank"
@@ -20,10 +21,15 @@ func main() {
 	port := os.Getenv("PORT")
 	dbUrl := os.Getenv("DB_URL")
 	dbHandler := db.Init(dbUrl)
-
 	user.RegisterRoutes(router, dbHandler)
 	money.TransactionRoutes(router, dbHandler)
 	adminbank.AdminRoutes(router, dbHandler)
+	// get anle root dir amzay tsy hard code be
+	rootDir, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
+	}
+	router.Static("./upload", rootDir+"/upload")
 	router.Run(port)
 }
 func CORSMiddleware() gin.HandlerFunc {

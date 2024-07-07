@@ -5,6 +5,7 @@ import (
 
 	"gorm.io/gorm"
 )
+
 // modles user
 type User struct {
 	ID                uint32 `gorm:"id;primarykey"`
@@ -16,9 +17,10 @@ type User struct {
 	Name              string `json:"name"`
 	Email             string `gorm:"unique"`
 	FirstName         string `json:"firstName"`
-	Moneys            uint    `json:"money"`
+	Moneys            uint   `json:"money"`
 	Password          string `json:"password"`
 	Date_de_naissance string `json:"naissance"`
 	Residance         string `json:"residance"`
 	Role              string `json:"role"`
+	Image             string `json:"image"`
 }

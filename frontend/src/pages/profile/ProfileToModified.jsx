@@ -18,6 +18,7 @@ const ProfileToModified = ({ userData }) => {
         Authentified
       );
       console.log(data);
+      setWantModif(true);
     } catch (error) {
       console.log(error);
     }
@@ -70,12 +71,7 @@ const ProfileToModified = ({ userData }) => {
               setResidance(e.target.value);
             }}
           />
-          <button
-            onClick={() => {
-              setWantModif(true);
-            }}
-            type="submit"
-          >
+          <button>
             <FiSave />
           </button>
         </form>

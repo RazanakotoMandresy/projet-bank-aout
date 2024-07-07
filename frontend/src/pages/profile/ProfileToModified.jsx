@@ -27,27 +27,25 @@ const ProfileToModified = ({ userData }) => {
     <div className="formUpdate">
       {wantModif ? (
         <>
-          <h3>
-            {userData.AppUserName}
-            <button
-              type="button"
-              onClick={() => {
-                setWantModif(false);
-              }}
-            >
+          <button
+            type="button"
+            onClick={() => {
+              setWantModif(false);
+            }}
+          >
+            <h3>
+              {userData.AppUserName}
               <FiEdit />
-            </button>
-          </h3>
-          <p>
+            </h3>
+          </button>
+          <button
+            onClick={() => {
+              setWantModif(false);
+            }}
+          >
             {userData.residance}
-            <button
-              onClick={() => {
-                setWantModif(false);
-              }}
-            >
-              <FiEdit />
-            </button>
-          </p>
+            <FiEdit />
+          </button>
         </>
       ) : (
         <form onSubmit={updateUserInfo}>
@@ -71,7 +69,11 @@ const ProfileToModified = ({ userData }) => {
               setResidance(e.target.value);
             }}
           />
-          <button>
+          <button
+          // onClick={async () => {
+          //   await setWantModif(true);
+          // }}
+          >
             <FiSave />
           </button>
         </form>

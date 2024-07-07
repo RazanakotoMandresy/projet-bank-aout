@@ -16,3 +16,6 @@ export const UpdateUserProfile = async (userUUID, userData, authentified) => {
     authentified
   );
 };
+export const PostPPfunc = async (file, AuthentifiedMultipart) => {
+  return await AxiosInstances.post("/user/pp", file,  AuthentifiedMultipart );
+};

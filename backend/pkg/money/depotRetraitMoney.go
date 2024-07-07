@@ -14,7 +14,6 @@ type DepoRetraiReq struct {
 }
 
 func (h handler) Depot(ctx *gin.Context) {
-
 	userTosendUUid := ctx.Param("uuid")
 	body := new(DepoRetraiReq)
 	userTosend, err := h.GetUserByuuid(userTosendUUid)

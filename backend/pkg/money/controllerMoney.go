@@ -14,7 +14,7 @@ type handler struct {
 func TransactionRoutes(router *gin.Engine, db *gorm.DB) {
 	h := &handler{
 		DB: db,
-	}
+	} 
 	routes := router.Group("/api/v1/transaction")
 	routes.PUT("/depot/:uuid", h.Depot)
 	routes.PUT("/retrait/:uuid", h.Retrait)

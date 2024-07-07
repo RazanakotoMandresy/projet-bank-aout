@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
+	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
@@ -15,14 +16,16 @@ type sendMoneyRequest struct {
 }
 
 func (h handler) SendMoney(ctx *gin.Context) {
-	uuidConnected, _ := ctx.Get("uuid")
+	uuidConnectedStr, err := middleware.ExtractTokenUUID(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
 	uuidRecepteur := ctx.Param("uuid")
-	uuidConnectedStr := fmt.Sprint(uuidConnected)
 	body := new(sendMoneyRequest)
 
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-
 		return
 	}
 	value := body.Value
@@ -48,7 +51,6 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		TransResum: message,
 		Value:      body.Value,
 	}
-
 	result := h.DB.Create(&moneyTransaction)
 	if result.Error != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error})
@@ -62,7 +64,7 @@ func (h handler) GetUserByuuid(userUUID string) (*models.User, error) {
 	var users models.User
 	result := h.DB.First(&users, "uuid = ?", userUUID)
 	if result.Error != nil {
-		err := fmt.Errorf("utilisateur avec l'id %v n'est pas dans %v", userUUID, users)
+		err := fmt.Errorf("utilisateur avec l'id %v n'est pas dans %v , le resultats est %v", userUUID, users, result)
 		return nil, err
 	}
 	return &users, nil

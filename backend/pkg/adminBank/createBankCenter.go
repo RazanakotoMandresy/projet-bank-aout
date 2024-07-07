@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
+	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,11 +16,15 @@ type BankReq struct {
 
 // code create bank
 func (h handler) CreateBank(ctx *gin.Context) {
-	uuidAny, _ := ctx.Get("uuid")
+	// uuidAny, _ := ctx.Get("uuid")
 	// maka anle uuid avy ao anaty le token ?
 	body := new(BankReq)
 	// mamadika anle uuidAny ho string
-	uuid := fmt.Sprint(uuidAny)
+	uuid, err := middleware.ExtractTokenUUID(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
 	admin, err := h.GetByuuid(uuid)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{

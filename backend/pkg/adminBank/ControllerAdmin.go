@@ -15,7 +15,8 @@ func AdminRoutes(router *gin.Engine, db *gorm.DB) {
 	h := &handler{
 		DB: db,
 	}
-	routes := router.Group("/admin")
+	routes := router.Group("/api/v1/admin")
+	// admin afaka manao bank center
 	routes.POST("/", h.CreateAdminAccount)
 	routes.POST("/createBank", middleware.RequireAuth, h.CreateBank)
 }

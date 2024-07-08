@@ -1,6 +1,7 @@
 package money
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -30,7 +31,12 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	}
 	value := body.Value
 	userConnected, _ := h.GetUserByuuid(uuidConnectedStr)
-	userRecepteur, _ := h.GetUserByuuid(uuidRecepteur)
+	// maka anle userRecepteur tokony par uuid na par AppUserName
+	userRecepteur, err := h.GetUserByuuid(uuidRecepteur)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
 	fraisTransfer := (float32(body.Value) * 0.01)
 	if value > userConnected.Moneys {
 		err := fmt.Errorf("impossible d'envoyer votre argent %v l'argent que vous voulez envoyer est %v", userConnected.Moneys, value)
@@ -53,19 +59,26 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	}
 	result := h.DB.Create(&moneyTransaction)
 	if result.Error != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error.Error()})
+		return
 	}
 
 	ctx.JSON(http.StatusOK, moneyTransaction)
 }
 
-// try to getBy App userName ou uuid , si userName tsy  mila manao uuid su uuid tsy mila manao appUserName
-func (h handler) GetUserByuuid(userUUID string) (*models.User, error) {
+// try to getBy App userName ou uuid , si userName tsy  mila manao uuid su uuid tsy mila manao appUserNa
+
+// user req que se soit uuid na appUserName
+func (h handler) GetUserByuuid(userReq string) (*models.User, error) {
 	var users models.User
-	result := h.DB.First(&users, "uuid = ?", userUUID)
+	result := h.DB.First(&users, "uuid = ?", userReq)
 	if result.Error != nil {
-		err := fmt.Errorf("utilisateur avec l'id %v n'est pas dans %v , le resultats est %v", userUUID, users, result)
-		return nil, err
+		err := fmt.Errorf("utilisateur avec l'uuid %v n'est pas dans %v , le resultats est %v recherche si c'est un appUserName", userReq, users, result)
+		fmt.Println(err)
+		res := h.DB.First(&users, "app_user_name = ?", userReq)
+		if res.Error != nil {
+			return nil, errors.New("user pas dans uuid et AppUserName")
+		}
 	}
 	return &users, nil
 

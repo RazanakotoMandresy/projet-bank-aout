@@ -9,7 +9,7 @@ import (
 )
 
 type DepoRetraiReq struct {
-	Value uint   `json:"value"`
+	Value int   `json:"value"`
 	Lieux string `json:"lieux"`
 }
 

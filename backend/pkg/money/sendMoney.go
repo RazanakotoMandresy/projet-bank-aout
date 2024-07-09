@@ -13,13 +13,14 @@ import (
 
 // ny uuid anaty params de ny uuid an'i envoyeur
 type sendMoneyRequest struct {
-	Value uint `json:"value"`
+	Value int `json:"value"`
 }
 
 func (h handler) SendMoney(ctx *gin.Context) {
 	uuidConnectedStr, err := middleware.ExtractTokenUUID(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println( "1", err.Error())
 		return
 	}
 	uuidRecepteur := ctx.Param("uuid")
@@ -27,6 +28,8 @@ func (h handler) SendMoney(ctx *gin.Context) {
 
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println( "2", err.Error())
+
 		return
 	}
 	value := body.Value
@@ -35,17 +38,21 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	userRecepteur, err := h.GetUserByuuid(uuidRecepteur)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println( "3", err.Error())
+
 		return
 	}
 	fraisTransfer := (float32(body.Value) * 0.01)
 	if value > userConnected.Moneys {
 		err := fmt.Errorf("impossible d'envoyer votre argent %v l'argent que vous voulez envoyer est %v", userConnected.Moneys, value)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println( "4", err.Error())
+
 		return
 	}
 
 	message := fmt.Sprintf("%v a envoye un argent d'un montant de %v a %v", userConnected.AppUserName, value, userRecepteur.AppUserName)
-	userConnected.Moneys = (userConnected.Moneys - value - uint(fraisTransfer))
+	userConnected.Moneys = (userConnected.Moneys - value - int(fraisTransfer))
 	userRecepteur.Moneys = (userRecepteur.Moneys + value)
 	// to do avadika float32 ny money
 	h.DB.Save(userRecepteur)

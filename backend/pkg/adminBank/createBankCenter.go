@@ -10,7 +10,7 @@ import (
 )
 
 type BankReq struct {
-	Money uint   `json:"money"`
+	Money int   `json:"money"`
 	Lieux string `json:"lieux"`
 }
 

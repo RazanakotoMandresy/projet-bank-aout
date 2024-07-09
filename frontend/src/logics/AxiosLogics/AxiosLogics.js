@@ -17,5 +17,12 @@ export const UpdateUserProfile = async (userUUID, userData, authentified) => {
   );
 };
 export const PostPPfunc = async (file, AuthentifiedMultipart) => {
-  return await AxiosInstances.post("/user/pp", file,  AuthentifiedMultipart );
+  return await AxiosInstances.post("/user/pp", file, AuthentifiedMultipart);
+};
+export const SendMoneyFunc = async (userToSend, value, authentified) => {
+  return await AxiosInstances.post(
+    `/transaction/${userToSend}`,
+    value,
+    authentified
+  );
 };

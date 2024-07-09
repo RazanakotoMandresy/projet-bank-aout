@@ -20,25 +20,28 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	uuidConnectedStr, err := middleware.ExtractTokenUUID(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println( "1", err.Error())
+		fmt.Println("1", err.Error())
 		return
 	}
 	uuidRecepteur := ctx.Param("uuid")
 	body := new(sendMoneyRequest)
 
 	if err := ctx.BindJSON(&body); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println( "2", err.Error())
-
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		fmt.Println("2", err.Error())
 		return
 	}
 	value := body.Value
+	if value < 1 {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "on ne peut pas envoyer une somme aussi minime"})
+		return
+	}
 	userConnected, _ := h.GetUserByuuid(uuidConnectedStr)
 	// maka anle userRecepteur tokony par uuid na par AppUserName
 	userRecepteur, err := h.GetUserByuuid(uuidRecepteur)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println( "3", err.Error())
+		fmt.Println("3", err.Error())
 
 		return
 	}
@@ -46,7 +49,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	if value > userConnected.Moneys {
 		err := fmt.Errorf("impossible d'envoyer votre argent %v l'argent que vous voulez envoyer est %v", userConnected.Moneys, value)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println( "4", err.Error())
+		fmt.Println("4", err.Error())
 
 		return
 	}

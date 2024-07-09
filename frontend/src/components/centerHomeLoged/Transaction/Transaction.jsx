@@ -5,12 +5,13 @@ import { SendMoneyFunc } from "../../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../../logics/authentification/authentification";
 const Transaction = () => {
   const [userTosend, setUserToSend] = useState("");
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
   const sendMoney = async (e) => {
     e.preventDefault();
     try {
-      console.log(value)
-      const { data } = await SendMoneyFunc(userTosend, value, Authentified);
+      console.log(value);
+      const values = { value: value };
+      const { data } = await SendMoneyFunc(userTosend, values, Authentified);
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -32,11 +33,11 @@ const Transaction = () => {
         />
         <h3>la valeur du montant</h3>
         <input
-          type="number"
+          type="text"
           id="Value"
           value={value}
           onChange={(e) => {
-            setValue(e.target.valueAsNumber)
+            setValue(e.target.value);
           }}
           placeholder="Valeur que vous voulez envoyer"
         />

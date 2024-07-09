@@ -20,7 +20,6 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	uuidConnectedStr, err := middleware.ExtractTokenUUID(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println("1", err.Error())
 		return
 	}
 	uuidRecepteur := ctx.Param("uuid")
@@ -28,7 +27,6 @@ func (h handler) SendMoney(ctx *gin.Context) {
 
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
-		fmt.Println("2", err.Error())
 		return
 	}
 	value := body.Value
@@ -41,16 +39,12 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	userRecepteur, err := h.GetUserByuuid(uuidRecepteur)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println("3", err.Error())
-
 		return
 	}
 	fraisTransfer := (float32(body.Value) * 0.01)
 	if value > userConnected.Moneys {
 		err := fmt.Errorf("impossible d'envoyer votre argent %v l'argent que vous voulez envoyer est %v", userConnected.Moneys, value)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println("4", err.Error())
-
 		return
 	}
 

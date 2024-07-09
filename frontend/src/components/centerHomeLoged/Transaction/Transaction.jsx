@@ -33,7 +33,7 @@ const Transaction = () => {
         />
         <h3>la valeur du montant</h3>
         <input
-          type="text"
+          type="number"
           id="Value"
           value={value}
           onChange={(e) => {

@@ -10,7 +10,7 @@ import (
 )
 
 // get user by uuid de manome ny nom
-func (h handler) getUser(ctx *gin.Context) {
+func (h handler) getConnectedUser(ctx *gin.Context) {
 	uuid, err := middleware.ExtractTokenUUID(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err":err.Error()})

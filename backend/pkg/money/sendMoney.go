@@ -85,5 +85,4 @@ func (h handler) GetUserByuuid(userReq string) (*models.User, error) {
 		}
 	}
 	return &users, nil
-
 }

@@ -4,19 +4,19 @@
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-style: oblique;
 }
-.transaction form input {
+.transaction input {
   border: none;
   border-bottom: 1px solid;
   width: 75%;
   padding-bottom: 4px;
   text-align: center;
 }
-.transaction form input:focus {
+.transaction input:focus {
   outline: none;
   margin-bottom: 2px;
   padding-bottom: 7px;
 }
-.transaction form button {
+.transaction button {
   cursor: pointer;
   width: 30%;
   margin-top: 1%;
@@ -27,7 +27,12 @@
   transition: 1s width;
   border-radius: 25px;
 }
-.transaction form button:hover {
+.transaction button:hover {
   width: 40%;
   box-shadow: 3px 3px;
+}
+.transaction .surTrans {
+  margin-top: -8%;
+  position: fixed;
+  background-color: red;
 }

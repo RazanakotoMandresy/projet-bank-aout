@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./transaction.css";
-import { FiCheckCircle, FiSend } from "react-icons/fi";
+import { FiSend } from "react-icons/fi";
 import {
   GetUserInfo,
   SendMoneyFunc,
 } from "../../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../../logics/authentification/authentification";
+import Confirm from "./Confirm";
 
 const Transaction = () => {
   // nom de l'utilisateur ou uuid
@@ -43,6 +44,9 @@ const Transaction = () => {
       console.log(error);
     }
   };
+  const changeShow = () => {
+    setShoSur(!showSur);
+  };
   return (
     <>
       <div className="transaction">
@@ -70,28 +74,12 @@ const Transaction = () => {
           <FiSend />
         </button>
         {showSur ? (
-          <div className="surTrans">
-            <form onSubmit={sendMoney}>
-              <h3>
-                les informations sur le{"(a)"} personne que vous voulez envoyer
-                de l'argents
-              </h3>
-              <p>
-                <b>nom</b> :{foundValue.nameFirstName}
-              </p>
-              <p>
-                <b>email</b> :{foundValue.Email}
-              </p>
-              <p>
-                <b>uuid</b> :{foundValue.uuid}
-              </p>
-              <h3>la valeur de l'argent que vous voulez envoyer est :</h3>
-              <h4>{value} ar</h4>
-              <button type="submit">
-                <FiCheckCircle />
-              </button>
-            </form>
-          </div>
+          <Confirm
+            sendMoney={sendMoney}
+            foundValue={foundValue}
+            value={value}
+            changeShow={changeShow}
+          />
         ) : (
           <> </>
         )}

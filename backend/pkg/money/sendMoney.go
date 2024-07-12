@@ -61,7 +61,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	h.DB.Save(userRecepteur)
 	h.DB.Save(userConnected)
 	// la models ho creena
-	moneyTransaction, err := h.dbManipulationSendMoney(uuidConnectedStr, uuidRecepteur, body)
+	moneyTransaction, err := h.dbManipulationSendMoney(uuidConnectedStr, userRecepteur.UUID, body)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
@@ -72,7 +72,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 
 func (h handler) dbManipulationSendMoney(uuidConnectedStr, uuidRecepteur string, body *sendMoneyRequest) (*models.Money, error) {
 	var moneyTransaction models.Money
-	res := h.DB.Where("send_by = ? AND sent_to = ?", uuidConnectedStr, uuidRecepteur).Find(&moneyTransaction)
+	res := h.DB.Where("send_by = ? AND sent_to = ?", uuidConnectedStr, uuidRecepteur).First(&moneyTransaction)
 	resume := fmt.Sprintf("%v a envoyer la somme de %v a %v a l'instant%v ", uuidConnectedStr, body.Value, uuidRecepteur, time.Now())
 	if res.Error != nil {
 		fmt.Printf("transaction entre send_by %v et sent_to %v inexistante creation d'une nouvelle...", uuidConnectedStr, uuidRecepteur)
@@ -80,7 +80,6 @@ func (h handler) dbManipulationSendMoney(uuidConnectedStr, uuidRecepteur string,
 		moneyTransaction.SendBy = uuidConnectedStr
 		moneyTransaction.SentTo = uuidRecepteur
 		moneyTransaction.Totals = body.Value
-		moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
 		moneyTransaction.Resume = resume
 		moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
 		moneyTransaction.TransResum = append(moneyTransaction.TransResum, resume)
@@ -88,14 +87,11 @@ func (h handler) dbManipulationSendMoney(uuidConnectedStr, uuidRecepteur string,
 		if result.Error != nil {
 			return nil, fmt.Errorf("creationraw %v", result.Error)
 		}
+		return &moneyTransaction, nil
 	}
-	moneyTransaction.ID = uuid.New()
-	moneyTransaction.ID = uuid.New()
-	moneyTransaction.SendBy = uuidConnectedStr
-	moneyTransaction.SentTo = uuidRecepteur
+	fmt.Println("la transaction entre les deux utilisateur existe dejas")
 	moneyTransaction.Resume = resume
 	moneyTransaction.TransResum = append(moneyTransaction.TransResum, resume)
-	moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
 	moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
 	totals := getTotals(moneyTransaction.MoneyTransite)
 	// totals logique
@@ -104,7 +100,7 @@ func (h handler) dbManipulationSendMoney(uuidConnectedStr, uuidRecepteur string,
 	return &moneyTransaction, nil
 }
 func getTotals(money pq.Int32Array) int32 {
-	 var totals int32
+	var totals int32
 	for i := 0; i < len(money); i++ {
 		totals += money[i]
 	}

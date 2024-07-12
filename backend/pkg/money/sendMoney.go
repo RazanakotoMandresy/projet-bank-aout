@@ -8,7 +8,7 @@ import (
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
+	// "github.com/google/uuid"
 )
 
 // ny uuid anaty params de ny uuid an'i envoyeur
@@ -51,29 +51,39 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		return
 	}
 	// 	message si tous se passe bien
-	message := fmt.Sprintf("%v a envoye un argent d'un montant de %v a %v", userConnected.AppUserName, value, userRecepteur.AppUserName)
+	// message := fmt.Sprintf("%v a envoye un argent d'un montant de %v a %v", userConnected.AppUserName, value, userRecepteur.AppUserName)
 	userConnected.Moneys = userConnected.Moneys - value
 	userRecepteur.Moneys = (userRecepteur.Moneys + value)
 	// save les money ao anaty user satria ireo tables fatsy uuid simplement ril
 	h.DB.Save(userRecepteur)
 	h.DB.Save(userConnected)
-	// la m
-	moneyTransaction := models.Money{
-		ID:         uuid.New(),
-		SendBy:     userConnected.UUID,
-		SentTo:     userRecepteur.UUID,
-		TransResum: message,
-		Value:      body.Value,
-	}
-	// cretion d'une nouvel  raw tokony manao find ao ra efa misy transaction izy mtsam de tsy mila micree fa manao 
-	result := h.DB.Create(&moneyTransaction)
-	if result.Error != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error.Error()})
-		return
-	}
+	// la models ho creena
+	var moneyTransaction []models.Money
 
-	ctx.JSON(http.StatusOK, moneyTransaction)
+	// res := h.DB.First(&moneyTransaction, "send_by = ?", uuidConnectedStr, "sent_to = ?", uuidRecepteur)
+	// queryString := fmt.Sprintf(`"send_by = ? AND sent_to = ?", "%v" , "%v"`, uuidConnectedStr, uuidRecepteur)
+
+	res := h.DB.Where("send_by = ? AND sent_to = ?",uuidConnectedStr,uuidRecepteur).Find(&moneyTransaction)
+	
+	if res.Error != nil {
+		fmt.Println(res.Error)
+	}
+	// moneyTransaction.ID = uuid.New()
+	// moneyTransaction.SendBy = userConnected.UUID
+	// moneyTransaction.SentTo = userRecepteur.UUID
+	// moneyTransaction.TransResum = message
+	// moneyTransaction.Value = body.Value
+
+	// cretion d'une nouvel  raw tokony manao find ao ra efa misy transaction izy mtsam de tsy mila micree fa manao
+	// result := h.DB.Create(&moneyTransaction)
+	// if result.Error != nil {
+	// 	ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error.Error()})
+	// 	return
+	// }
+
+	ctx.JSON(http.StatusOK, &moneyTransaction)
 }
+
 // user req que se soit uuid na appUserName
 func (h handler) GetUserByuuid(userReq string) (*models.User, error) {
 	var users models.User

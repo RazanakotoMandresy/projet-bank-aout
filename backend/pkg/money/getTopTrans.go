@@ -1,7 +1,6 @@
 package money
 
 import (
-	"fmt"
 	"net/http"
 	"slices"
 
@@ -12,7 +11,7 @@ import (
 
 type topTrans struct {
 	SentTo     string `json:"sentTo"`
-	ValueTrans int    `json:"sommeTrans"`
+	// ValueTrans int    `json:"sommeTrans"`
 }
 
 func (h handler) GetTopTrans(ctx *gin.Context) {
@@ -27,23 +26,12 @@ func (h handler) GetTopTrans(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"err": result.Error})
 		return
 	}
-	// json append anle result
 	userTosendSlicesJsoned := []topTrans{}
-	usersTosendNameSLice := []string{}
-	// range models money
 	for _, moneys := range money {
-		// mi ajoute anle uuid sentTo anaty slice amzay afaka filtrena apres
-		usersTosendNameSLice = append(usersTosendNameSLice, moneys.SentTo)
-		// fmt.Println(usersTosendNameSLice)
-		// filtre du slice
-
+		userTosendSlicesJsoned = append(userTosendSlicesJsoned, topTrans{SentTo: moneys.SentTo})
 	}
-
-	userToSendFilterdSlice := slices.Compact(usersTosendNameSLice)
-	for _, userName  := range userToSendFilterdSlice{
-		userTosendSlicesJsoned = append(userTosendSlicesJsoned, topTrans{SentTo: userName, ValueTrans: 1})
-		fmt.Println(userTosendSlicesJsoned)
-	}
-
+	// json append anle result
+	// finally decide to change the send money
+	userToSendFilterdSlice := slices.Compact(userTosendSlicesJsoned)
 	ctx.JSON(http.StatusOK, userToSendFilterdSlice)
 }

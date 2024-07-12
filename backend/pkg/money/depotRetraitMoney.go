@@ -87,6 +87,7 @@ func (h handler) Retrait(ctx *gin.Context) {
 	result := h.DB.First(&bank, "lieux = ?", body.Lieux)
 	if result.Error != nil {
 		err := fmt.Sprintf("le lieux %v n'existe pas", body.Lieux)
+
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"err": err,
 		})
@@ -96,7 +97,6 @@ func (h handler) Retrait(ctx *gin.Context) {
 	if userTosend.Moneys < moneyReq {
 
 		err := fmt.Sprintf("erreur , l'argent que vous voulez retirer est %v mais votre argents est de :  %v", moneyReq, userTosend.Moneys)
-		
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
 		return
 

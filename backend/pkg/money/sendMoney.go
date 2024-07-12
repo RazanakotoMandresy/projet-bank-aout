@@ -17,11 +17,13 @@ type sendMoneyRequest struct {
 }
 
 func (h handler) SendMoney(ctx *gin.Context) {
+	// extracttion de l'uuid depuis le bearer
 	uuidConnectedStr, err := middleware.ExtractTokenUUID(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
+	// uuid du recepteur params dans l'url
 	uuidRecepteur := ctx.Param("uuid")
 	body := new(sendMoneyRequest)
 
@@ -30,6 +32,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		return
 	}
 	value := body.Value
+	// code si l'on veux envoyer une somme inferieur a 1
 	if value < 1 {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "on ne peut pas envoyer une somme aussi minime"})
 		return
@@ -41,19 +44,20 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
-	fraisTransfer := (float32(body.Value) * 0.01)
+	// check si l'envoyeur essayent d'envoyer plus d'argent que ce qu'il en a
 	if value > userConnected.Moneys {
 		err := fmt.Errorf("impossible d'envoyer votre argent %v l'argent que vous voulez envoyer est %v", userConnected.Moneys, value)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
-
+	// 	message si tous se passe bien
 	message := fmt.Sprintf("%v a envoye un argent d'un montant de %v a %v", userConnected.AppUserName, value, userRecepteur.AppUserName)
-	userConnected.Moneys = (userConnected.Moneys - value - int(fraisTransfer))
+	userConnected.Moneys = userConnected.Moneys - value
 	userRecepteur.Moneys = (userRecepteur.Moneys + value)
-	// to do avadika float32 ny money
+	// save les money ao anaty user satria ireo tables fatsy uuid simplement ril
 	h.DB.Save(userRecepteur)
 	h.DB.Save(userConnected)
+	// la m
 	moneyTransaction := models.Money{
 		ID:         uuid.New(),
 		SendBy:     userConnected.UUID,
@@ -61,6 +65,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		TransResum: message,
 		Value:      body.Value,
 	}
+	// cretion d'une nouvel  raw tokony manao find ao ra efa misy transaction izy mtsam de tsy mila micree fa manao 
 	result := h.DB.Create(&moneyTransaction)
 	if result.Error != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error.Error()})
@@ -69,9 +74,6 @@ func (h handler) SendMoney(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, moneyTransaction)
 }
-
-// try to getBy App userName ou uuid , si userName tsy  mila manao uuid su uuid tsy mila manao appUserNa
-
 // user req que se soit uuid na appUserName
 func (h handler) GetUserByuuid(userReq string) (*models.User, error) {
 	var users models.User

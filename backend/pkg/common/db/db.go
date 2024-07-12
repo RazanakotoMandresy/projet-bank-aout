@@ -18,6 +18,6 @@ func Init(url string) *gorm.DB {
 	db.AutoMigrate(&models.User{})
 	db.AutoMigrate(&models.Money{})
 	db.AutoMigrate(&models.Admin{})
-	db.AutoMigrate(models.Bank{})
+	db.AutoMigrate(&models.Bank{})
 	return db
 }

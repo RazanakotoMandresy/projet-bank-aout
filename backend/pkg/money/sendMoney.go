@@ -4,16 +4,19 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"github.com/lib/pq"
 	// "github.com/google/uuid"
 )
 
 // ny uuid anaty params de ny uuid an'i envoyeur
 type sendMoneyRequest struct {
-	Value int `json:"value"`
+	Value int32 `json:"value"`
 }
 
 func (h handler) SendMoney(ctx *gin.Context) {
@@ -45,43 +48,67 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		return
 	}
 	// check si l'envoyeur essayent d'envoyer plus d'argent que ce qu'il en a
-	if value > userConnected.Moneys {
+	if int(value) > userConnected.Moneys {
 		err := fmt.Errorf("impossible d'envoyer votre argent %v l'argent que vous voulez envoyer est %v", userConnected.Moneys, value)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
 	// 	message si tous se passe bien
 	// message := fmt.Sprintf("%v a envoye un argent d'un montant de %v a %v", userConnected.AppUserName, value, userRecepteur.AppUserName)
-	userConnected.Moneys = userConnected.Moneys - value
-	userRecepteur.Moneys = (userRecepteur.Moneys + value)
+	userConnected.Moneys = userConnected.Moneys - int(value)
+	userRecepteur.Moneys = (userRecepteur.Moneys + int(value))
 	// save les money ao anaty user satria ireo tables fatsy uuid simplement ril
 	h.DB.Save(userRecepteur)
 	h.DB.Save(userConnected)
 	// la models ho creena
-	var moneyTransaction []models.Money
-
-	// res := h.DB.First(&moneyTransaction, "send_by = ?", uuidConnectedStr, "sent_to = ?", uuidRecepteur)
-	// queryString := fmt.Sprintf(`"send_by = ? AND sent_to = ?", "%v" , "%v"`, uuidConnectedStr, uuidRecepteur)
-
-	res := h.DB.Where("send_by = ? AND sent_to = ?",uuidConnectedStr,uuidRecepteur).Find(&moneyTransaction)
-	
-	if res.Error != nil {
-		fmt.Println(res.Error)
+	moneyTransaction, err := h.dbManipulationSendMoney(uuidConnectedStr, uuidRecepteur, body)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
 	}
-	// moneyTransaction.ID = uuid.New()
-	// moneyTransaction.SendBy = userConnected.UUID
-	// moneyTransaction.SentTo = userRecepteur.UUID
-	// moneyTransaction.TransResum = message
-	// moneyTransaction.Value = body.Value
-
-	// cretion d'une nouvel  raw tokony manao find ao ra efa misy transaction izy mtsam de tsy mila micree fa manao
-	// result := h.DB.Create(&moneyTransaction)
-	// if result.Error != nil {
-	// 	ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error.Error()})
-	// 	return
-	// }
 
 	ctx.JSON(http.StatusOK, &moneyTransaction)
+}
+
+func (h handler) dbManipulationSendMoney(uuidConnectedStr, uuidRecepteur string, body *sendMoneyRequest) (*models.Money, error) {
+	var moneyTransaction models.Money
+	res := h.DB.Where("send_by = ? AND sent_to = ?", uuidConnectedStr, uuidRecepteur).Find(&moneyTransaction)
+	resume := fmt.Sprintf("%v a envoyer la somme de %v a %v a l'instant%v ", uuidConnectedStr, body.Value, uuidRecepteur, time.Now())
+	if res.Error != nil {
+		fmt.Printf("transaction entre send_by %v et sent_to %v inexistante creation d'une nouvelle...", uuidConnectedStr, uuidRecepteur)
+		moneyTransaction.ID = uuid.New()
+		moneyTransaction.SendBy = uuidConnectedStr
+		moneyTransaction.SentTo = uuidRecepteur
+		moneyTransaction.Totals = body.Value
+		moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
+		moneyTransaction.Resume = resume
+		moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
+		moneyTransaction.TransResum = append(moneyTransaction.TransResum, resume)
+		result := h.DB.Create(moneyTransaction)
+		if result.Error != nil {
+			return nil, fmt.Errorf("creationraw %v", result.Error)
+		}
+	}
+	moneyTransaction.ID = uuid.New()
+	moneyTransaction.ID = uuid.New()
+	moneyTransaction.SendBy = uuidConnectedStr
+	moneyTransaction.SentTo = uuidRecepteur
+	moneyTransaction.Resume = resume
+	moneyTransaction.TransResum = append(moneyTransaction.TransResum, resume)
+	moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
+	moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
+	totals := getTotals(moneyTransaction.MoneyTransite)
+	// totals logique
+	moneyTransaction.Totals = totals
+	h.DB.Save(&moneyTransaction)
+	return &moneyTransaction, nil
+}
+func getTotals(money pq.Int32Array) int32 {
+	 var totals int32
+	for i := 0; i < len(money); i++ {
+		totals += money[i]
+	}
+	return totals
 }
 
 // user req que se soit uuid na appUserName

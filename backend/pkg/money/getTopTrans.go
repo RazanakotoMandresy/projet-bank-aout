@@ -2,7 +2,6 @@ package money
 
 import (
 	"net/http"
-	"slices"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
@@ -11,7 +10,7 @@ import (
 
 type topTrans struct {
 	SentTo     string `json:"sentTo"`
-	// ValueTrans int    `json:"sommeTrans"`
+	ValueTrans int    `json:"sommeTrans"`
 }
 
 func (h handler) GetTopTrans(ctx *gin.Context) {
@@ -28,10 +27,10 @@ func (h handler) GetTopTrans(ctx *gin.Context) {
 	}
 	userTosendSlicesJsoned := []topTrans{}
 	for _, moneys := range money {
-		userTosendSlicesJsoned = append(userTosendSlicesJsoned, topTrans{SentTo: moneys.SentTo})
+		userTosendSlicesJsoned = append(userTosendSlicesJsoned, topTrans{SentTo: moneys.SentTo , ValueTrans: int(moneys.Totals)})
 	}
 	// json append anle result
 	// finally decide to change the send money
-	userToSendFilterdSlice := slices.Compact(userTosendSlicesJsoned)
-	ctx.JSON(http.StatusOK, userToSendFilterdSlice)
+	// userToSendFilterdSlice := slices.Compact(userTosendSlicesJsoned)
+	ctx.JSON(http.StatusOK, userTosendSlicesJsoned)
 }

@@ -22,11 +22,14 @@ export const PostPPfunc = async (file, AuthentifiedMultipart) => {
 export const GetUserInfo = async (user) => {
   return await AxiosInstances.get(`/user/${user}`);
 };
-// 
+//
 export const SendMoneyFunc = async (userToSend, value, authentified) => {
   return await AxiosInstances.post(
     `/transaction/${userToSend}`,
     value,
     authentified
   );
+};
+export const GetTopTrans = async (authentified) => {
+  return await AxiosInstances.get(`/transaction/`, authentified);
 };

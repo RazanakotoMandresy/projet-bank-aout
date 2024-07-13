@@ -7,7 +7,6 @@ import {
 } from "../../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../../logics/authentification/authentification";
 import Confirm from "./Confirm";
-
 const Transaction = () => {
   // nom de l'utilisateur ou uuid
   const [userTosend, setUserToSend] = useState("");

@@ -87,8 +87,11 @@ func (h handler) dbManipulationSendMoney(userConnected, userRecepteur *models.Us
 		moneyTransaction.SentTo = userRecepteur.UUID
 		moneyTransaction.Totals = body.Value
 		moneyTransaction.Resume = resume
+		moneyTransaction.SendByImg = userConnected.Image
+		moneyTransaction.SendToImg = userRecepteur.Image
+		moneyTransaction.SentToName = userRecepteur.AppUserName
 		moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
-		moneyTransaction.TransResum = append(moneyTransaction.TransResum, resume)
+		// moneyTransaction.TransResum = append(moneyTransaction.TransResum, resume)
 		result := h.DB.Create(moneyTransaction)
 		if result.Error != nil {
 			return nil, fmt.Errorf("creationraw %v", result.Error)
@@ -97,7 +100,10 @@ func (h handler) dbManipulationSendMoney(userConnected, userRecepteur *models.Us
 	}
 	fmt.Println("la transaction entre les deux utilisateur existe dejas")
 	moneyTransaction.Resume = resume
-	moneyTransaction.TransResum = append(moneyTransaction.TransResum, resume)
+	moneyTransaction.SentToName = userRecepteur.AppUserName
+	// moneyTransaction.TransResum = append(moneyTransaction.TransResum, resume)
+	moneyTransaction.SendByImg = userConnected.Image
+	moneyTransaction.SendToImg = userRecepteur.Image
 	moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)
 	totals := getTotals(moneyTransaction.MoneyTransite)
 	// totals logique

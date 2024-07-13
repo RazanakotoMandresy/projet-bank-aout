@@ -8,7 +8,7 @@ const ProfileHome = () => {
   const {userData} = useAppContext();
   return (
     <div className="profileH">
-      <img src="carte-credit.png" alt="" />
+      <img src={`http://localhost:3000/${userData.image}`} alt="" />
       <h1>{userData.AppUserName}</h1>
       <h2>
         {userData.name} {userData.firstName}

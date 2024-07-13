@@ -23,7 +23,12 @@ const Confirm = ({ sendMoney, foundValue, value, changeShow }) => {
         </p>
         <h3>la valeur de l'argent que vous voulez envoyer est :</h3>
         <h4>{value} ar</h4>
-        <button type="submit">
+        <button
+          type="submit"
+          // onClick={ () => {
+          //   changeShow();
+          // }}
+        >
           <FiCheckCircle />
         </button>
       </form>

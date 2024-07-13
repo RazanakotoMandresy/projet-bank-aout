@@ -31,6 +31,6 @@ func (h handler) GetTopTrans(ctx *gin.Context) {
 	}
 	// json append anle result
 	// finally decide to change the send money
-	// userToSendFilterdSlice := slices.Compact(userTosendSlicesJsoned)
+
 	ctx.JSON(http.StatusOK, userTosendSlicesJsoned)
 }

@@ -2,6 +2,12 @@ import React from "react";
 import "./topEnvoyer.css";
 import { Link } from "react-router-dom";
 const TopEnvoye = () => {
+  const getTopTrans = () => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="envoyee">
       <ul>
@@ -26,7 +32,6 @@ const TopEnvoye = () => {
           </Link>
           <h3>Le total dev votre transaction avec et ...</h3>
         </li>
-            
       </ul>
     </div>
   );

@@ -53,6 +53,13 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
+
+	// check si l'userConnecter est la meme que celui qui il essaye d'envoyer de l'argent
+	if uuidConnectedStr == userRecepteur.UUID {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "vous ne pouvez pas envoyer de l'argent a vous meme "})
+		return
+	}
+
 	// 	message si tous se passe bien
 	// message := fmt.Sprintf("%v a envoye un argent d'un montant de %v a %v", userConnected.AppUserName, value, userRecepteur.AppUserName)
 	userConnected.Moneys = userConnected.Moneys - int(value)
@@ -61,24 +68,23 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	h.DB.Save(userRecepteur)
 	h.DB.Save(userConnected)
 	// la models ho creena
-	moneyTransaction, err := h.dbManipulationSendMoney(uuidConnectedStr, userRecepteur.UUID, body)
+	moneyTransaction, err := h.dbManipulationSendMoney(userConnected, userRecepteur, body)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
-
 	ctx.JSON(http.StatusOK, &moneyTransaction)
 }
 
-func (h handler) dbManipulationSendMoney(uuidConnectedStr, uuidRecepteur string, body *sendMoneyRequest) (*models.Money, error) {
+func (h handler) dbManipulationSendMoney(userConnected, userRecepteur *models.User, body *sendMoneyRequest) (*models.Money, error) {
 	var moneyTransaction models.Money
-	res := h.DB.Where("send_by = ? AND sent_to = ?", uuidConnectedStr, uuidRecepteur).First(&moneyTransaction)
-	resume := fmt.Sprintf("%v a envoyer la somme de %v a %v a l'instant%v ", uuidConnectedStr, body.Value, uuidRecepteur, time.Now())
+	res := h.DB.Where("send_by = ? AND sent_to = ?", userConnected.UUID, userRecepteur.UUID).First(&moneyTransaction)
+	resume := fmt.Sprintf("%v a envoyer la somme de %v a %v a l'instant%v ", userConnected.AppUserName, body.Value, userRecepteur.AppUserName, time.Now())
 	if res.Error != nil {
-		fmt.Printf("transaction entre send_by %v et sent_to %v inexistante creation d'une nouvelle...", uuidConnectedStr, uuidRecepteur)
+		fmt.Printf("transaction entre send_by %v et sent_to %v inexistante creation d'une nouvelle...", userConnected.UUID, userRecepteur.UUID)
 		moneyTransaction.ID = uuid.New()
-		moneyTransaction.SendBy = uuidConnectedStr
-		moneyTransaction.SentTo = uuidRecepteur
+		moneyTransaction.SendBy = userConnected.UUID
+		moneyTransaction.SentTo = userRecepteur.UUID
 		moneyTransaction.Totals = body.Value
 		moneyTransaction.Resume = resume
 		moneyTransaction.MoneyTransite = append(moneyTransaction.MoneyTransite, body.Value)

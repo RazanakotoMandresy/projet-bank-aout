@@ -1,11 +1,10 @@
 package models
 
 import (
-	"time"
-
 	"github.com/google/uuid"
 	pq "github.com/lib/pq"
 	"gorm.io/gorm"
+	"time"
 )
 
 // models money
@@ -16,10 +15,10 @@ type Money struct {
 	Created_at    time.Time
 	Updated_at    time.Time
 	Deleted_at    gorm.DeletedAt
-	SendBy        string         `json:"sentBy"`
-	SentTo        string         `json:"sentTo"`
-	SentToName    string         `json:"sentToName"`
-	Resume        string         `json:"resume"`
-	SendByImg     string         `json:"sendByImg"`
-	SendToImg      string         `json:"SendToImg"`
+	SendBy        string `json:"sentBy"`
+	SentTo        string `json:"sentTo"`
+	SentToName    string `json:"sentToName"`
+	Resume        string `json:"resume"`
+	SendByImg     string `json:"sendByImg"`
+	SendToImg     string `json:"SendToImg"`
 }

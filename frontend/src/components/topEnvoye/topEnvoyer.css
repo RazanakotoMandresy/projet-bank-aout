@@ -6,6 +6,8 @@
   border-radius: 25px;
   max-height: 50%;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  overflow: scroll;
+  height: 32%;
 }
 .envoyee ul li img {
   height: 70px;

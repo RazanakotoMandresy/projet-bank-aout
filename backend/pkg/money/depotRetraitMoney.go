@@ -9,8 +9,9 @@ import (
 )
 
 type DepoRetraiReq struct {
-	Value int   `json:"value"`
-	Lieux string `json:"lieux"`
+	Value     int    `json:"value"`
+	Lieux     string `json:"lieux"`
+	Passwords string `json:"passwords"`
 }
 
 func (h handler) Depot(ctx *gin.Context) {

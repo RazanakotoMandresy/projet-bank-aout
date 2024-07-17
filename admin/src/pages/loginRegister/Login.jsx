@@ -23,17 +23,12 @@ const Login = () => {
           pour pouvoir vous inscrire vous devrez entrez le mot de passe de super
           utilisateur
         </p>
-        <input
-          type="password"
-          name="rootPassword"
-          id="rootPassword"
-          placeholder="Entrez le mot de passe de super utilisateur"
-        />
         <button type="submit">Se connecter</button>
       </form>
       Pas encore de comptes? allez demandez l'access a la creation dans nos
-      point principales
+      point principales puis appuyer sur
       <Link to="/register"> s'inscrire</Link>
+      ou pour avoir plus d'information
       <Link to={"/more-info"}> plus d'info sur la creation de compte</Link>
     </div>
   );

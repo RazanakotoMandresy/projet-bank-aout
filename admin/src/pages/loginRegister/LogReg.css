@@ -17,7 +17,7 @@
   color: #edc339;
 }
 .LoginReg input {
-  width: 70%;
+  width: 60%;
   text-align: center;
   padding: 15px;
   border: none;
@@ -30,4 +30,14 @@
   padding: 10px;
   border-radius: 25px;
   margin-top: 5px;
+  background-color: #d1c6be;
+  border: none;
+  transition: width 2s;
+}
+.LoginReg button:hover {
+  width: 70%;
+  background-color: #544f53;
+}
+.LoginReg a {
+  color: #d1c6be;
 }

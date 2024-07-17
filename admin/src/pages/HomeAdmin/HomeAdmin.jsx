@@ -5,7 +5,8 @@ import "./HomeAdmin.css";
 const HomeAdmin = () => {
   return (
     <div>
-      <div className="AddBankLink">
+      <div className="createBank">
+        <img src="carte-credit.png" alt="carte-credit.png" />
         <Link to={"/create-bank"}>
           <h1>Cree un point de depot et retrait ?</h1>
         </Link>

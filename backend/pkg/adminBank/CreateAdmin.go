@@ -22,10 +22,7 @@ type BankAdminReq struct {
 	Passwords  string `json:"passwords"`
 	RootPass   string `json:"root"`
 }
-type BankLogRequest struct {
-	Name      string `json:"name"`
-	Passwords string `json:"passwords"`
-}
+
 
 func (h handler) CreateAdminAccount(ctx *gin.Context) {
 	body := BankAdminReq{}

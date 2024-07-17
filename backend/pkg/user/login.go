@@ -23,9 +23,10 @@ func (h handler) Login(ctx *gin.Context) {
 	}
 	var users models.User
 	email := models.User{Email: body.Email}
+
 	GetPasswordHashed := h.DB.First(&users, email)
 	if GetPasswordHashed.Error != nil {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, GetPasswordHashed.Error)
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, GetPasswordHashed.Error.Error())
 		return
 	}
 	err := middleware.IsTruePassword(users.Password, body.Password)
@@ -39,5 +40,5 @@ func (h handler) Login(ctx *gin.Context) {
 		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 	tokenString, _ := middleware.TokenManage(token, ctx)
-	ctx.JSON(http.StatusCreated, gin.H{"token": tokenString, "user": &users})
+	ctx.JSON(http.StatusCreated, gin.H{"token": tokenString})
 }

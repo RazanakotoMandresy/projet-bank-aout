@@ -1,8 +1,7 @@
 import { AxiosInstances } from "./AxiosInstances";
-
-export const LogAsAdmin = () => {
-  return AxiosInstances.post("/logAsAdmin");
+export const LogAsAdmin = (value) => {
+  return AxiosInstances.post("/logAsAdmin", value);
 };
-export const RegisterAdmin = () => {
-  return AxiosInstances.post("/registerAnAdmin");
+export const RegisterAdmin = (value) => {
+  return AxiosInstances.post("/registerAnAdmin", value);
 };

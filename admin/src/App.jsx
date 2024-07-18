@@ -8,7 +8,9 @@ const App = () => {
   const [connected, setConnected] = useState(true);
   const IsConnected = () => {
     const nonNilToken = localStorage.getItem("token");
-    if (nonNilToken != "") {
+    if (nonNilToken == "" || nonNilToken == null) {
+      setConnected(true);
+    } else {
       setConnected(false);
     }
   };
@@ -18,13 +20,9 @@ const App = () => {
   return (
     <div>
       <Routes>
-        {connected ? (
-          <Route path="/" element={<Login />} />
-        ) : (
-          <Route path="/" element={<HomeAdmin />} />
-        )}
-
+        <Route path="/" element={connected ? <Login /> : <HomeAdmin />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );

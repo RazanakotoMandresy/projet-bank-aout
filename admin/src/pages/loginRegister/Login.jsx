@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./LogReg.css";
 import { SetToken } from "../../utils/localStorageManip/localStorageManip";
+import { LogAsAdmin } from "../../utils/axiosUtils/AxiosLogics";
 const Login = () => {
   const [name, setName] = useState("");
   const [passwords, setPasswords] = useState("");
@@ -9,7 +10,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const values = { name, passwords };
-      const { data } = await RegisterAdmin(values);
+      const { data } = await LogAsAdmin(values);
       setName("");
       setPasswords("");
       SetToken(data.token);

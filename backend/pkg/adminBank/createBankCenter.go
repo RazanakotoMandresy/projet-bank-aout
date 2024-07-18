@@ -39,7 +39,7 @@ func (h handler) CreateBank(ctx *gin.Context) {
 		})
 		return
 	}
-
+	
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"err": err.Error(),
@@ -50,6 +50,7 @@ func (h handler) CreateBank(ctx *gin.Context) {
 	bank := models.Bank{
 		Money: body.Money,
 		Lieux: body.Lieux,
+		MaintennedBy: admin.UUID.String(),
 	}
 
 	if result := h.DB.Create(&bank); result.Error != nil {

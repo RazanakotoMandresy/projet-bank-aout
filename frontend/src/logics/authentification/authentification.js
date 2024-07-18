@@ -9,3 +9,4 @@ export const AuthentifiedMultipart = {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 };
+  

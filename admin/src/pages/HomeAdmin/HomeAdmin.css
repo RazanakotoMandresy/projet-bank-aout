@@ -1,0 +1,51 @@
+.HomeAdmin .createBank {
+  cursor: pointer;
+  border: none;
+  padding: 20px;
+  font-size: 20px;
+  position: absolute;
+  background-color: #d1c6be;
+  border-radius: 5px;
+  top: 0;
+  left: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.HomeAdmin .createBank label {
+  margin-left: 25px;
+}
+.HomeAdmin .createBank:hover {
+  box-shadow: 5px 5px #edc339;
+}
+.HomeAdmin .allMyDep {
+  width: 45%;
+  margin-left: 25%;
+  margin-right: auto;
+  background-color: #d1c6be;
+  border-radius: 10px;
+  padding: 5px;
+  position: fixed;
+  height: 75%;
+  overflow-y: scroll;
+}
+.HomeAdmin .allMyDep ul li {
+  font-size: 20px;
+  list-style: none;
+  margin: 20px;
+  padding: 10px;
+}
+.HomeAdmin .allMyDep ul li:hover {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background-color: #544f53;
+  /* padding: 25px; */
+  border-radius: 10px;
+}
+.HomeAdmin .allMyDep ul li a {
+  text-decoration: none;
+  color: black;
+}
+.HomeAdmin .allMyDep ul li label {
+  margin-left: 100px;
+}

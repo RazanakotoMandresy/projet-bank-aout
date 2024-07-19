@@ -1,7 +1,9 @@
 body  {
   text-align: center;
 }
+body .claire{
+  background-color: #fff;
+}
 body .sombre{
   background-color: #227aa1 ;
-
 }

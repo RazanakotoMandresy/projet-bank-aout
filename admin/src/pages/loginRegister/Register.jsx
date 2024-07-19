@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./LogReg.css";
 import { RegisterAdmin } from "../../utils/axiosUtils/AxiosLogics";
-import { SetToken } from "../../utils/localStorageManip/localStorageManip";
+import { SetToLocalStorage } from "../../utils/localStorageManip/localStorageManip";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -16,7 +16,8 @@ const Register = () => {
       setName("");
       setPasswords("");
       setRootPassword("");
-      SetToken(data.token);
+      // SetToken(data.token);
+      SetToLocalStorage("token", data.token);
     } catch (error) {
       console.log(error);
     }

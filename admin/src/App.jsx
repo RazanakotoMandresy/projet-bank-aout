@@ -7,8 +7,10 @@ import "./App.css";
 import Header from "./components/header/Header";
 
 const App = () => {
-  const [connected, setConnected] = useState(true);
-  const [Mode, setMode] = useState(false);
+  // todo  implement the localstorage manipulttion
+  // after learning typescript
+  const [connected, setConnected] = useState(true); 
+  const [Mode, setMode] = useState(Boolean);
   const IsConnected = () => {
     const nonNilToken = localStorage.getItem("token");
     if (nonNilToken == "" || nonNilToken == null) {
@@ -18,11 +20,12 @@ const App = () => {
     }
   };
   const changeMode = () => {
+    localStorage.setItem("Mode", Mode);
     setMode(!Mode);
   };
   const headerProps = { changeMode, Mode };
   useEffect(() => {
-    IsConnected();  
+    IsConnected();
   }, []);
 
   return (

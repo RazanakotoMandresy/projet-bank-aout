@@ -1,0 +1,21 @@
+.Header {
+  margin-left: 75%;
+  background-color: #d1c6be;
+  border-radius: 25px;
+  padding: 5px;
+}
+.Header:hover {
+  box-shadow: 5px 5px #edc339;
+}
+.Header button:hover {
+  box-shadow: 5px 5px #edc339;
+}
+.Header button {
+  font-size: 30px;
+  margin: 5px;
+  border: none;
+  padding: 5px;
+  border-radius: 25px;
+  color: #d1c6be;
+  background-color: #01577d;
+}

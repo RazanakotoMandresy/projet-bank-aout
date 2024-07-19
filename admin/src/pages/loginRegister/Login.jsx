@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./LogReg.css";
-import { SetToken } from "../../utils/localStorageManip/localStorageManip";
+import { SetToLocalStorage } from "../../utils/localStorageManip/localStorageManip";
 import { LogAsAdmin } from "../../utils/axiosUtils/AxiosLogics";
 const Login = () => {
   const [name, setName] = useState("");
@@ -13,7 +13,8 @@ const Login = () => {
       const { data } = await LogAsAdmin(values);
       setName("");
       setPasswords("");
-      SetToken(data.token);
+      // SetToken(data.token);
+      SetToLocalStorage("token", data.token);
     } catch (error) {
       console.log(error);
     }

@@ -49,3 +49,16 @@
 .HomeAdmin .allMyDep ul li label {
   margin-left: 100px;
 }
+.HomeAdmin .AdminProfile img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 3px solid black;
+}
+.HomeAdmin .AdminProfile {
+  position: fixed;
+  height: 25%;
+  border: 1px solid;
+  background-color: #d1c6be;
+  padding: 50px;
+}

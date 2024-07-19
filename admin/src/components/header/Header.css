@@ -1,7 +1,7 @@
 .Header {
   margin-left: 75%;
   background-color: #d1c6be;
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 5px;
 }
 .Header:hover {

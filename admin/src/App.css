@@ -1,5 +1,7 @@
-body {
-  background-color: #227aa1 ;
+body  {
   text-align: center;
-  background-image: url("/public/carte-credit.png");
+}
+body .sombre{
+  background-color: #227aa1 ;
+
 }

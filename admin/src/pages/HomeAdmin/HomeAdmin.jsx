@@ -1,52 +1,57 @@
-//home admin mahazo dashbord mialy genre graphe,nb user
-import React from "react";
 import "./HomeAdmin.css";
 import { Link } from "react-router-dom";
+import { FiCreditCard } from "react-icons/fi";
 const HomeAdmin = () => {
   return (
-    <div>
-      <buton className="createBank">Cree un point de retrait et deppot ?</buton>
-      <div className="allMyDep">
-        <ul>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-          <li>
-            <Link to={"/:uuid"}>lieux</Link>
-          </li>
-        </ul>
+    <div className="HomeAdmin">
+        <button
+          className="createBank"
+         
+        >
+          Cree un point de retrait et deppot ?
+        </button>
+
+        <div className="allMyDep">
+          <ul>
+            les gab sous votre responsabilite
+            <li>
+              <Link to={"/:uuid"}>
+                lieux argent restant <FiCreditCard />
+              </Link>
+            </li>
+            <li>
+              <Link to={"/:uuid"}>
+                lieux argent restant <FiCreditCard />
+              </Link>
+            </li>
+            <li>
+              <Link to={"/:uuid"}>
+                lieux argent restant <FiCreditCard />
+              </Link>
+            </li>
+            <li>
+              <Link to={"/:uuid"}>
+                lieux argent restant <FiCreditCard />
+              </Link>
+            </li>
+            <li>
+              <Link to={"/:uuid"}>
+                lieux argent restant <FiCreditCard />
+              </Link>
+            </li>
+            <li>
+              <Link to={"/:uuid"}>
+                lieux argent restant <FiCreditCard />
+              </Link>
+            </li>
+            <li>
+              <Link to={"/:uuid"}>
+                lieux argent restant <FiCreditCard />
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
   );
 };
 

@@ -37,8 +37,7 @@ const Login = ({ ChangeBtn }) => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            // type="email"
-            name="email"
+              name="email"
             id="email"
             placeholder="addresse mail"
           />

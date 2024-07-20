@@ -3,7 +3,6 @@ import Notification from "../../components/HomeNotification/Notification";
 import TopEnvoye from "../../components/topEnvoye/TopEnvoye";
 import CenterHomeLoged from "../../components/centerHomeLoged/CenterHomeLoged";
 import PlaceBank from "../../components/place/PlaceBank";
-import Historique from "../../components/historique/Historique";
 import "./Home.css";
 import { useAppContext } from "../../App";
 
@@ -15,7 +14,6 @@ const Home = () => {
       <div className="balance">
         <h2>Ar {userData.money} </h2>
         <PlaceBank />
-        <Historique />
       </div>
       <CenterHomeLoged />
       <TopEnvoye />

@@ -23,7 +23,6 @@ type BankAdminReq struct {
 	RootPass   string `json:"root"`
 }
 
-
 func (h handler) CreateAdminAccount(ctx *gin.Context) {
 	body := BankAdminReq{}
 	if err := ctx.Bind(&body); err != nil {
@@ -44,7 +43,6 @@ func (h handler) CreateAdminAccount(ctx *gin.Context) {
 	}
 
 	passwordHashed := middleware.HashPassword(body.Passwords)
-
 	admin := models.Admin{
 		ID:         uuid.New().ID(),
 		UUID:       uuid.New(),

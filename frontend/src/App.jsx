@@ -8,7 +8,6 @@ import Login from "./pages/loginRegister/Login";
 import Home from "./pages/homeLoged/Home";
 import Profile from "./pages/profile/Profile";
 import "./App.css";
-
 import { GetUser } from "./logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "./logics/authentification/authentification";
 export const UserContext = createContext();

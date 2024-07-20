@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { FiPlusCircle, FiSettings } from "react-icons/fi";
 import "./HomeHeader.css";
-const getDate = () => {
-  const ajd = new Date();
-  const month = ajd.getMonth() + 1;
-  const year = ajd.getFullYear();
-  const date = ajd.getDate();
-  return `${month}/${date}/${year}`;
-};
+import { useAppContext } from "../../App";
+import { GetDate } from "../../logics/funLogic/func";
+
 const HomeHeader = () => {
-  const [actualDate, setActualDate] = useState(getDate());
+  const { userData } = useAppContext();
+  const [actualDate, setActualDate] = useState(GetDate());
   return (
     <div className="head">
       <ul>
-        <li className="left"> Bonjour jkjnj</li>
+        <li className="left"> Bonjour {userData.name}</li>
         <li className="right">
           <FiPlusCircle /> ajouter un fammille
         </li>

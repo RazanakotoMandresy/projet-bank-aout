@@ -1,4 +1,4 @@
-package userfam
+package epargne
 
 import (
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
@@ -10,10 +10,11 @@ type handler struct {
 	DB *gorm.DB
 }
 
-func FamilyRoutes(router *gin.Engine, db *gorm.DB) {
+func EpargneTransaction(router *gin.Engine, db *gorm.DB) {
+
 	h := &handler{
 		DB: db,
 	}
-	routes := router.Group("/api/v1/family")
-	routes.POST("/addFam", middleware.RequireAuth, h.AddUserFam)
+	routes := router.Group("/api/v1/epargne")
+	routes.POST("/createEpargne", middleware.RequireAuth, h.CreateEpargne)
 }

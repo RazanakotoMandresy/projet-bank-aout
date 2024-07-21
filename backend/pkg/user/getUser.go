@@ -16,7 +16,6 @@ func (h handler) getConnectedUser(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err":err.Error()})
 		return
 	}
-	fmt.Println("uuid", uuid)
 	var user models.User
 	result := h.DB.First(&user, "uuid = ?", uuid)
 	if result.Error != nil {

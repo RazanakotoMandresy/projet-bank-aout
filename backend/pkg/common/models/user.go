@@ -24,5 +24,5 @@ type User struct {
 	Residance         string
 	Role              string
 	Image             string
-	FamMembers        pq.StringArray `gorm:"type:text[]"`
+	AutoEpargne       pq.StringArray `gorm:"type:text[]"`
 }

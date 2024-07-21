@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	epargne "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/Epargne"
 	adminbank "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/adminBank"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/db"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/money"
@@ -24,6 +25,8 @@ func main() {
 	user.RegisterRoutes(router, dbHandler)
 	money.TransactionRoutes(router, dbHandler)
 	adminbank.AdminRoutes(router, dbHandler)
+	epargne.EpargneTransaction(router, dbHandler)
+
 	// get anle root dir amzay tsy hard code be
 	rootDir, err := os.Getwd()
 	if err != nil {

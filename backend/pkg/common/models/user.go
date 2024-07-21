@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/lib/pq"
 	"gorm.io/gorm"
 )
 
@@ -14,13 +15,14 @@ type User struct {
 	UUID              string `gorm:"uuid"`
 	Deleted_at        gorm.DeletedAt
 	AppUserName       string `gorm:"unique"`
-	Name              string `json:"name"`
+	Name              string
 	Email             string `gorm:"unique"`
-	FirstName         string `json:"firstName"`
-	Moneys            int   `json:"money"`
-	Password          string `json:"password"`
-	Date_de_naissance string `json:"naissance"`
-	Residance         string `json:"residance"`
-	Role              string `json:"role"`
-	Image             string `json:"image"`
+	FirstName         string
+	Moneys            int
+	Password          string
+	Date_de_naissance string
+	Residance         string
+	Role              string
+	Image             string
+	FamMembers        pq.StringArray `gorm:"type:text[]"`
 }

@@ -18,14 +18,14 @@ import (
 
 // create User mitovy amin'i register ihany
 type UserRequest struct {
-	AppUserName       string `json:"AppUserName"`
-	Name              string `json:"name"`
-	FirstName         string `json:"firstName"`
-	Moneys            uint   `json:"money"`
-	Password          string `json:"password"`
-	Date_de_naissance string `json:"naissance"`
-	Residance         string `json:"residance"`
-	Email             string `json:"Email"`
+	AppUserName       string
+	Name              string
+	FirstName         string
+	Moneys            uint
+	Password          string
+	Date_de_naissance string
+	Residance         string
+	Email             string
 }
 
 func (h handler) CreateUser(ctx *gin.Context) {

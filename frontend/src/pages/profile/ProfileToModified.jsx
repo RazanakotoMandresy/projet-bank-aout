@@ -1,22 +1,18 @@
-import React, { useCallback, useState } from "react";
+import React, {  useState } from "react";
 import { FiEdit, FiSave } from "react-icons/fi";
 import { UpdateUserProfile } from "../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
 
 const ProfileToModified = ({ userData }) => {
   const [wantModif, setWantModif] = useState(true);
-  const [appUserName, setAppUserName] = useState("");
-  const [residance, setResidance] = useState("");
+  const [appUserName, setAppUserName] = useState(userData.AppUserName);
+  const [residance, setResidance] = useState(userData.residance);
 
   const updateUserInfo = async (e) => {
     e.preventDefault();
     try {
-      const valueData = { AppUserName: appUserName, residance };
-      const { data } = await UpdateUserProfile(
-        userData.UUID,
-        valueData,
-        Authentified
-      );
+      const valueData = { AppUserName: appUserName, Residance: residance };
+      const { data } = await UpdateUserProfile(valueData, Authentified);
       console.log(data);
       setWantModif(true);
     } catch (error) {
@@ -69,11 +65,7 @@ const ProfileToModified = ({ userData }) => {
               setResidance(e.target.value);
             }}
           />
-          <button
-          // onClick={async () => {
-          //   await setWantModif(true);
-          // }}
-          >
+          <button>
             <FiSave />
           </button>
         </form>

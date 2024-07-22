@@ -11,6 +11,7 @@ import (
 func (h handler) getUser(ctx *gin.Context) {
 	userParam := ctx.Param("user")
 	var users models.User
+	// get by uuid or appUserName
 	result := h.DB.First(&users, "uuid = ?", userParam)
 	if result.Error != nil {
 		msg := fmt.Sprintf("%v n'est pas dans uuid rechervhe dans app_user_name ...", userParam)
@@ -22,6 +23,5 @@ func (h handler) getUser(ctx *gin.Context) {
 			return
 		}
 	}
-
 	ctx.JSON(http.StatusOK, gin.H{"uuid": users.UUID, "image": users.Image, "Email": users.Email, "nameFirstName": fmt.Sprint(users.Name, " ", users.FirstName)})
 }

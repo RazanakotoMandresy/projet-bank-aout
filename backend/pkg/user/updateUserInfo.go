@@ -1,10 +1,10 @@
 package user
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
-	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -15,42 +15,44 @@ type UpdateRequest struct {
 }
 
 func (h handler) UpdateInfo(ctx *gin.Context) {
-	uuidParams := ctx.Param("uuid")
 	body := new(UpdateRequest)
+	if err := ctx.Bind(&body); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"err": err.Error(),
+		})
+		return
+	}
 	uuid, err := middleware.ExtractTokenUUID(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
 		return
 	}
-	if uuid == uuidParams {
-		var user models.User
-		result := h.DB.First(&user)
-		if result.Error != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, result.Error.Error())
-			return
-		}
-		if err := ctx.BindJSON(&body); err != nil {
-			ctx.AbortWithError(http.StatusBadRequest, err)
-			ctx.JSON(http.StatusBadRequest, err.Error())
-			return
-		}
-		switch {
-		case body.AppUserName == "":
-			body.AppUserName = user.AppUserName
-		default:
-			user.AppUserName = body.AppUserName
-		}
-		switch {
-		case body.Residance == "":
-			body.Residance = user.Residance
-		default:
-			user.Residance = body.Residance
-		}
-		user.Updated_at = time.Now()
-		h.DB.Save(user)
-
-		ctx.JSON(http.StatusOK, &user)
+	user, err := h.GetUserSingleUserFunc(uuid)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H{"err": err})
 		return
 	}
-	ctx.AbortWithStatusJSON(http.StatusBadRequest, "ceci c'est pas votre compte")
+	if body.AppUserName == "" {
+		body.AppUserName = user.AppUserName
+	}
+	user.AppUserName = body.AppUserName
+	if body.Residance == "" {
+		body.Residance = user.Residance
+	}
+
+	user.Residance = body.Residance
+	user.Updated_at = time.Now()
+	// save des modif
+	result := h.DB.Save(&user)
+
+	if result.Error != nil {
+		if result.Error.Error() == "ERROR: duplicate key value violates unique constraint \"uni_users_app_user_name\" (SQLSTATE 23505)" {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": fmt.Sprintf("l'appUserName avec %v est deja utiliser par un autre utilisateur ", body.AppUserName)})
+			return
+		}
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error.Error()})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"user": &user})
+
 }

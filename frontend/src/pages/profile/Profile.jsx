@@ -10,6 +10,7 @@ import { AuthentifiedMultipart } from "../../logics/authentification/authentific
 const Profile = () => {
   const { userData } = useAppContext();
   const [profilePict, setProfilePict] = useState("");
+
   const postPP = async (e) => {
     e.preventDefault();
     try {

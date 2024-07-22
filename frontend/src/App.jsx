@@ -16,6 +16,8 @@ export const useAppContext = () => useContext(UserContext);
 function App() {
   const [userData, setUserData] = useState({});
   const [connected, setConnected] = useState(false);
+  const [profilePict, setProfilePict] = useState("");
+
   const getUser = async () => {
     try {
       const { data } = await GetUser(Authentified);

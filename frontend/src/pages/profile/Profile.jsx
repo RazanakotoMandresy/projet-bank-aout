@@ -8,26 +8,25 @@ import { PostPPfunc } from "../../logics/AxiosLogics/AxiosLogics";
 import { AuthentifiedMultipart } from "../../logics/authentification/authentification";
 
 const Profile = () => {
-  const { userData } = useAppContext();
-  const [profilePict, setProfilePict] = useState("");
-
+  const { userData ,profilePict } = useAppContext();
+  const [profilePicts, setProfilePicts] = useState("");
   const postPP = async (e) => {
     e.preventDefault();
     try {
       const value = {
-        filePP: profilePict[0],
+        filePP: profilePicts[0],
       };
       const { data } = await PostPPfunc(value, AuthentifiedMultipart);
       console.log(data);
     } catch (error) {
-      console.log(error);
+      console.log("err", error);
     }
   };
   return (
     <div className="profile">
       <form onSubmit={postPP} className="formPP">
         <label htmlFor="files">
-          <img src={`http://localhost:3000/${userData.image}`} alt="" />
+          <img src={profilePict} alt="" />
           <FiCamera />
         </label>
         <input
@@ -35,7 +34,7 @@ const Profile = () => {
           type="file"
           name="file"
           onChange={(e) => {
-            setProfilePict(e.target.files);
+            setProfilePicts(e.target.files);
           }}
         />
       </form>

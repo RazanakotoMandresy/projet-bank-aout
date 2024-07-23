@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import HomeNotLoged from "./pages/NotLoged/home/HomeNotLoged";
@@ -18,7 +25,7 @@ function App() {
   const [connected, setConnected] = useState(false);
   const [profilePict, setProfilePict] = useState("");
 
-  const getUser = async () => {
+  const getUser = useCallback(async () => {
     try {
       const { data } = await GetUser(Authentified);
       setUserData(data);
@@ -26,13 +33,24 @@ function App() {
     } catch (error) {
       console.log("vous pouvez vous conneter sur login");
     }
+  }, [userData]);
+  const getPP = async () => {
+    try {
+      const { data } = await GetUser(Authentified);
+      console.log(data);
+      setProfilePict(`http://localhost:3000/${data.image}`);
+    } catch (error) {
+      setProfilePict("http://localhost:5173/defaultPP.jpg");
+      console.log("first", error);
+    }
   };
   useEffect(() => {
     getUser();
+    getPP();
   }, []);
   return (
     <div>
-      <UserContext.Provider value={{ userData }}>
+      <UserContext.Provider value={{ userData, profilePict }}>
         <Navbar />
         <Routes>
           {connected ? (
@@ -50,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default  App ;

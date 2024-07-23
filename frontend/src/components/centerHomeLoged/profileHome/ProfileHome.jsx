@@ -5,10 +5,11 @@ import "./profilHome.css";
 import { useAppContext } from "../../../App";
 
 const ProfileHome = () => {
-  const {userData} = useAppContext();
+  const { userData, profilePict } = useAppContext();
   return (
     <div className="profileH">
-      <img src={`http://localhost:3000/${userData.image}`} alt="" />
+      {/* <img src={`http://localhost:3000/${userData.image}`} alt="" /> */}
+      <img src={profilePict} alt="" />
       <h1>{userData.AppUserName}</h1>
       <h2>
         {userData.name} {userData.firstName}

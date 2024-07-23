@@ -8,7 +8,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +19,7 @@ func (h handler) UserPP(ctx *gin.Context) {
 		return
 	}
 	// ge anle uuid anle tokny hovaina
-	userUUidPP, err := h.GetUserByuuid(uuid)
+	userUUidPP, err := h.GetUserSingleUserFunc(uuid)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
@@ -39,18 +38,8 @@ func (h handler) UserPP(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
-	os.Remove(userUUidPP.Image	)
+	os.Remove(userUUidPP.Image)
 	userUUidPP.Image = destFile
 	h.DB.Save(userUUidPP)
 	ctx.JSON(http.StatusCreated, gin.H{"user": userUUidPP})
-}
-func (h handler) GetUserByuuid(userUUID string) (*models.User, error) {
-	var users models.User
-	result := h.DB.First(&users, "uuid = ?", userUUID)
-	if result.Error != nil {
-		err := fmt.Errorf("utilisateur avec l'id %v n'est pas dans %v", userUUID, users)
-		return nil, err
-	}
-	return &users, nil
-
 }

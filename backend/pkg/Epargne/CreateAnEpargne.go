@@ -42,7 +42,6 @@ func (h handler) CreateEpargne(ctx *gin.Context) {
 	}
 	// logic stuff
 	uuidEpargne := uuid.New()
-	user.AutoEpargne = append(user.AutoEpargne, uuidEpargne.String())
 	if body.Value > user.Moneys {
 		err := fmt.Sprintf("vous ne pouvez pas epargner %v car l'argent sur votre compte est %v", body.Value, user.Moneys)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -62,18 +61,8 @@ func (h handler) CreateEpargne(ctx *gin.Context) {
 		DayPerMounth: body.Date,
 		Type:         body.Type,
 	}
+	user.AutoEpargne = append(user.AutoEpargne, uuidEpargne.String())
 	h.DB.Create(&epargne)
 	// succes found
-	ctx.JSON(http.StatusFound, gin.H{"epargne": &epargne})
-}
-
-func (h handler) GetUserSingleUserFunc(uuidToFind string) (*models.User, error) {
-	var user models.User
-	result := h.DB.First(&user, "uuid = ?", uuidToFind)
-	if result.Error != nil {
-		err := fmt.Errorf("user not in our database err : %v", result.Error)
-		return nil, err
-	}
-	// if success user found user w t uuidToFins
-	return &user, nil
+	ctx.JSON(http.StatusFound, gin.H{"epargne": &epargne, "user": &user})
 }

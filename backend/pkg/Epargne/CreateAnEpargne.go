@@ -19,7 +19,7 @@ import (
 type CreateEpargneRequest struct {
 	Name  string `json:"name"`
 	Value int    `json:"ValueEpargne"`
-	// tous les nombre dates du mois l'argent sera Epargner automatiquemen
+	// tous les nombre dates du mois l'argent sera Epargner automatiquement
 	Date uint   `json:"DayEpargne"`
 	Type string `json:"type"`
 }
@@ -49,20 +49,20 @@ func (h handler) CreateEpargne(ctx *gin.Context) {
 		})
 		return
 	}
-	if (body.Type) != "epargneMensuel" || body.Type != "economie" {
-		err := fmt.Sprintf("on n'accepte pas les epargne du type : %v", body.Type)
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, err)
+	if body.Date == 0 || body.Type == "" || body.Value == 0 || body.Name == "" {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "tous les champs sont obligatoire"})
 		return
 	}
-	epargne := models.Eparge{
+	epargne := models.Epargne{
 		ID:           uuidEpargne,
 		Name:         body.Name,
 		Value:        body.Value,
 		DayPerMounth: body.Date,
 		Type:         body.Type,
 	}
-	user.AutoEpargne = append(user.AutoEpargne, uuidEpargne.String())
+	// annuler le l'array du coter d'utilisateur
+	// user.AutoEpargne = append(user.AutoEpargne, uuidEpargne.String())
 	h.DB.Create(&epargne)
 	// succes found
-	ctx.JSON(http.StatusFound, gin.H{"epargne": &epargne, "user": &user})
+	ctx.JSON(http.StatusOK, gin.H{"epargne": &epargne, "user": &user})
 }

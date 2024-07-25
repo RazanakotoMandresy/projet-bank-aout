@@ -8,6 +8,7 @@ import (
 	adminbank "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/adminBank"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/db"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/money"
+	realtimenotification "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/realtimeNotification"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/user"
 
 	"github.com/gin-gonic/gin"
@@ -26,13 +27,15 @@ func main() {
 	money.TransactionRoutes(router, dbHandler)
 	adminbank.AdminRoutes(router, dbHandler)
 	epargne.EpargneTransaction(router, dbHandler)
-
+	realtimenotification.NotifTransaction(router)
+	//
 	// get anle root dir amzay tsy hard code be
 	rootDir, err := os.Getwd()
 	if err != nil {
 		fmt.Println(err)
 	}
 	router.Static("./upload", rootDir+"/upload")
+	go realtimenotification.HandleBroadcast()
 	router.Run(port)
 }
 func CORSMiddleware() gin.HandlerFunc {

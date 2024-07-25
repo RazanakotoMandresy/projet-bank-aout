@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Eparge struct {
+type Epargne struct {
 	ID         uuid.UUID `gorm:"id;primaryKey"`
 	Created_at time.Time
 	Updated_at time.Time

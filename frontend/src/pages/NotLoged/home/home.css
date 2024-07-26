@@ -10,15 +10,15 @@
 }
 .home .desc a {
   text-decoration: none;
-  background-color: #ffce68;
+  background-color: #fafafa;
   padding: 2%;
   border-radius: 25px;
   transition: width 2s;
   width: 100%;
-  color: black;
+  color: #9394a5;
 }
 .home .desc a:hover {
-  color: #ffce68;
+  color: #fafafa;
   width: 150%;
-  background-color: black;
+  background-color: #9394a5;
 }

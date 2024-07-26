@@ -8,7 +8,7 @@ import { PostPPfunc } from "../../logics/AxiosLogics/AxiosLogics";
 import { AuthentifiedMultipart } from "../../logics/authentification/authentification";
 
 const Profile = () => {
-  const { userData ,profilePict } = useAppContext();
+  const { userData, profilePict } = useAppContext();
   const [profilePicts, setProfilePicts] = useState("");
   const postPP = async (e) => {
     e.preventDefault();
@@ -24,6 +24,7 @@ const Profile = () => {
   };
   return (
     <div className="profile">
+      <ImageH1 />
       <form onSubmit={postPP} className="formPP">
         <label htmlFor="files">
           <img src={profilePict} alt="" />
@@ -36,15 +37,14 @@ const Profile = () => {
           onChange={(e) => {
             setProfilePicts(e.target.files);
           }}
+          accept=".jpg , .png"
         />
       </form>
-
       <ProfileToModified userData={userData} />
       <h4>l'agent sur votre compte est de {userData.money} ar</h4>
       <p>{userData.name} </p>
       <p>{userData.firstName}</p>
       <p>{userData.Email}</p>
-      <ImageH1 />
     </div>
   );
 };

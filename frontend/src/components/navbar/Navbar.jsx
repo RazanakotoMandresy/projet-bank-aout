@@ -11,7 +11,7 @@ const Navbar = () => {
             <Link to={"/info"}> plus d'info </Link>
           </li>
           <li>
-            <Link>Fonctionnalites</Link>
+            <Link>Fonctionnalite</Link>
           </li>
           <li>
             <Link>contactes</Link>
@@ -19,11 +19,11 @@ const Navbar = () => {
         </div>
         <div className="right">
           <li>
-            <Link to={"/login"}> Login</Link>
+            <Link to={"/login"}>connexion</Link>
           </li>
           <li>
             <Link className="register" to={"/register"}>
-              Register
+              inscription
             </Link>
           </li>
         </div>

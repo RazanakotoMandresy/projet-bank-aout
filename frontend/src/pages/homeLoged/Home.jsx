@@ -2,9 +2,9 @@ import HomeHeader from "../../components/HomeHeader/HomeHeader";
 import Notification from "../../components/HomeNotification/Notification";
 import TopEnvoye from "../../components/topEnvoye/TopEnvoye";
 import CenterHomeLoged from "../../components/centerHomeLoged/CenterHomeLoged";
-import PlaceBank from "../../components/place/PlaceBank";
-import "./Home.css";
+import "./Balance.css";
 import { useAppContext } from "../../App";
+import ProfileHome from "../../components/profileHome/ProfileHome";
 
 const Home = () => {
   const { userData } = useAppContext();
@@ -13,7 +13,7 @@ const Home = () => {
       <HomeHeader />
       <div className="balance">
         <h2>Ar {userData.money} </h2>
-        <PlaceBank />
+        <ProfileHome/>
       </div>
       <CenterHomeLoged />
       <TopEnvoye />

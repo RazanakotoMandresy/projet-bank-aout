@@ -1,14 +1,13 @@
 .notification {
   position: fixed;
   margin: 25% 0 0 69%;
-  background-color: #000;
-  max-width: 30%;
-  height: 50%;
-  overflow: scroll;
+  background-color: #d2d3db;
+  height: 48%;
+  width: 30%;
+  overflow-y: scroll;
   border-radius: 25px 0 25px 25px;
-  color: #83af3b;
+  color: #484b6a;
 }
-
 .notification ul li img {
   width: 60px;
   height: 60px;
@@ -18,4 +17,10 @@
   list-style-type: none;
   display: inline-block;
   font-size: 20px;
+}
+.notification ul li:hover {
+  background-color: #e4e5f1;
+  width: 100%;
+  border-radius: 25px;
+  padding: 5px;
 }

@@ -35,7 +35,6 @@ func main() {
 		fmt.Println(err)
 	}
 	router.Static("./upload", rootDir+"/upload")
-	go realtimenotification.HandleBroadcast()
 	router.Run(port)
 }
 func CORSMiddleware() gin.HandlerFunc {

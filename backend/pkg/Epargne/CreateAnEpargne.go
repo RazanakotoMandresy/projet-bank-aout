@@ -61,7 +61,7 @@ func (h handler) CreateEpargne(ctx *gin.Context) {
 		Type:         body.Type,
 	}
 	// annuler le l'array du coter d'utilisateur
-	// user.AutoEpargne = append(user.AutoEpargne, uuidEpargne.String())
+	// user.AutoEpargne = append(user.AutoEpargne, uuidEpargne.String	())
 	h.DB.Create(&epargne)
 	// succes found
 	ctx.JSON(http.StatusOK, gin.H{"epargne": &epargne, "user": &user})

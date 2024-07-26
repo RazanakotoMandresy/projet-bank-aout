@@ -1,0 +1,9 @@
+.Home .balance {
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #fafafa;
+  color: #484b6a;
+  position: fixed;
+  margin: 9.5% 0 0 2%;
+  width: 15%;
+}

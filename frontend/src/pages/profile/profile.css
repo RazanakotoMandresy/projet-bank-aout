@@ -1,7 +1,7 @@
 .profile {
   position: fixed;
   text-align: center;
-  background-color: #4156d1;
+  background-color: #fefefe;
   width: 35%;
   position: fixed;
   margin-top: 7%;
@@ -9,6 +9,7 @@
   border-radius: 25px;
   padding: 10px;
   font-family: fantasy;
+  color: #484b6a;
 }
 .profile .formPP img {
   width: 100px;
@@ -38,7 +39,7 @@
   text-align: center;
   margin-top: 5px;
   padding: 5px;
-  background-color: red;
+  background-color: #e4e5f1;
   border-radius: 25px;
   border: none;
 }

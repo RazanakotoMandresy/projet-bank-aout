@@ -7,7 +7,6 @@ const ProfileToModified = ({ userData }) => {
   const [wantModif, setWantModif] = useState(true);
   const [appUserName, setAppUserName] = useState(userData.AppUserName);
   const [residance, setResidance] = useState(userData.residance);
-
   const updateUserInfo = async (e) => {
     e.preventDefault();
     try {

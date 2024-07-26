@@ -4,7 +4,6 @@
   border-radius: 50%;
 }
 .profileH {
-  margin-top: 17%;
   text-align: center;
 }
 .profileH .parmProfil a {
@@ -12,11 +11,16 @@
   font-size: 20px;
   text-decoration: none;
   margin: 10px;
-  background-color: black;
-  width: 20%;
+  background-color: #d2d3db;
+
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
-  color: white;
+  color: #484b6a;
   padding: 10px;
-  border-radius: 25px
+  border-radius: 25px;
+}
+.profileH .parmProfil a:hover {
+  background-color: #484b6a;
+  color: #fafafa;
 }

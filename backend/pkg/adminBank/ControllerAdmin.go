@@ -13,10 +13,11 @@ type handler struct {
 
 func AdminRoutes(router *gin.Engine, db *gorm.DB) {
 	h := &handler{
-		DB: db,	
+		DB: db,
 	}
 	routes := router.Group("/api/v1/admin")
 	routes.POST("/registerAnAdmin", h.CreateAdminAccount)
 	routes.POST("/loginAsAdmin", h.LoginAdmin)
 	routes.POST("/createBank", middleware.RequireAuth, h.CreateBank)
+	routes.GET("/getBank", middleware.RequireAuth, h.GetBankLogAdmin)
 }

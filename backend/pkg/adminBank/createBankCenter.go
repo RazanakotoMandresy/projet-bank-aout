@@ -10,8 +10,9 @@ import (
 )
 
 type BankReq struct {
-	Money int   `json:"money"`
-	Lieux string `json:"lieux"`
+	Money    int    `json:"money"`
+	Lieux    string `json:"lieux"`
+	Password string `json:"password"`
 }
 
 // code create bank
@@ -39,17 +40,21 @@ func (h handler) CreateBank(ctx *gin.Context) {
 		})
 		return
 	}
-	
+
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"err": err.Error(),
 		})
 		return
 	}
+	if err := middleware.IsTruePassword(admin.Passwords, body.Password); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		return
+	}
 
 	bank := models.Bank{
-		Money: body.Money,
-		Lieux: body.Lieux,
+		Money:        body.Money,
+		Lieux:        body.Lieux,
 		MaintennedBy: admin.UUID.String(),
 	}
 

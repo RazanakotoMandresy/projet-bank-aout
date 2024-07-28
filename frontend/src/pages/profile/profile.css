@@ -19,6 +19,7 @@
 .profile .formPP label {
   cursor: pointer;
 }
+
 .profile .formPP input {
   display: none;
 }

@@ -3,7 +3,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -37,11 +36,15 @@ function App() {
   const getPP = async () => {
     try {
       const { data } = await GetUser(Authentified);
-      console.log(data);
+      console.log("ppppp sans erreur", data.image);
+      if (data.image == "") {
+        setProfilePict("http://localhost:5173/defaultPP.jpg");
+        return
+      }
       setProfilePict(`http://localhost:3000/${data.image}`);
     } catch (error) {
       setProfilePict("http://localhost:5173/defaultPP.jpg");
-      console.log("first", error);
+      console.log("pppppppp", error);
     }
   };
   useEffect(() => {
@@ -68,4 +71,4 @@ function App() {
   );
 }
 
-export default  App ;
+export default App;

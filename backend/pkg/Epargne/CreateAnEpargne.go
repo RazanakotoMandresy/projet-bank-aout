@@ -41,7 +41,6 @@ func (h handler) CreateEpargne(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H{"err": err.Error()})
 	}
 	// logic stuff
-	uuidEpargne := uuid.New()
 	if body.Value > user.Moneys {
 		err := fmt.Sprintf("vous ne pouvez pas epargner %v car l'argent sur votre compte est %v", body.Value, user.Moneys)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -54,11 +53,12 @@ func (h handler) CreateEpargne(ctx *gin.Context) {
 		return
 	}
 	epargne := models.Epargne{
-		ID:           uuidEpargne,
+		ID:           uuid.New(),
 		Name:         body.Name,
 		Value:        body.Value,
 		DayPerMounth: body.Date,
 		Type:         body.Type,
+		UserUUID:     user.UUID,
 	}
 	// annuler le l'array du coter d'utilisateur
 	// user.AutoEpargne = append(user.AutoEpargne, uuidEpargne.String	())

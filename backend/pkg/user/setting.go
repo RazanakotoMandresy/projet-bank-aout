@@ -8,15 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// les trucs que l'user peut modifier
-// modifier le mots de passe
-// supprimer des auto epargne
 type SettingReq struct {
 	RemoveAllEp     bool   `json:"rmEpargne"`
 	DeleteMyAccount bool   `json:"rmAccount"`
 	BlockAccount    string `json:"blockAcc"`
 	UnBlockAccount  string `json:"unblockAcc"`
-	// rehefa misy inspi tohizana
+	// miandry inspi block unblock
 }
 
 func (h handler) SettingUser(ctx *gin.Context) {
@@ -30,13 +27,20 @@ func (h handler) SettingUser(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
 		return
 	}
-	// innutile ngamba
-	// user, err := h.GetUserSingleUserFunc(uuid)
-	// if err != nil {
-	// 	ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H{"err": err})
-	// }
+	user, err := h.GetUserSingleUserFunc(uuid)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H{"err": err.Error()})
+		return
+	}
 	if body.RemoveAllEp {
-		err := removeAllEpFunc(h, uuid)
+		err := removeAllEpFunc(h, user.UUID)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"err": err.Error()})
+			return
+		}
+	}
+	if body.DeleteMyAccount {
+		err := deleMyAccount(h, user)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"err": err.Error()})
 			return
@@ -47,6 +51,14 @@ func (h handler) SettingUser(ctx *gin.Context) {
 func removeAllEpFunc(h handler, uuidUser string) error {
 	var epargne models.Epargne
 	res := h.DB.Delete(&epargne, "user_uuid = ?", uuidUser)
+	if res.Error != nil {
+		return res.Error
+	}
+	return nil
+}
+
+func deleMyAccount(h handler, user *models.User) error {
+	res := h.DB.Delete(user, "uuid = ?", user.UUID)
 	if res.Error != nil {
 		return res.Error
 	}

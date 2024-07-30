@@ -1,18 +1,19 @@
 package user
 
 import (
-	"net/http"
-
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
+
+	"net/http"
 )
 
 type SettingReq struct {
-	RemoveAllEp     bool   `json:"rmEpargne"`
-	DeleteMyAccount bool   `json:"rmAccount"`
-	BlockAccount    string `json:"blockAcc"`
-	UnBlockAccount  string `json:"unblockAcc"`
+	RemoveAllEp         bool   `json:"rmEpargne"`
+	DeleteMyAccount     bool   `json:"rmAccount"`
+	BlockAccount        string `json:"blockAcc"`
+	UnBlockAccount      string `json:"unblockAcc"`
+	UserToBlockNameUUID string `json:"blockNameUUID"`
 	// miandry inspi block unblock
 }
 
@@ -46,6 +47,13 @@ func (h handler) SettingUser(ctx *gin.Context) {
 			return
 		}
 	}
+	if body.BlockAccount != "" {
+		err := blockAccount(h, user, body.BlockAccount)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+			return
+		}
+	}
 	ctx.JSON(http.StatusOK, "ok")
 }
 func removeAllEpFunc(h handler, uuidUser string) error {
@@ -59,6 +67,19 @@ func removeAllEpFunc(h handler, uuidUser string) error {
 
 func deleMyAccount(h handler, user *models.User) error {
 	res := h.DB.Delete(user, "uuid = ?", user.UUID)
+	if res.Error != nil {
+		return res.Error
+	}
+	return nil
+}
+func blockAccount(h handler, user *models.User, userBlock string) error {
+	// atao appUserName fa tsy uuid ny blockage
+	userToBlock, err := h.GetUserSingleUserFunc(userBlock)
+	if err != nil {
+		return err
+	}
+	user.BlockedAcc = append(user.BlockedAcc, userToBlock.AppUserName)
+	res := h.DB.Save(&user)
 	if res.Error != nil {
 		return res.Error
 	}

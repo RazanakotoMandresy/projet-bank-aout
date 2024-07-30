@@ -1,6 +1,10 @@
 package user
 
 import (
+	"errors"
+	"fmt"
+	"slices"
+
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
@@ -48,7 +52,7 @@ func (h handler) SettingUser(ctx *gin.Context) {
 		}
 	}
 	if body.BlockAccount != "" {
-		err := blockAccount(h, user, body.BlockAccount)
+		err := blockAccount(h, uuid, body.BlockAccount)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 			return
@@ -72,11 +76,25 @@ func deleMyAccount(h handler, user *models.User) error {
 	}
 	return nil
 }
-func blockAccount(h handler, user *models.User, userBlock string) error {
+
+// TODO handle la logique dans money satria mbola manip anle liste ao anaty db fotsiny aloha
+
+func blockAccount(h handler, uuid, userBlock string) error {
 	// atao appUserName fa tsy uuid ny blockage
 	userToBlock, err := h.GetUserSingleUserFunc(userBlock)
 	if err != nil {
 		return err
+	}
+	user, err := h.GetUserSingleUserFunc(uuid)
+	if err != nil{
+		return err
+	}
+	// la logique ne fonctionne pas encore
+	n, found := slices.BinarySearch(user.BlockedAcc, user.AppUserName)
+	fmt.Println(n)
+	if found {
+		// appeles de unblock
+		return errors.New("unblock")
 	}
 	user.BlockedAcc = append(user.BlockedAcc, userToBlock.AppUserName)
 	res := h.DB.Save(&user)

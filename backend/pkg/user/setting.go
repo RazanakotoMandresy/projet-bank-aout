@@ -2,7 +2,6 @@ package user
 
 import (
 	"errors"
-	"fmt"
 	"slices"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
@@ -58,6 +57,13 @@ func (h handler) SettingUser(ctx *gin.Context) {
 			return
 		}
 	}
+	if body.UnBlockAccount != "" {
+		err := unBlockAccount(h, uuid, body.UnBlockAccount)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		}
+		return
+	}
 	ctx.JSON(http.StatusOK, "ok")
 }
 func removeAllEpFunc(h handler, uuidUser string) error {
@@ -86,20 +92,50 @@ func blockAccount(h handler, uuid, userBlock string) error {
 		return err
 	}
 	user, err := h.GetUserSingleUserFunc(uuid)
-	if err != nil{
+	if err != nil {
 		return err
 	}
 	// la logique ne fonctionne pas encore
-	n, found := slices.BinarySearch(user.BlockedAcc, user.AppUserName)
-	fmt.Println(n)
+	_, found := slices.BinarySearch(user.BlockedAcc, userToBlock.AppUserName)
+	// une deuxieme appuye sur le block va causer un unblock
 	if found {
 		// appeles de unblock
 		return errors.New("unblock")
+	}
+	if user.AppUserName == userToBlock.AppUserName {
+		return errors.New("vous ne pouvez pas vous autobloquez")
 	}
 	user.BlockedAcc = append(user.BlockedAcc, userToBlock.AppUserName)
 	res := h.DB.Save(&user)
 	if res.Error != nil {
 		return res.Error
 	}
+	return nil
+}
+
+// pour un code plus safe de uuid string no naverina nalefa fa tsy tong de le user minyts
+func unBlockAccount(h handler, uuid, userUnblock string) error {
+	userToUnblock, err := h.GetUserSingleUserFunc(userUnblock)
+	// l'iuser ou l'on veut bloquer
+	if err != nil {
+		return err
+	}
+	// user connected
+	user, err := h.GetUserSingleUserFunc(uuid)
+	if err != nil {
+		return nil
+	}
+	// TODO Algo temporaire vu que le code est nulle enleve de l'array
+	go func() {
+		blockedUser := []string{}
+		for _, appUserName := range user.BlockedAcc {
+			if appUserName == userToUnblock.AppUserName {
+				continue
+			}
+			blockedUser = append(blockedUser, appUserName)
+		}
+		user.BlockedAcc = blockedUser
+		h.DB.Save(&user)
+	}()
 	return nil
 }

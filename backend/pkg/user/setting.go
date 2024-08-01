@@ -100,7 +100,8 @@ func blockAccount(h handler, uuid, userBlock string) error {
 	// une deuxieme appuye sur le block va causer un unblock
 	if found {
 		// appeles de unblock
-		return errors.New("unblock")
+		unBlockAccount(h, uuid, userBlock)
+		return nil
 	}
 	if user.AppUserName == userToBlock.AppUserName {
 		return errors.New("vous ne pouvez pas vous autobloquez")
@@ -125,7 +126,7 @@ func unBlockAccount(h handler, uuid, userUnblock string) error {
 	if err != nil {
 		return nil
 	}
-	// TODO Algo temporaire vu que le code est nulle enleve de l'array
+	// TODO Algo temporaire vu que le code est nulle enleve dans l'array les noms dejas dedans
 	go func() {
 		blockedUser := []string{}
 		for _, appUserName := range user.BlockedAcc {

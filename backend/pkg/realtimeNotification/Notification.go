@@ -16,9 +16,11 @@ var upgrader = websocket.Upgrader{
 func GetNotif(c *gin.Context) {
 	fmt.Println("getNotif")
 	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+	
 	if err != nil {
 		return
 	}
+
 	defer conn.Close()
 	for {
 		conn.WriteMessage(websocket.TextMessage, []byte("Hello, WebSocket!"))

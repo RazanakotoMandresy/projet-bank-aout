@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
@@ -40,11 +41,21 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "on ne peut pas envoyer une somme aussi minime"})
 		return
 	}
-	userConnected, _ := h.GetUserByuuid(uuidConnectedStr)
+	userConnected, err := h.GetUserByuuid(uuidConnectedStr)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+
+	}
 	// maka anle userRecepteur tokony par uuid na par AppUserName
 	userRecepteur, err := h.GetUserByuuid(uuidRecepteur)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
+	_, found := slices.BinarySearch(userConnected.BlockedAcc, userRecepteur.AppUserName)
+	if found {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": fmt.Sprintf("vous avez deja bloquer %v", userRecepteur.AppUserName)})
 		return
 	}
 	// check si l'envoyeur essayent d'envoyer plus d'argent que ce qu'il en a
@@ -53,7 +64,6 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
-
 	// check si l'userConnecter est la meme que celui qui il essaye d'envoyer de l'argent
 	if uuidConnectedStr == userRecepteur.UUID {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "vous ne pouvez pas envoyer de l'argent a vous meme "})

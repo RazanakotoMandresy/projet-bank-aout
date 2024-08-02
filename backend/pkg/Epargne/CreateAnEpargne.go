@@ -3,6 +3,7 @@ package epargne
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
@@ -63,6 +64,9 @@ func (h handler) CreateEpargne(ctx *gin.Context) {
 	// annuler le l'array du coter d'utilisateur
 	// user.AutoEpargne = append(user.AutoEpargne, uuidEpargne.String	())
 	h.DB.Create(&epargne)
+	if time.Now().Date()
 	// succes found
 	ctx.JSON(http.StatusOK, gin.H{"epargne": &epargne, "user": &user})
 }
+// todo  later satria ilay realtime notification aloha ny mila handlena rapide .
+// autocall rehefe date mois ajd

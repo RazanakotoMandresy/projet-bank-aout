@@ -23,7 +23,6 @@ func (h handler) GetTopTrans(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
 		return
 	}
-
 	var money []models.Money
 	result := h.DB.Find(&money, "send_by = ?", uuid)
 	if result.Error != nil {

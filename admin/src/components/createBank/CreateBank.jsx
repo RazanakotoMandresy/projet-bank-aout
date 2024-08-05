@@ -2,24 +2,18 @@ import React, { useCallback, useState } from "react";
 import { AiFillWarning, AiOutlineClose } from "react-icons/ai";
 import "./createBank.css";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { CreateBankAxios } from "../../utils/axiosUtils/AxiosLogics";
-import { Authentified } from "../../utils/auth/Auth";
-const CreateBank = ({ open }) => {
-  const [lieux, setLieux] = useState("");
-  const [valeur, setValeur] = useState(1);
-  const [password, setPassword] = useState("");
+const CreateBank = ({ props }) => {
+  const {
+    changeLieux,
+    changePassword,
+    changeValue,
+    createBankSubmit,
+    lieux,
+    password,
+    valeur,
+    open,
+  } = props;
   const [next, setNext] = useState(false);
-  const createBankSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const value = { lieux, money: valeur, password };
-      const { data } = await CreateBankAxios(value, Authentified);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const changeNexts = useCallback(() => {
     setNext(!next);
   }, [next]);
@@ -47,18 +41,18 @@ const CreateBank = ({ open }) => {
             placeholder="lieux"
             value={lieux}
             onChange={(e) => {
-              setLieux(e.target.value);
+              changeLieux(e);
             }}
           />
           la valeur initial accorder a la banque
           <input
-            type="text"
+            type="number"
             name="value"
             id="value"
             placeholder="Valeur"
             value={valeur}
             onChange={(e) => {
-              setValeur(e.target.value);
+              changeValue(e);
             }}
           />
           <button onClick={changeNexts}>
@@ -81,7 +75,7 @@ const CreateBank = ({ open }) => {
               placeholder="mots de passe"
               value={password}
               onChange={(e) => {
-                setPassword(e.target.value);
+                changePassword(e);
               }}
             />
             <button type="submit">cree </button>

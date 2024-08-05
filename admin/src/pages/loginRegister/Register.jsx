@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./LogReg.css";
 import { RegisterAdmin } from "../../utils/axiosUtils/AxiosLogics";
 import { SetToLocalStorage } from "../../utils/localStorageManip/localStorageManip";
@@ -8,6 +8,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [passwords, setPasswords] = useState("");
   const [rootPassword, setRootPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
   const registerFunc = async (e) => {
     e.preventDefault();
     try {
@@ -16,12 +17,15 @@ const Register = () => {
       setName("");
       setPasswords("");
       setRootPassword("");
-      // SetToken(data.token);
       SetToLocalStorage("token", data.token);
+      setRedirect(true);
     } catch (error) {
       console.log(error);
     }
   };
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
   return (
     <div className="LoginReg">
       <h2>REGISTER</h2>

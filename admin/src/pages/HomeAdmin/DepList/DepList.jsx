@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FiCreditCard } from "react-icons/fi";
 
-const DepList = ({depList}) => {
+const DepList = ({ depList }) => {
   return (
     <div>
       <div className="allMyDep">

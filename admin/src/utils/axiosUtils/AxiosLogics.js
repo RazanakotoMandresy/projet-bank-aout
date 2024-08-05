@@ -11,3 +11,6 @@ export const GetBanksList = async (Auth) => {
 export const CreateBankAxios = async (value, Auth) => {
   return await AxiosInstances.post("/createBank", value, Auth);
 };
+export const GetAdminInfo = async (Auth) => {
+  return await AxiosInstances.get("/getAdminInfo", Auth);
+};

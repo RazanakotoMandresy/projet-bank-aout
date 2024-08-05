@@ -24,6 +24,7 @@ const HomeAdmin = () => {
       console.log(error);
     }
   }, [depList]);
+
   const createBankSubmit = async (e) => {
     e.preventDefault();
     try {

@@ -20,4 +20,5 @@ func AdminRoutes(router *gin.Engine, db *gorm.DB) {
 	routes.POST("/loginAsAdmin", h.LoginAdmin)
 	routes.POST("/createBank", middleware.RequireAuth, h.CreateBank)
 	routes.GET("/getBank", middleware.RequireAuth, h.GetBankLogAdmin)
+	routes.GET("/getAdminInfo", middleware.RequireAuth, h.GetAdminInfo)
 }

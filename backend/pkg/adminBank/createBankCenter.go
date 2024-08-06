@@ -10,15 +10,14 @@ import (
 )
 
 type BankReq struct {
-	Money    int    `json:"money"`
+	Money    int32  `json:"money"`
 	Lieux    string `json:"lieux"`
 	Password string `json:"password"`
 }
 
 // code create bank
 func (h handler) CreateBank(ctx *gin.Context) {
-	// uuidAny, _ := ctx.Get("uuid")
-	// maka anle uuid avy ao anaty le token ?
+
 	body := new(BankReq)
 	// mamadika anle uuidAny ho string
 	uuid, err := middleware.ExtractTokenUUID(ctx)
@@ -34,6 +33,7 @@ func (h handler) CreateBank(ctx *gin.Context) {
 		return
 	}
 	// code defensif sur le role meme si il est impossible qu'il soit appele satria ny uuid an'i admin ihany ny getevana
+	// TODO Renforcement
 	if admin.Role != "admin" {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"err": "vous n'avez pas le role necessaire ",
@@ -48,7 +48,7 @@ func (h handler) CreateBank(ctx *gin.Context) {
 		return
 	}
 	if err := middleware.IsTruePassword(admin.Passwords, body.Password); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
 
@@ -65,6 +65,8 @@ func (h handler) CreateBank(ctx *gin.Context) {
 		return
 	}
 
+	admin.TotalSend = admin.TotalSend + int(body.Money)
+	h.DB.Save(&admin)
 	ctx.JSON(http.StatusOK, gin.H{
 		"result": bank,
 	})

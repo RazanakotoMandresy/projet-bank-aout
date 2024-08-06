@@ -12,7 +12,7 @@ type Bank struct {
 	Created_at   time.Time
 	Updated_at   time.Time
 	Deleted_at   gorm.DeletedAt
-	Money        int
+	Money        int32
 	Lieux        string `gorm:"unique"`
 	MaintennedBy string
 }

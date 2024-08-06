@@ -15,6 +15,6 @@ type Epargne struct {
 	DayPerMounth uint
 	// Type genre type anle epargne asina 2 , versment auto dans un compte na vola angonona tsy afaka kitihina (genre boitendrakitra)
 	Type     string
-	Value    int
+	Value    int32
 	UserUUID string
 }

@@ -18,7 +18,7 @@ import (
 // Date maka ny jours ou du mois anaovana anle epargne
 type CreateEpargneRequest struct {
 	Name  string `json:"name"`
-	Value int    `json:"ValueEpargne"`
+	Value int32    `json:"ValueEpargne"`
 	// tous les nombre dates du mois l'argent sera Epargner automatiquement
 	Date uint   `json:"DayEpargne"`
 	Type string `json:"type"`

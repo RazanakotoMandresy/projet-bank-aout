@@ -6,6 +6,7 @@ import (
 
 	epargne "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/Epargne"
 	adminbank "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/adminBank"
+	chatrealtimes "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/chatRealtimes"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/db"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/money"
 	realtimenotification "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/realtimeNotification"
@@ -19,17 +20,19 @@ func main() {
 	router := gin.Default()
 	gin.SetMode(gin.DebugMode)
 	router.Use(CORSMiddleware())
+	//
 	godotenv.Load("./pkg/common/envs/.env")
 	port := os.Getenv("PORT")
 	dbUrl := os.Getenv("DB_URL")
 	dbHandler := db.Init(dbUrl)
+	//
 	user.RegisterRoutes(router, dbHandler)
 	money.TransactionRoutes(router, dbHandler)
 	adminbank.AdminRoutes(router, dbHandler)
 	epargne.EpargneTransaction(router, dbHandler)
 	realtimenotification.NotifTransaction(router)
-	//
-	// get anle root dir amzay tsy hard code be
+	chatrealtimes.ChatTransaction(router)
+	// dir misy amzao
 	rootDir, err := os.Getwd()
 	if err != nil {
 		fmt.Println(err)

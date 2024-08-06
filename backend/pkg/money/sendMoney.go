@@ -58,7 +58,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 		return
 	}
 	// check si l'envoyeur essayent d'envoyer plus d'argent que ce qu'il en a
-	if int(value) > userConnected.Moneys {
+	if value > userConnected.Moneys {
 		err := fmt.Errorf("impossible d'envoyer votre argent %v l'argent que vous voulez envoyer est %v", userConnected.Moneys, value)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
@@ -71,8 +71,8 @@ func (h handler) SendMoney(ctx *gin.Context) {
 
 	// 	message si tous se passe bien
 	// message := fmt.Sprintf("%v a envoye un argent d'un montant de %v a %v", userConnected.AppUserName, value, userRecepteur.AppUserName)
-	userConnected.Moneys = userConnected.Moneys - int(value)
-	userRecepteur.Moneys = (userRecepteur.Moneys + int(value))
+	userConnected.Moneys = userConnected.Moneys - value
+	userRecepteur.Moneys = (userRecepteur.Moneys + value)
 	// save les money ao anaty user satria ireo tables fatsy uuid simplement ril
 	h.DB.Save(userRecepteur)
 	h.DB.Save(userConnected)

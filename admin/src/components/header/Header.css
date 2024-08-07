@@ -1,21 +1,73 @@
 .Header {
-  margin-left: 75%;
-  background-color: #d1c6be;
-  border-radius: 10px;
-  padding: 5px;
+  position: fixed;
+  width: 99%;
+  top: 0;
+  left: 0;
+  padding: 10px;
 }
-.Header:hover {
-  box-shadow: 5px 5px #edc339;
-}
-.Header button:hover {
-  box-shadow: 5px 5px #edc339;
+.Header .headerContent {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .Header button {
-  font-size: 30px;
-  margin: 5px;
+  float: inline-end;
+  margin-right: 50px;
+  padding: 20px;
+  font-size: 20px;
   border: none;
-  padding: 5px;
   border-radius: 25px;
-  color: #d1c6be;
-  background-color: #01577d;
+  background-color: #484b6a;
+  cursor: pointer;
+  color: #fafafa;
+}
+
+.Header button:hover {
+  background-color: #9394a5;
+  box-shadow: 2px 2px #484b6a;
+  color: #484b6a;
+}
+.Header a {
+  background-color: #484b6a;
+  float: inline-end;
+  margin-right: 50px;
+  padding: 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fafafa;
+}
+.Header a:hover {
+  background-color: #9394a5;
+  box-shadow: 2px 2px #484b6a;
+  color: #484b6a;
+}
+.Header .search input {
+  background-color: #9394a5;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 25%;
+  font-size: 15px;
+  padding: 15px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+}
+.Header .search input:focus {
+  font-size: 18px;
+}
+.Header .search label {
+  font-size: 18px;
+  margin-left: -35px;
+  margin-top: 10px;
+}
+.Header .search label:hover {
+  background-color: #484848;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
 }

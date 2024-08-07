@@ -1,9 +1,10 @@
-import DepList from "./DepList/DepList";
+import DepList from "../../components/DepList/DepList";
 import { useCallback, useEffect, useState } from "react";
 import CreateBank from "../../components/createBank/CreateBank";
 import "./HomeAdmin.css";
 import {
   CreateBankAxios,
+  GetAdminInfo,
   GetBanksList,
 } from "../../utils/axiosUtils/AxiosLogics";
 import { Authentified } from "../../utils/auth/Auth";
@@ -15,6 +16,7 @@ const HomeAdmin = () => {
   const [lieux, setLieux] = useState("");
   const [valeur, setValeur] = useState(1);
   const [password, setPassword] = useState("");
+  const [admin, setAdmin] = useState({});
 
   const GetBanks = useCallback(async () => {
     try {
@@ -36,6 +38,14 @@ const HomeAdmin = () => {
       setLieux("");
       setValeur("");
       setPassword("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAdminInfo = async () => {
+    try {
+      const { data } = await GetAdminInfo(Authentified);
+      setAdmin(data.res);
     } catch (error) {
       console.log(error);
     }
@@ -64,12 +74,13 @@ const HomeAdmin = () => {
   };
   useEffect(() => {
     GetBanks();
+    getAdminInfo();
   }, []);
   return (
     <div className="HomeAdmin">
-      <ProfileHome open={open} />
-      {createbank ? <CreateBank props={props} /> : <></>}
+      <ProfileHome open={open} admin={admin} />
       <DepList depList={depList} />
+      {createbank ? <CreateBank props={props} /> : <></>}
     </div>
   );
 };

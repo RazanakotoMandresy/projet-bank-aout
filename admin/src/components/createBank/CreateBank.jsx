@@ -22,7 +22,6 @@ const CreateBank = ({ props }) => {
       <button className="close" onClick={open}>
         <AiOutlineClose />
       </button>
-
       <h4>creation d'un banque</h4>
       {next ? (
         <></>
@@ -33,7 +32,7 @@ const CreateBank = ({ props }) => {
             conscience de ce que vous allez faire sur cette fonctionnaliter ,
             des mauvaise manipulation peut mener a des sanctions penales
           </h4>
-          le lieux precis ou se trouve la banque
+          <p>le lieux precis ou se trouve la banque</p>
           <input
             type="text"
             name="lieux"
@@ -44,7 +43,7 @@ const CreateBank = ({ props }) => {
               changeLieux(e);
             }}
           />
-          la valeur initial accorder a la banque
+          <p>la valeur initial accorder a la banque</p>
           <input
             type="number"
             name="value"
@@ -63,11 +62,12 @@ const CreateBank = ({ props }) => {
 
       {next ? (
         <>
-          <button className="prev" onClick={changeNexts}>
+          <button onClick={changeNexts}>
             <FiChevronLeft />
+            precedent
           </button>
           <form action="" onSubmit={createBankSubmit}>
-            votre mots de passe d'admin
+            <p>votre mots de passe d'admin</p>
             <input
               type="password"
               name="password"

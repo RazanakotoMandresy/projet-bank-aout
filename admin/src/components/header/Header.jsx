@@ -1,14 +1,38 @@
 import React from "react";
-import { FiMoon, FiSun } from "react-icons/fi";
+import { FiMoon, FiSearch, FiSun } from "react-icons/fi";
 import "./Header.css";
+import { Link } from "react-router-dom";
+import { RemoveFromLocalStorage } from "../../utils/localStorageManip/localStorageManip";
 const Header = ({ props }) => {
-  const { changeMode, Mode } = props;
-
+  const { changeMode, Mode, connected } = props;
   return (
     <div className="Header">
-      <button onClick={changeMode}>{Mode ? <FiSun /> : <FiMoon />}</button>
-      <button>Login</button>
-    </div>
+      <div className="search">
+        <input
+          type="text"
+          name="searchBank"
+          id="searchBank"
+          placeholder={`chercher une banque`}
+        />
+        <label htmlFor="searchBank">
+          <FiSearch />
+        </label>
+      </div>
+        <button onClick={changeMode} className="mode">
+          {Mode ? <FiSun /> : <FiMoon />}
+        </button>
+        {connected ? (
+          <Link to={"/login"}>Login</Link>
+        ) : (
+          <button
+            onClick={() => {
+              RemoveFromLocalStorage("token");
+            }}
+          >
+            Logout
+          </button>
+        )}
+      </div>
   );
 };
 

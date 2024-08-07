@@ -5,11 +5,10 @@ import Login from "./pages/loginRegister/Login";
 import Register from "./pages/loginRegister/Register";
 import "./App.css";
 import Header from "./components/header/Header";
-
+import HomeNotLoged from "./pages/HomeNotLoged/HomeNotLoged";
+// TODO dark mode (install styled components (Maybe))
 const App = () => {
-  // todo  implement the localstorage manipulttion
-  // after learning typescript
-  const [connected, setConnected] = useState(true); 
+  const [connected, setConnected] = useState(true);
   const [Mode, setMode] = useState(Boolean);
   const IsConnected = () => {
     const nonNilToken = localStorage.getItem("token");
@@ -23,16 +22,19 @@ const App = () => {
     localStorage.setItem("Mode", Mode);
     setMode(!Mode);
   };
-  const headerProps = { changeMode, Mode };
+  const headerProps = { changeMode, Mode, connected };
   useEffect(() => {
     IsConnected();
   }, []);
 
   return (
-    <div className={`${Mode ? "sombre" : "claire"}`}>
+    <div>
       <Header props={headerProps} />
       <Routes>
-        <Route path="/" element={connected ? <Login /> : <HomeAdmin />} />
+        <Route
+          path="/"
+          element={connected ? <HomeNotLoged /> : <HomeAdmin />}
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>

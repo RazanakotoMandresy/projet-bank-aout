@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FiCreditCard } from "react-icons/fi";
-
+import "./depList.css"
 const DepList = ({ depList }) => {
   return (
     <div>

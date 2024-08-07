@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./LogReg.css";
 import { SetToLocalStorage } from "../../utils/localStorageManip/localStorageManip";
 import { LogAsAdmin } from "../../utils/axiosUtils/AxiosLogics";
 const Login = () => {
   const [name, setName] = useState("");
   const [passwords, setPasswords] = useState("");
+  const [redirect, setRedirect] = useState(false);
   const logFunc = async (e) => {
     e.preventDefault();
     try {
@@ -13,18 +14,17 @@ const Login = () => {
       const { data } = await LogAsAdmin(values);
       setName("");
       setPasswords("");
-      // SetToken(data.token);
       SetToLocalStorage("token", data.token);
+      setRedirect(true);
     } catch (error) {
       console.log(error);
     }
   };
+  if (redirect){
+    return <Navigate to={"/"} state={true}></Navigate>
+  }
   return (
     <div className="LoginReg">
-      <h4>
-        Il semble qu'il n'y ai aucun compte connecter vous pouvez vous connecter
-        en remplissant le champ suivant
-      </h4>
       <h2>LOGIN</h2>
       <form action="" onSubmit={logFunc}>
         <p> nom</p>

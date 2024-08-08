@@ -9,7 +9,7 @@ const Login = ({ ChangeBtn }) => {
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const login = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     const logUser = { Email, password };
     try {
       const { data } = await LoginFunc(logUser);

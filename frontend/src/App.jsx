@@ -16,6 +16,7 @@ import Profile from "./pages/profile/Profile";
 import "./App.css";
 import { GetUser } from "./logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "./logics/authentification/authentification";
+import Setting from "./pages/Setting/Setting";
 export const UserContext = createContext();
 export const useAppContext = () => useContext(UserContext);
 
@@ -32,19 +33,17 @@ function App() {
     } catch (error) {
       console.log("vous pouvez vous conneter sur login");
     }
-  }, [userData]);
+  }, [connected]);
   const getPP = async () => {
     try {
       const { data } = await GetUser(Authentified);
-      console.log("ppppp sans erreur", data.image);
       if (data.image == "") {
         setProfilePict("http://localhost:5173/defaultPP.jpg");
-        return
+        return;
       }
       setProfilePict(`http://localhost:3000/${data.image}`);
     } catch (error) {
       setProfilePict("http://localhost:5173/defaultPP.jpg");
-      console.log("pppppppp", error);
     }
   };
   useEffect(() => {
@@ -65,6 +64,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile/:uuid" element={<Profile />} />
+          <Route path="/setting" element={<Setting />} />
         </Routes>
       </UserContext.Provider>
     </div>

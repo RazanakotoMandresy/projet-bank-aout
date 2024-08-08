@@ -14,7 +14,7 @@ const ProfileHome = () => {
         {userData.name} {userData.firstName}
       </h2>
       <div className="parmProfil">
-        <Link to={"/setting/:uuid"}>
+        <Link to={"/setting"}>
           Parametre generales <FiSettings />
         </Link>
         <Link to={`/profile/${userData.UUID}`}>

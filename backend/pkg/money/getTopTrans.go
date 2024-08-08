@@ -30,6 +30,7 @@ func (h handler) GetTopTrans(ctx *gin.Context) {
 		return
 	}
 	userTosendSlicesJsoned := []topTrans{}
+	// img for ui
 	for _, moneys := range money {
 		userTosendSlicesJsoned = append(userTosendSlicesJsoned, topTrans{
 			SentTo:     moneys.SentTo,

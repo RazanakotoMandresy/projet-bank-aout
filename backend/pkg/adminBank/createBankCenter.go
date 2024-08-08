@@ -25,7 +25,7 @@ func (h handler) CreateBank(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
-	admin, err := h.GetByuuid(uuid)
+	admin, err := h.GetAdminUUID(uuid)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"err": err.Error(),
@@ -71,7 +71,7 @@ func (h handler) CreateBank(ctx *gin.Context) {
 		"result": bank,
 	})
 }
-func (h handler) GetByuuid(adminUUID string) (*models.Admin, error) {
+func (h handler) GetAdminUUID(adminUUID string) (*models.Admin, error) {
 	var admin models.Admin
 	result := h.DB.First(&admin, "uuid = ?", adminUUID)
 	if result.Error != nil {

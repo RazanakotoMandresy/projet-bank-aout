@@ -19,6 +19,6 @@ func (h handler) GetBankLogAdmin(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error.Error()})
 		return
 	}
-
+	
 	ctx.JSON(http.StatusOK, gin.H{"res": &bank})
 }

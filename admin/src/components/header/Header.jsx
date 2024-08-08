@@ -4,7 +4,8 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 import { RemoveFromLocalStorage } from "../../utils/localStorageManip/localStorageManip";
 const Header = ({ props }) => {
-  const { changeMode, Mode, connected } = props;
+  const { changeMode, Mode, connected, logedBool, changeLog } = props;
+  console.log("logedBool", logedBool, "connected", connected);
   return (
     <div className="Header">
       <div className="search">
@@ -18,21 +19,29 @@ const Header = ({ props }) => {
           <FiSearch />
         </label>
       </div>
-        <button onClick={changeMode} className="mode">
-          {Mode ? <FiSun /> : <FiMoon />}
+      <button
+        onClick={() => {
+          changeMode();
+        }}
+        className="mode"
+      >
+        {Mode ? <FiSun /> : <FiMoon />}
+      </button>
+      {!logedBool ? (
+        <Link to={"/login"} reloadDocument={true}>
+          Login
+        </Link>
+      ) : (
+        <button
+          onClick={() => {
+            RemoveFromLocalStorage("token");
+            changeLog();
+          }}
+        >
+          Logout
         </button>
-        {connected ? (
-          <Link to={"/login"}>Login</Link>
-        ) : (
-          <button
-            onClick={() => {
-              RemoveFromLocalStorage("token");
-            }}
-          >
-            Logout
-          </button>
-        )}
-      </div>
+      )}
+    </div>
   );
 };
 

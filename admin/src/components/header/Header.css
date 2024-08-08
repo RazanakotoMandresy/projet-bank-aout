@@ -5,11 +5,7 @@
   left: 0;
   padding: 10px;
 }
-.Header .headerContent {
-  width: 70%;
-  margin-left: auto;
-  margin-right: auto;
-}
+
 .Header button {
   float: inline-end;
   margin-right: 50px;
@@ -20,6 +16,7 @@
   background-color: #484b6a;
   cursor: pointer;
   color: #fafafa;
+  margin-top: -2.5%;
 }
 
 .Header button:hover {
@@ -37,6 +34,7 @@
   border-radius: 25px;
   cursor: pointer;
   text-decoration: none;
+  margin-top: -2.5%;
   color: #fafafa;
 }
 .Header a:hover {

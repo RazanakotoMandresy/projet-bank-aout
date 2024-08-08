@@ -1,45 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomeAdmin from "./pages/HomeAdmin/HomeAdmin";
 import Login from "./pages/loginRegister/Login";
 import Register from "./pages/loginRegister/Register";
 import "./App.css";
 import Header from "./components/header/Header";
-import HomeNotLoged from "./pages/HomeNotLoged/HomeNotLoged";
+import { GetAdminInfo } from "./utils/axiosUtils/AxiosLogics";
+import { Authentified } from "./utils/auth/Auth";
 // TODO dark mode (install styled components (Maybe))
 const App = () => {
-  const [connected, setConnected] = useState(true);
   const [Mode, setMode] = useState(Boolean);
-  const IsConnected = () => {
-    const nonNilToken = localStorage.getItem("token");
-    if (nonNilToken == "" || nonNilToken == null) {
-      setConnected(true);
-    } else {
-      setConnected(false);
-    }
-  };
+  const [connected, setConnected] = useState(null);
+  const [logedBool, setLogedBool] = useState(false);
   const changeMode = () => {
     localStorage.setItem("Mode", Mode);
     setMode(!Mode);
   };
-  const headerProps = { changeMode, Mode, connected };
+  // TODO later bcz i'll only fix the UI tonnight
+  // try to get the admin who are connected if err , rm
+  const getLogedAdmin = async () => {
+    try {
+      const { data } = await GetAdminInfo(Authentified);
+      setConnected(data.res);
+      setLogedBool(true);
+    } catch (e) {
+      setConnected(null);
+      setLogedBool(false);
+    }
+  };
+  const changeLog = () => {
+    setTimeout(() => {
+      console.log("timeout");
+    }, 1000);
+    setLogedBool(!logedBool);
+  };
+  // if there is no connected user , auto on login
   useEffect(() => {
-    IsConnected();
+    getLogedAdmin();
   }, []);
-
+  const headerProps = { changeMode, Mode, connected, logedBool, changeLog };
+  const LogRegProps = { changeLog };
+  // if (connected == null) {
+    // return <Login props={LogRegProps} />;  
+  // }
   return (
     <div>
       <Header props={headerProps} />
       <Routes>
-        <Route
-          path="/"
-          element={connected ? <HomeNotLoged /> : <HomeAdmin />}
-        />
+        <Route path="/" element={<HomeAdmin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
 };
-
 export default App;

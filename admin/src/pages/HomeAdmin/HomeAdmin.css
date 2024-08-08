@@ -1,28 +1,49 @@
+.HomeAdmin {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 .HomeAdmin .createBank {
   position: fixed;
   top: 1%;
-  left: 0;
+  left: 1%;
   padding: 20px;
-  background-color: #d2d3db;
+  background-color: #348b7b;
   border: none;
-  border-radius: 25px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 18px;
+  width: 20%;
 }
 .HomeAdmin .createBank label {
-  margin-left: 25px;
+  float: right;
+}
+.HomeAdmin .createBank label:hover {
+  background-color: #ebf1f1;
+  height: 18px;
+  width: 18px;
+  padding: 2px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 .HomeAdmin .createBank:hover {
-  box-shadow: 5px 5px #edc339;
+  box-shadow: 5px 5px #ffce68;
 }
 
 .HomeAdmin .AdminProfile {
   position: fixed;
-  background-color: #d1c6be;
-  padding: 25px;
+  right: 1%;
+  width: 20%;
+  background-color: #348b7b;
+  padding: 20px;
   margin-top: 5%;
 }
 .HomeAdmin .AdminProfile:hover {
-  box-shadow: 5px 5px #544f53;
+  box-shadow: 5px 5px #ffce68;
 }
-
+.AdminProfile h2 {
+  font-size: 25px;
+  font-family: "Courier New", Courier, monospace;
+  color: #ffce68;
+}
+.HomeAdmin h3 {
+  color: #ff8669;
+}

@@ -40,9 +40,6 @@ const App = () => {
   }, []);
   const headerProps = { changeMode, Mode, connected, logedBool, changeLog };
   const LogRegProps = { changeLog };
-  // if (connected == null) {
-    // return <Login props={LogRegProps} />;  
-  // }
   return (
     <div>
       <Header props={headerProps} />

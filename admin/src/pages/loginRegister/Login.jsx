@@ -5,7 +5,7 @@ import { SetToLocalStorage } from "../../utils/localStorageManip/localStorageMan
 import { LogAsAdmin } from "../../utils/axiosUtils/AxiosLogics";
 import Carte from "../../components/carteImgRight/Carte";
 const Login = ({ props }) => {
-  const { changeLog } = props;
+  // const { changeLog } = props;
   const [name, setName] = useState("");
   const [passwords, setPasswords] = useState("");
   const [redirect, setRedirect] = useState(false);
@@ -53,7 +53,7 @@ const Login = ({ props }) => {
           <button
             type="submit"
             onClick={() => {
-              changeLog();
+              // changeLog();
             }}
           >
             Se connecter

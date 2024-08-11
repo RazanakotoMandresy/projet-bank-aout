@@ -1,0 +1,35 @@
+.envoyee {
+    background-color: #fefefe;
+    position: fixed;
+    max-width: 30%;
+    margin: 10% 0 0 69%;
+    border-radius: 25px;
+    max-height: 50%;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    width: 40%;
+    color: #9394a5;
+    height: 25%;
+  }
+  .envoyee ul li img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+  }
+  .envoyee ul li a {
+    font-style: italic;
+    text-decoration: none;
+    color: #9394a5;
+  }
+  .envoyee ul li {
+    text-align: center;
+    background-color: #e4e5f2;
+    border-radius: 25px;
+    padding: 2px;
+    display: inline-block;
+    width: 30%;
+    margin: 0 5px 0 5px;
+  }
+  .envoyee ul li:hover {
+    background-color: #d2d3db;
+  }
+  

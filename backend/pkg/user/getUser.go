@@ -19,5 +19,6 @@ func (h handler) getConnectedUser(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusNotFound, gin.H{"err": err.Error()})
 		return
 	}
+
 	ctx.JSON(http.StatusOK, &user)
 }

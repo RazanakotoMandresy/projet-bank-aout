@@ -14,26 +14,15 @@ const TopSend: React.FC = () => {
       userName: "",
     },
   ]);
-
   const getTopTrans = async () => {
     try {
       const { data } = await GetTopTrans();
-      data.map((data: TopSendTypes) => {
-        return setTopTrans([
-          {
-            SentByImg: data.SentByImg,
-            SentToImg: data.SentToImg,
-            sentTo: data.sentTo,
-            sommeTrans: data.sommeTrans,
-            userName: data.userName,
-          },
-        ]);
-      });
-      console.log(data);
+      setTopTrans(data);
     } catch (error) {
       console.log(error);
     }
   };
+  console.log("topTrans", topTrans);
   useEffect(() => {
     getTopTrans();
   }, []);

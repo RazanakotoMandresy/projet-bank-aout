@@ -6,6 +6,7 @@ import HomeNotLoged from "./pages/HomeNotLoged/HomeNotLoged";
 import { GetUser } from "./utils/Axios/AxiosLogics";
 import "./App.css";
 import { UserContextType } from "./utils/types/Types";
+import Profile from "./pages/Profile/Profile";
 // import { Auth } from "./utils/auth/Auth";
 // creation du contexte
 
@@ -54,8 +55,10 @@ const App: React.FC = () => {
     <UserContext.Provider value={userData}>
       <Navbar />
       <Routes>
+        {/* TODO implementation anle loged sa tsia  */}
         <Route path="/" element={<Home />} />
         <Route path="/" element={<HomeNotLoged />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </UserContext.Provider>
   );

@@ -18,5 +18,9 @@ func (h handler) GetUserSingleUserFunc(uuidToFind string) (*models.User, error) 
 			return nil, errors.New("user pas dans uuid et AppUserName")
 		}
 	}
+	if user.Image == "" {
+		user.Image = "imgDef/defaultPP.jpg"
+		h.DB.Save(&user)
+	}
 	return &user, nil
 }

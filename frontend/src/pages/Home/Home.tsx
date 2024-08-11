@@ -17,6 +17,7 @@ const Home: React.FC = () => {
       </div>
       <CenterHome />
       <TopSend />
+      {/* TODO implementation an'ilay message juste inmplementation css ftsn */}
     </div>
   );
 };

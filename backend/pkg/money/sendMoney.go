@@ -24,6 +24,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	uuidConnectedStr, err := middleware.ExtractTokenUUID(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Print(err)
 		return
 	}
 	// uuid du recepteur params dans l'url
@@ -31,18 +32,24 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	body := new(sendMoneyRequest)
 
 	if err := ctx.BindJSON(&body); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Print(err)
+
 		return
 	}
 	value := body.Value
 	// code si l'on veux envoyer une somme inferieur a 1
 	if value < 1 {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "on ne peut pas envoyer une somme aussi minime"})
+		fmt.Print(err)
+
 		return
 	}
 	userConnected, err := h.GetUserByuuid(uuidConnectedStr)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Print(err)
+
 		return
 
 	}
@@ -50,6 +57,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	userRecepteur, err := h.GetUserByuuid(uuidRecepteur)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Print(err)
 		return
 	}
 	_, found := slices.BinarySearch(userConnected.BlockedAcc, userRecepteur.AppUserName)
@@ -61,6 +69,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	if value > userConnected.Moneys {
 		err := fmt.Errorf("impossible d'envoyer votre argent %v l'argent que vous voulez envoyer est %v", userConnected.Moneys, value)
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Print(err)
 		return
 	}
 	// check si l'userConnecter est la meme que celui qui il essaye d'envoyer de l'argent
@@ -80,6 +89,7 @@ func (h handler) SendMoney(ctx *gin.Context) {
 	moneyTransaction, err := h.dbManipulationSendMoney(userConnected, userRecepteur, body)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Print(err)
 		return
 	}
 	ctx.JSON(http.StatusOK, &moneyTransaction)
@@ -139,6 +149,10 @@ func (h handler) GetUserByuuid(userReq string) (*models.User, error) {
 		if res.Error != nil {
 			return nil, errors.New("user pas dans uuid et AppUserName")
 		}
+	}
+	if users.Image == "" {
+		users.Image = "imgDef/defaultPP.jpg"
+		h.DB.Save(&users)
 	}
 	return &users, nil
 }

@@ -37,7 +37,9 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	// serve depuis ou prendre les images et donne l'url
 	router.Static("./upload", rootDir+"/upload")
+	router.Static("./imgDef", rootDir+"/imgDef")
 	router.Run(port)
 }
 func CORSMiddleware() gin.HandlerFunc {

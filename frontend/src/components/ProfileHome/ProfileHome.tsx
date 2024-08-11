@@ -8,16 +8,20 @@ const ProfileHome: React.FC = () => {
   const userData = useContext(UserContext);
   return (
     <div className="profileH">
-      <img src={userData?.image} alt={userData?.image} />
+      <img
+        src={`http://localhost:3000/${userData?.image}`}
+        alt={userData?.image}
+      />
       <h1>{userData?.AppUserName}</h1>
       <h2>
         {userData?.name} {userData?.firstName}
       </h2>
+      {/* TODO RN imple profile et setting */}
       <div className="parmProfil">
         <Link to={"/setting"}>
           Parametre generales <FiSettings />
         </Link>
-        <Link to={`/profile/${userData?.UUID}`}>
+        <Link to={`/profile`}>
           Editer le profile <FiEdit />
         </Link>
       </div>

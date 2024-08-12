@@ -4,9 +4,9 @@
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-style: oblique;
   background-color: #fafafa;
-  padding: 20px;
   border-radius: 25px;
   padding: 50px;
+  padding-top: 20px;
 }
 
 .transaction input {
@@ -37,6 +37,7 @@
   box-shadow: 3px 3px;
 }
 .transaction .surTrans {
+  width: 30%;
   margin-top: -8%;
   position: fixed;
   background-color: #d2d3db;

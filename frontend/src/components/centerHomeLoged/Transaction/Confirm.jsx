@@ -9,8 +9,8 @@ const Confirm = ({ sendMoney, foundValue, value, changeShow }) => {
       </button>
       <form onSubmit={sendMoney}>
         <h3>
-          les informations sur le{"(a)"} personne que vous voulez envoyer de
-          l'argents
+          Avant de procéder au transfert, veuillez vérifier attentivement les
+          informations sur la personne à qui vous voulez envoyer de l'argent.
         </h3>
         <p>
           <b>nom</b> :{foundValue.nameFirstName}
@@ -23,12 +23,7 @@ const Confirm = ({ sendMoney, foundValue, value, changeShow }) => {
         </p>
         <h3>la valeur de l'argent que vous voulez envoyer est :</h3>
         <h4>{value} ar</h4>
-        <button
-          type="submit"
-          // onClick={ () => {
-          //   changeShow();
-          // }}
-        >
+        <button type="submit">
           <FiCheckCircle />
         </button>
       </form>

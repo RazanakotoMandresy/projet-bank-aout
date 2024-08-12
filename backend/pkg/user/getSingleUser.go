@@ -23,5 +23,10 @@ func (h handler) getUser(ctx *gin.Context) {
 			return
 		}
 	}
-	ctx.JSON(http.StatusOK, gin.H{"uuid": users.UUID, "image": users.Image, "Email": users.Email, "nameFirstName": fmt.Sprint(users.Name, " ", users.FirstName)})
+	ctx.JSON(http.StatusOK, gin.H{"uuid": users.UUID,
+		"image":         users.Image,
+		"Email":         users.Email,
+		"nameFirstName": fmt.Sprint(users.Name, " ", users.FirstName),
+		"AppUserName":   users.AppUserName,
+	})
 }

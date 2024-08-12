@@ -76,10 +76,10 @@
   width: 95%;
   border-radius: 15px;
   text-align: center;
+  border: none;
 }
-.navbar .cent input:focus{
+.navbar .cent input:focus {
   outline: none;
   border: none;
   font-size: 18px;
-
 }

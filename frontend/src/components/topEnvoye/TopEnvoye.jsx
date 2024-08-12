@@ -30,7 +30,7 @@ const TopEnvoye = () => {
                 src={`http://localhost:3000/${usrTopInfo.SentToImg}`}
                 alt=""
               />
-              <Link>
+              <Link to={`/usr/${usrTopInfo.sentTo}`}>
                 <h2>{usrTopInfo.userName}</h2>
               </Link>
               <h3>

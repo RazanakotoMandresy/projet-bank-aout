@@ -49,6 +49,7 @@ const Transaction = () => {
   return (
     <>
       <div className="transaction">
+        <h2>Transfert</h2>
         <h3>nom d'utilisateur que vous voulez envoyer l'argent ou son uuid</h3>
         <input
           type="text"

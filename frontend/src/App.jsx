@@ -19,6 +19,7 @@ import { Authentified } from "./logics/authentification/authentification";
 import Setting from "./pages/Setting/Setting";
 import Fonctionnalitees from "./pages/NotLoged/Fonctionnalites/Fonctionnalitees";
 import Contactes from "./pages/NotLoged/Contactes/Contactes";
+import GetSingleUser from "./components/GetUser/GetSingleUser";
 export const UserContext = createContext();
 export const useAppContext = () => useContext(UserContext);
 
@@ -55,6 +56,7 @@ function App() {
           <Route path="/setting" element={<Setting />} />
           <Route path="/func" element={<Fonctionnalitees />} />
           <Route path="/contactes" element={<Contactes />} />
+          <Route path="/usr/:uuid" element={<GetSingleUser/>}/>
         </Routes>
       </UserContext.Provider>
     </div>

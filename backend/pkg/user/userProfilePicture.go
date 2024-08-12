@@ -16,17 +16,21 @@ func (h handler) UserPP(ctx *gin.Context) {
 	uuid, err := middleware.ExtractTokenUUID(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
+		fmt.Println(1, err)
 		return
 	}
 	// ge anle uuid anle tokny hovaina
 	userUUidPP, err := h.GetUserSingleUserFunc(uuid)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println(2, err)
+
 		return
 	}
 	file, err := ctx.FormFile("filePP")
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, err.Error())
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println(3, err)
 		return
 	}
 	splitedName := strings.Split(file.Filename, ".")
@@ -36,6 +40,8 @@ func (h handler) UserPP(ctx *gin.Context) {
 	destFile := fmt.Sprintf("upload/%v", fileName)
 	if err := ctx.SaveUploadedFile(file, destFile); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println(4, err)
+
 		return
 	}
 	os.Remove(userUUidPP.Image)

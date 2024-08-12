@@ -17,5 +17,4 @@ type Admin struct {
 	Passwords  string `json:"passwords"`
 	Role       string
 	TotalSend  int
-	Image      string `json:"image"`
 }

@@ -39,7 +39,6 @@ func (h handler) UpdateInfo(ctx *gin.Context) {
 	if body.Residance == "" {
 		body.Residance = user.Residance
 	}
-
 	user.Residance = body.Residance
 	user.Updated_at = time.Now()
 	// save des modif

@@ -7,7 +7,6 @@ import WarningChange from "./WarningChange";
 const ChangePP = ({ userData }) => {
   const [profilePicts, setProfilePicts] = useState("");
   const [confirm, setConfirm] = useState(false);
-  console.log(userData)
   const postPP = async (e) => {
     try {
       const value = {

@@ -6,14 +6,14 @@ import { GetDate } from "../../logics/funLogic/func";
 
 const HomeHeader = () => {
   const { userData } = useAppContext();
-  const [actualDate, setActualDate] = useState(GetDate());
+  const [actualDate, _] = useState(GetDate());
   return (
     <div className="head">
       <ul>
         <li className="left"> Bonjour {userData.name}</li>
         <li className="right">{actualDate}</li>
         <li className="right">
-          <FiSettings /> parmetre globale
+          <FiSettings /> Paramètres globaux
         </li>
       </ul>
     </div>

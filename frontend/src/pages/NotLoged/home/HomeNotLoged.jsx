@@ -7,7 +7,7 @@ const HomeNotLoged = () => {
     <div className="home">
       <ImageH1 />
       <div className="desc">
-        <h2>E-Bank</h2>
+        <h2>E-Bank Mada</h2>
         <h3>E-bank est une application web banquaires  </h3>
         <h4> Votre banque en ligne sécurisée, accessible partout .Consolidez vos comptes et suivez vos opérations en temps réel.</h4>
         <Link to={"/login"}>Inscrivez vous ici </Link>

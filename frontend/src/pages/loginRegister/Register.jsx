@@ -52,6 +52,7 @@ const Register = () => {
                 name="name"
                 id="name"
                 placeholder="votre nom"
+                required={"true"}
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -63,6 +64,7 @@ const Register = () => {
                 name="firstName"
                 id="firstName"
                 placeholder="votre prenom"
+                required={"true"}
                 value={firstName}
                 onChange={(e) => {
                   setFirstName(e.target.value);
@@ -74,6 +76,7 @@ const Register = () => {
                 name="email"
                 id="email"
                 placeholder="votre addresse email"
+                required={"true"}
                 value={Email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -87,6 +90,7 @@ const Register = () => {
                 type="date"
                 name="naissance"
                 id="naissance"
+                required={"true"}
                 value={naissance}
                 onChange={(e) => {
                   setNaissance(e.target.value);
@@ -98,6 +102,7 @@ const Register = () => {
                 name="residance"
                 id="residance"
                 placeholder="votre lieux de residance"
+                required={"true"}
                 value={residance}
                 onChange={(e) => {
                   setResidance(e.target.value);
@@ -109,6 +114,7 @@ const Register = () => {
                 name="password"
                 id="password"
                 placeholder="votre nots de passe"
+                required={"true"}
                 value={password}
                 onChange={(e) => {
                   setPasswords(e.target.value);
@@ -120,6 +126,7 @@ const Register = () => {
                 name="AppUserName"
                 id="AppUserName"
                 placeholder="votre pseudo sur l'app"
+                required={"true"}
                 value={AppUserName}
                 onChange={(e) => {
                   setAppUserName(e.target.value);

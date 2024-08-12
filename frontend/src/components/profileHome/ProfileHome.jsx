@@ -16,10 +16,10 @@ const ProfileHome = () => {
       </h2>
       <div className="parmProfil">
         <Link to={"/setting"}>
-          Parametre generales <FiSettings />
+          Paramètres globaux <FiSettings />
         </Link>
         <Link to={`/profile`}>
-          Editer le profile <FiEdit />
+          Éditer votre profil <FiEdit />
         </Link>
       </div>
     </div>

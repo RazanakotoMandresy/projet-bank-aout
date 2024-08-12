@@ -8,10 +8,9 @@ const Info = () => {
       <div className="txt">
         <h1>Information</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda
-          sapiente, explicabo officia voluptatibus, illum officiis inventore ea,
-          aperiam deleniti dignissimos eum itaque earum expedita. Labore
-          distinctio dolores doloribus ducimus numquam?
+          E-bank, c'est votre banque en ligne simple et sécurisée. Effectuez vos
+          virements, consultez votre solde et gérez votre budget en quelques
+          clics, où que vous soyez.
         </p>
       </div>
     </div>

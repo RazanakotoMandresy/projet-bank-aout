@@ -21,3 +21,10 @@
   width: 150%;
   background-color: #9394a5;
 }
+.home .desc label {
+  background-color: #484b6a;
+  padding: 5px;
+  border-radius: 25px;
+  margin: 5px;
+  cursor: copy  ;
+}

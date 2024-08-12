@@ -49,13 +49,16 @@
   margin-right: auto;
   background-color: #e4e5f1;
   border-radius: 25px;
-  padding: 20px;
   opacity: 0.8;
   text-align: center;
 }
-
+.navbar .cent {
+  padding: 20px;
+  height: 20px;
+}
 .navbar .cent li a {
   text-align: center;
+  padding: 20px;
   padding: 0 40px 0 40px;
   opacity: 1;
 }
@@ -67,3 +70,16 @@
   border-radius: 25px;
 }
 /* centre */
+.navbar .cent input {
+  margin-top: -20px;
+  padding: 10px;
+  width: 95%;
+  border-radius: 15px;
+  text-align: center;
+}
+.navbar .cent input:focus{
+  outline: none;
+  border: none;
+  font-size: 18px;
+
+}

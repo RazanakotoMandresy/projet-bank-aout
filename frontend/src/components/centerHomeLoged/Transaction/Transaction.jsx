@@ -10,7 +10,7 @@ import Confirm from "./Confirm";
 const Transaction = () => {
   // nom de l'utilisateur ou uuid
   const [userTosend, setUserToSend] = useState("");
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(Number);
   const [showSur, setShoSur] = useState(false);
   const [foundValue, setFoundValue] = useState({
     nameFirstName: "",
@@ -65,7 +65,7 @@ const Transaction = () => {
           id="Value"
           value={value}
           onChange={(e) => {
-            setValue(e.target.value);
+            setValue(e.target.valueAsNumber);
           }}
           placeholder="Valeur que vous voulez envoyer"
         />

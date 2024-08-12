@@ -17,13 +17,14 @@ import "./App.css";
 import { GetUser } from "./logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "./logics/authentification/authentification";
 import Setting from "./pages/Setting/Setting";
+import Fonctionnalitees from "./pages/NotLoged/Fonctionnalites/Fonctionnalitees";
+import Contactes from "./pages/NotLoged/Contactes/Contactes";
 export const UserContext = createContext();
 export const useAppContext = () => useContext(UserContext);
 
 function App() {
   const [userData, setUserData] = useState({});
   const [connected, setConnected] = useState(false);
-  const [profilePict, setProfilePict] = useState("");
 
   const getUser = useCallback(async () => {
     try {
@@ -40,7 +41,7 @@ function App() {
   return (
     <div>
       <UserContext.Provider value={{ userData }}>
-        <Navbar />
+        <Navbar connected={connected} />
         <Routes>
           {connected ? (
             <Route path="/" element={<Home />} />
@@ -52,6 +53,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile/" element={<Profile />} />
           <Route path="/setting" element={<Setting />} />
+          <Route path="/func" element={<Fonctionnalitees />} />
+          <Route path="/contactes" element={<Contactes />} />
         </Routes>
       </UserContext.Provider>
     </div>

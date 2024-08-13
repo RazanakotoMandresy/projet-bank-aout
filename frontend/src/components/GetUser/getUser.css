@@ -1,0 +1,46 @@
+.user .message img {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}
+.user .message {
+  background-color: #fafafa;
+  width: 60%;
+  margin-top: 5%;
+  overflow-y: scroll;
+  position: fixed;
+  height: 45%;
+  margin-left: 36%;
+  padding: 25px;
+  border-radius: 25px;
+}
+.user .message input {
+  text-align: center;
+  bottom: 1%;
+  padding: 15px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: #d2d3db;
+}
+.user .message form {
+  margin-left: 15%;
+  margin-top: 15px;
+  position: fixed;
+  margin-top: 10%;
+  width: 35%;
+}
+.user .message form button {
+  position: fixed;
+  margin-top: -43px;
+  margin-left: 34%;
+  padding: 8px;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
+}
+.user .message form button:hover{
+    cursor: pointer;
+    background-color: #484b6a;
+}

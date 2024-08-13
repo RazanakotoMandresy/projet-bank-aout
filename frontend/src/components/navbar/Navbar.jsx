@@ -3,8 +3,7 @@ import "./navbar.css";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../App";
 const Navbar = ({ connected }) => {
-  const { userData } = useAppContext();
-  console.log(userData);
+  // const { userData } = useAppContext();
   // TODO implementing a real workflow
   // if
   return (

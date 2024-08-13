@@ -26,10 +26,10 @@
 }
 .user .message form {
   margin-left: 15%;
-  margin-top: 15px;
   position: fixed;
   margin-top: 10%;
   width: 35%;
+  margin-top: 18%;
 }
 .user .message form button {
   position: fixed;
@@ -40,7 +40,58 @@
   border: none;
   font-size: 20px;
 }
-.user .message form button:hover{
-    cursor: pointer;
-    background-color: #484b6a;
+.user .message form button:hover {
+  cursor: pointer;
+  background-color: #484b6a;
+}
+.user .message ul li {
+  margin-top: 8%;
+}
+.user .message .send {
+  margin: 25px;
+  width: 100%;
+  display: block;
+}
+.user .message .send label {
+  background-color: #484b6a;
+  float: right;
+  padding: 25px;
+  width: 40%;
+  border-radius: 15px;
+}
+.user .message .send img {
+  float: inline-end;
+}
+.user .message h4 {
+  margin-top: -5px;
+  text-align: center;
+  font-size: 25px;
+  color: #d2d3db;
+}
+.user .message .receive img {
+  float: initial;
+  display: block;
+}
+.user .message .receive {
+  padding: 25px;
+  width: 45%;
+  display: block;
+  float: left;
+  background-color: #d2d3db;
+  border-radius: 25px;
+}
+/* Profile messages  */
+.user .profileUser {
+  position: fixed;
+  background-color: #d2d3db;
+  width: 28%;
+  text-align: center;
+  padding: 50px;
+  margin-top: 6%;
+  border-radius: 25px;
+}
+.user .profileUser img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
 }

@@ -9,7 +9,6 @@ import (
 	chatrealtimes "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/chatRealtimes"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/db"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/money"
-	realtimenotification "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/realtimeNotification"
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/user"
 
 	"github.com/gin-gonic/gin"
@@ -30,7 +29,6 @@ func main() {
 	money.TransactionRoutes(router, dbHandler)
 	adminbank.AdminRoutes(router, dbHandler)
 	epargne.EpargneTransaction(router, dbHandler)
-	realtimenotification.NotifTransaction(router)
 	chatrealtimes.ChatTransaction(router)
 	// dir misy amzao
 	rootDir, err := os.Getwd()

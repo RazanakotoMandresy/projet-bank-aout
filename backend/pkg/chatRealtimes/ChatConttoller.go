@@ -34,7 +34,7 @@ func reader(conn *websocket.Conn) {
 }
 func serveWs(ctx *gin.Context) {
 	fmt.Println(ctx.Request.Host)
-
+	println("hell yeah")
 	// upgrade this connection to a WebSocket
 	// connection
 	ws, err := upgrader.Upgrade(ctx.Writer, ctx.Request, nil)

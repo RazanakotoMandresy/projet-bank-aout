@@ -6,7 +6,7 @@
 .user .message {
   background-color: #fafafa;
   width: 60%;
-  margin-top: 5%;
+  margin-top: 10%;
   overflow-y: scroll;
   position: fixed;
   height: 45%;
@@ -87,11 +87,25 @@
   width: 28%;
   text-align: center;
   padding: 50px;
-  margin-top: 6%;
+  margin-top: 10%;
   border-radius: 25px;
 }
 .user .profileUser img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
+}
+.user .profileUser .more {
+  float: inline-end;
+  font-size: 18px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  border: none;
+  background-color: #484b6a;
+  opacity: 0.8;
+}
+.user .profileUser .more:hover {
+  opacity: 1;
+  cursor: pointer;
 }

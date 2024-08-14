@@ -19,7 +19,7 @@ import { Authentified } from "./logics/authentification/authentification";
 import Setting from "./pages/Setting/Setting";
 import Fonctionnalitees from "./pages/NotLoged/Fonctionnalites/Fonctionnalitees";
 import Contactes from "./pages/NotLoged/Contactes/Contactes";
-import GetSingleUser from "./components/GetUser/GetSingleUser";
+import GetSingleUser from "./pages/GetUser/GetSingleUser";
 export const UserContext = createContext();
 export const useAppContext = () => useContext(UserContext);
 

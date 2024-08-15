@@ -1,29 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { url } from "../../logics/funLogic/func";
 import { BiSend } from "react-icons/bi";
-import { WebSocket } from "vite";
+import { connect, sendMsg } from "../../logics/socket/socketLogics";
+// import { WebSocket } from "vite";
 
 const Message = ({ userData, userFound }) => {
   // appeler dans GetUser
-  var socket = new WebSocket("ws://localhost:3000/ws");
-  let connect = () => {
-    console.log("Attempting Connection...");
-    socket.onopen = () => {
-      console.log("Successfully Connected");
-    };
-    socket.onmessage = (msg) => {
-      console.log(msg);
-    };
-    socket.onclose = (event) => {
-      console.log("Socket Closed Connection: ", event);
-    };
-    socket.onerror = (error) => {
-      console.log("Socket Error: ", error);
-    };
+
+  const [message, setMessage] = useState("");
+  useEffect(() => {
+    connect(); // Assuming connect handles connection logic
+  }, []);
+  const handleSend = () => {
+    sendMsg("hello");
+    setMessage("Message sent");
   };
-  let message 
   return (
     <div className="message">
+      <button onClick={handleSend}> MESSS</button>
       <h4> {userFound.AppUserName}</h4>
       <ul>
         <li className="send">

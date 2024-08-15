@@ -1,7 +1,7 @@
 .setting .leftSetting {
+  position: fixed;
   background-color: #fafafa;
   width: 30%;
-  position: fixed;
   margin-top: 10%;
   padding: 15px;
   border-radius: 25px;

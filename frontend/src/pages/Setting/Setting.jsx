@@ -1,9 +1,10 @@
 import React from "react";
 import HomeHeader from "../../components/HomeHeader/HomeHeader";
 import "./setting.css";
-import Block from "../../components/Depot/BlockPPl/Block";
-import Unblock from "../../components/Depot/BlockPPl/Unblock";
-
+// import Block from "../../components/BlockPPl/Block";
+import Unblock from "../../components/BlockPPl/Unblock";
+import DeleteAccount from "../../components/DeleteAccount/DeleteAccount";
+// import Sur from "../../components/SurAboutSomething/Sur"
 const Setting = () => {
   return (
     <>
@@ -33,8 +34,8 @@ const Setting = () => {
         </div>
         <div className="rightSetting">
           {/* parametres de bloquees ihany ny mbola ampiseho aloha juste amitana boky */}
-          <Block />
-          <Unblock />
+          {/* <Unblock   /> */}
+          <DeleteAccount/>
         </div>
       </div>
     </>

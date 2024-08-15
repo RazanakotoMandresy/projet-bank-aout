@@ -6,6 +6,8 @@ import Unblock from "../../components/BlockPPl/Unblock";
 import DeleteAccount from "../../components/DeleteAccount/DeleteAccount";
 import Depot from "../../components/DepotRetrait/Depot";
 import Retrait from "../../components/DepotRetrait/Retrait";
+import Profile from "../profile/Profile";
+import { Link } from "react-router-dom";
 // import Sur from "../../components/SurAboutSomething/Sur"
 const Setting = () => (
   <>
@@ -20,7 +22,9 @@ const Setting = () => (
             <button>faires des retrais</button>
           </li>
           <li>
-            <button>Edditer le profil</button>
+            <Link to={"/profile"}>
+              <button>Edditer le profil</button>
+            </Link>
           </li>
           <li>
             <button>parametres de epargnes</button>
@@ -38,7 +42,10 @@ const Setting = () => (
         {/* <Unblock   /> */}
         {/* <DeleteAccount/> */}
         {/* <Depot /> */}
-        <Retrait/>
+        {/* <Retrait/> */}
+        {/* PROFILE LIEN MAKANY FLEMME TO CODE ALL OF THIS FROM SCRATCH */}
+        {/* <Profile/> */}
+        
       </div>
     </div>
   </>

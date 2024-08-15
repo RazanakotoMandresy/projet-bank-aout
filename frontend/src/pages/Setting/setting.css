@@ -20,6 +20,10 @@
   cursor: pointer;
   color: #484b6a;
 }
+.setting .leftSetting ul li a {
+  text-decoration: none;
+  color: #484b6a;
+}
 .setting .leftSetting ul li button:hover {
   background-color: #e4e5f1;
 }

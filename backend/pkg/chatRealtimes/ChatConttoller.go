@@ -34,7 +34,6 @@ func reader(conn *websocket.Conn) {
 }
 func serveWs(ctx *gin.Context) {
 	fmt.Println(ctx.Request.Host)
-	println("hell yeah")
 	// upgrade this connection to a WebSocket
 	// connection
 	ws, err := upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
@@ -47,5 +46,5 @@ func serveWs(ctx *gin.Context) {
 }
 func ChatTransaction(router *gin.Engine) {
 	routes := router.Group("/api/v1/chat")
-	routes.GET("/", serveWs)
+	routes.GET("/ws", serveWs)
 }

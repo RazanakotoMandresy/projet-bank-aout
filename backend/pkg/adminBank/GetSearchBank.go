@@ -15,7 +15,6 @@ func (h handler) SearchBanks(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
 		return
 	}
-
 	// place de la banque pour le rechercher
 	banquePlace := ctx.Query("place")
 	var bank = models.Bank{}

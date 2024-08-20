@@ -10,7 +10,9 @@ const Navbar = ({ connected }) => {
   return (
     <div className="navbar">
       <ul>
-        <li className="logo">E-Bank Mada</li>
+        <li className="logo">
+          <Link to={"/"} reloadDocument="true" > E-Bank Mada </Link>
+        </li>
         <div className="cent">
           {connected ? (
             <InputSearch />

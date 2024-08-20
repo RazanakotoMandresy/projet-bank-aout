@@ -17,7 +17,6 @@ type DepoRetraiReq struct {
 
 func (h handler) Depot(ctx *gin.Context) {
 	usr, err := middleware.ExtractTokenUUID(ctx)
-	fmt.Println("ddddddddddddddddddd", usr)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
 		return

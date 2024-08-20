@@ -10,6 +10,9 @@
   display: inline;
   cursor: pointer;
 }
+.head ul a {
+  text-decoration: none;
+}
 .head ul .left {
   float: left;
   font-size: 40px;

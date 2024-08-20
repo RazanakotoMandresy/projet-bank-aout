@@ -36,3 +36,9 @@ export const GetSingleUser = async (uuid, authentified) => {
 export const SearchRes = async (search, authentified) => {
   return await AxiosInstances.get(`/user/search?user=${search}`, authentified);
 };
+export const DepotAxios = async (inputs, authentified) => {
+  return await AxiosInstances.put("/transaction/depot", inputs, authentified);
+};
+export const RetaitAxios = async (inputs, authentified) => {
+  return await AxiosInstances.put("/transaction/retrait", inputs, authentified);
+};

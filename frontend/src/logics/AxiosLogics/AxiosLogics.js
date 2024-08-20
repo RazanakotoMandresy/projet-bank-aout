@@ -15,7 +15,7 @@ export const UpdateUserProfile = async (userData, authentified) => {
 export const PostPPfunc = async (file, AuthentifiedMultipart) => {
   return await AxiosInstances.post("/user/pp", file, AuthentifiedMultipart);
 };
-// 
+//
 export const GetUserInfo = async (user) => {
   return await AxiosInstances.get(`/user/${user}`);
 };
@@ -31,5 +31,8 @@ export const GetTopTrans = async (authentified) => {
   return await AxiosInstances.get(`/transaction/`, authentified);
 };
 export const GetSingleUser = async (uuid, authentified) => {
-  return await AxiosInstances.get("/user/")
+  return await AxiosInstances.get("/user/");
+};
+export const SearchRes = async (search, authentified) => {
+  return await AxiosInstances.get(`/user/search?user=${search}`, authentified);
 };

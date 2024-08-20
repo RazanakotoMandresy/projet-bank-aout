@@ -69,7 +69,7 @@
   padding-bottom: 18px;
   border-radius: 25px;
 }
-/* centre */
+/* centre  les seach*/
 .navbar .cent input {
   margin-top: -20px;
   padding: 10px;
@@ -82,4 +82,18 @@
   outline: none;
   border: none;
   font-size: 14px;
+}
+.navbar .cent .searchBtn {
+  background-color: #9394a5;
+  cursor: pointer;
+  border: none;
+  margin-top: -5px;
+  margin-left: -35px;
+  position: absolute;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+.navbar .cent .searchBtn:hover {
+  background-color: #484b6a;
 }

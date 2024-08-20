@@ -1,7 +1,8 @@
 import React from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
-import { useAppContext } from "../../App";
+// import { useAppContext } from "../../App";
+import InputSearch from "../InputForSearch/InputSearch";
 const Navbar = ({ connected }) => {
   // const { userData } = useAppContext();
   // TODO implementing a real workflow
@@ -12,12 +13,7 @@ const Navbar = ({ connected }) => {
         <li className="logo">E-Bank Mada</li>
         <div className="cent">
           {connected ? (
-            <input
-              type="search"
-              name="search"
-              id="search"
-              placeholder="Saisissez le nom d'utilisateur exact que vous recherchez"
-            />
+            <InputSearch />
           ) : (
             <>
               <li>

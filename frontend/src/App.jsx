@@ -20,6 +20,7 @@ import Setting from "./pages/Setting/Setting";
 import Fonctionnalitees from "./pages/NotLoged/Fonctionnalites/Fonctionnalitees";
 import Contactes from "./pages/NotLoged/Contactes/Contactes";
 import GetSingleUser from "./pages/GetUser/GetSingleUser";
+import SearchResult from "./pages/SearchResult/SearchResult";
 export const UserContext = createContext();
 export const useAppContext = () => useContext(UserContext);
 
@@ -56,7 +57,8 @@ function App() {
           <Route path="/setting" element={<Setting />} />
           <Route path="/func" element={<Fonctionnalitees />} />
           <Route path="/contactes" element={<Contactes />} />
-          <Route path="/usr/:uuid" element={<GetSingleUser/>}/>
+          <Route path="/usr/:uuid" element={<GetSingleUser />} />
+          <Route path="/search" element={<SearchResult />} />
         </Routes>
       </UserContext.Provider>
     </div>

@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import "./log.css";
 import ImageH1 from "../NotLoged/ImageH1";
 import { LoginFunc } from "../../logics/AxiosLogics/AxiosLogics";
-import { Navigate } from "react-router-dom";
+import { Navigate, useAsyncValue, useNavigation } from "react-router-dom";
 
 const Login = ({ ChangeBtn }) => {
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const login = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const logUser = { Email, password };
     try {
       const { data } = await LoginFunc(logUser);
@@ -21,6 +21,7 @@ const Login = ({ ChangeBtn }) => {
       console.log(error);
     }
   };
+  // TODO important mijery auth workFlow
   if (redirect) {
     return <Navigate to="/" />;
   }
@@ -52,9 +53,7 @@ const Login = ({ ChangeBtn }) => {
               setPassword(e.target.value);
             }}
           />
-          <button type="submit" onClick={ChangeBtn}>
-            Se connecter
-          </button>
+          <button type="submit">Se connecter</button>
         </form>
       </div>
     </>

@@ -15,10 +15,9 @@ func TransactionRoutes(router *gin.Engine, db *gorm.DB) {
 	h := &handler{
 		DB: db,
 	}
-
 	routes := router.Group("/api/v1/transaction")
 	routes.GET("/", middleware.RequireAuth, h.GetTopTrans)
-	routes.PUT("/depot/:uuid", h.Depot)
-	routes.PUT("/retrait/:uuid", h.Retrait)
+	routes.PUT("/depot", middleware.RequireAuth, h.Depot)
+	routes.PUT("/retrait", middleware.RequireAuth, h.Retrait)
 	routes.POST("/:uuid", middleware.RequireAuth, h.SendMoney)
 }

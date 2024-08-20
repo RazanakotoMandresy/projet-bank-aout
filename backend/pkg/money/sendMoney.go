@@ -150,9 +150,5 @@ func (h handler) GetUserByuuid(userReq string) (*models.User, error) {
 			return nil, errors.New("user pas dans uuid et AppUserName")
 		}
 	}
-	if users.Image == "" {
-		users.Image = "imgDef/defaultPP.jpg"
-		h.DB.Save(&users)
-	}
 	return &users, nil
 }

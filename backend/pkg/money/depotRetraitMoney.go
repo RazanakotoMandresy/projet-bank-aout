@@ -16,10 +16,14 @@ type DepoRetraiReq struct {
 }
 
 func (h handler) Depot(ctx *gin.Context) {
-	userTosendUUid := ctx.Param("uuid")
+	usr, err := middleware.ExtractTokenUUID(ctx)
+	fmt.Println("ddddddddddddddddddd", usr)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
+		return
+	}
 	body := new(DepoRetraiReq)
-
-	userTosend, err := h.GetUserByuuid(userTosendUUid)
+	userTosend, err := h.GetUserByuuid(usr)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
@@ -64,7 +68,11 @@ func (h handler) Depot(ctx *gin.Context) {
 }
 func (h handler) Retrait(ctx *gin.Context) {
 
-	userTosendUUid := ctx.Param("uuid")
+	userTosendUUid, err := middleware.ExtractTokenUUID(ctx)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
 	body := new(DepoRetraiReq)
 
 	userTosend, err := h.GetUserByuuid(userTosendUUid)

@@ -52,6 +52,7 @@ func (h handler) CreateUser(ctx *gin.Context) {
 		ID:                uuid.New().ID(),
 		Role:              "user",
 		Image:             "imgDef/defaultPP.jpg",
+		BlockedAcc:        []string{},
 	}
 
 	if result := h.DB.Create(&user); result.Error != nil {

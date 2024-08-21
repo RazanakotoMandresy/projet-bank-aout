@@ -2,6 +2,7 @@ package user
 
 import (
 	"errors"
+	"fmt"
 	"slices"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
@@ -12,18 +13,18 @@ import (
 )
 
 type SettingReq struct {
-	RemoveAllEp         bool   `json:"rmEpargne"`
-	DeleteMyAccount     bool   `json:"rmAccount"`
-	BlockAccount        string `json:"blockAcc"`
-	UnBlockAccount      string `json:"unblockAcc"`
-	UserToBlockNameUUID string `json:"blockNameUUID"`
+	RemoveAllEp     bool   `json:"rmEpargne"`
+	DeleteMyAccount bool   `json:"rmAccount"`
+	BlockAccount    string `json:"blockAcc"`
+	UnBlockAccount  string `json:"unblockAcc"`
+	// UserToBlockNameUUID string `json:"blockNameUUID"`
 	// miandry inspi block unblock
 }
 
 func (h handler) SettingUser(ctx *gin.Context) {
 	body := new(SettingReq)
 	if err := ctx.BindJSON(&body); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
 	uuid, err := middleware.ExtractTokenUUID(ctx)
@@ -60,7 +61,7 @@ func (h handler) SettingUser(ctx *gin.Context) {
 	if body.UnBlockAccount != "" {
 		err := unBlockAccount(h, uuid, body.UnBlockAccount)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		}
 		return
 	}
@@ -84,7 +85,6 @@ func deleMyAccount(h handler, user *models.User) error {
 }
 
 // TODO handle la logique dans money satria mbola manip anle liste ao anaty db fotsiny aloha
-
 func blockAccount(h handler, uuid, userBlock string) error {
 	// atao appUserName fa tsy uuid ny blockage
 	userToBlock, err := h.GetUserSingleUserFunc(userBlock)
@@ -137,6 +137,7 @@ func unBlockAccount(h handler, uuid, userUnblock string) error {
 		}
 		user.BlockedAcc = blockedUser
 		h.DB.Save(&user)
+		fmt.Println(user)
 	}()
 	return nil
 }

@@ -1,7 +1,6 @@
 package user
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
@@ -15,12 +14,8 @@ func (h handler) GetUserSingleUserFunc(uuidToFind string) (*models.User, error) 
 		fmt.Println(err)
 		res := h.DB.First(&user, "app_user_name = ?", uuidToFind)
 		if res.Error != nil {
-			return nil, errors.New("user pas dans uuid et AppUserName")
+			return nil, fmt.Errorf(" %v pas dans uuid et AppUserName", uuidToFind)
 		}
-	}
-	if user.Image == "" {
-		user.Image = "imgDef/defaultPP.jpg"
-		h.DB.Save(&user)
 	}
 	return &user, nil
 }

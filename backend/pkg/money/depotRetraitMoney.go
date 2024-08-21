@@ -40,7 +40,6 @@ func (h handler) Depot(ctx *gin.Context) {
 	result := h.DB.First(&bank, "lieux = ?", body.Lieux)
 	if result.Error != nil {
 		err := fmt.Sprintf("le lieux %v n'existe pas", body.Lieux)
-
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"err": err,
 		})

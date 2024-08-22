@@ -16,4 +16,5 @@
 }
 .deleteAcc button:hover {
     background-color: #484b6a;
+    cursor: pointer;
 }

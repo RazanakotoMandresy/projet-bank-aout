@@ -9,7 +9,6 @@ const TopEnvoye = () => {
   const getTopTrans = async () => {
     try {
       const { data } = await GetTopTrans(Authentified);
-      console.log(data);
       setTopTrans(data);
     } catch (error) {
       console.log(error);

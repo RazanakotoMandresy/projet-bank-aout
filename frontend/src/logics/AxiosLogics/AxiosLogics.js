@@ -30,6 +30,10 @@ export const SendMoneyFunc = async (userToSend, value, authentified) => {
 export const GetTopTrans = async (authentified) => {
   return await AxiosInstances.get(`/transaction/`, authentified);
 };
+export const SettingAxios = async (inputs, authentified) => {
+  return await AxiosInstances.patch("/user/setting", inputs, authentified);
+};
+
 export const GetSingleUser = async (uuid, authentified) => {
   return await AxiosInstances.get("/user/");
 };

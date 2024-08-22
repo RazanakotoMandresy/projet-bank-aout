@@ -1,32 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CgUnblock } from "react-icons/cg";
-
-const Unblock = () => {
+import {
+  ChangeState,
+  GetChangeState,
+} from "../../logics/localstorageLog/LocalstorageLog";
+const Unblock = ({ userData, SettingUser, setUnBlockAccount }) => {
+  const [blockList, setBlockList] = useState([]);
+  const blockListFunc = async () => {
+    try {
+      setBlockList(userData.BlockedAcc);
+      console.log("first");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    blockListFunc();
+  }, []);
   return (
     <div className="block">
       <h4>listes des personnes que vous avez bloquer</h4>
       <ul>
-        <li>
-          Mandresy_Diary
-          <button>
-            debloquer
-            <CgUnblock />
-          </button>
-        </li>
-        <li>
-          Rakoto45
-          <button>
-            debloquer
-            <CgUnblock />
-          </button>
-        </li>
-        <li>
-          ELie_Jao
-          <button>
-            debloquer
-            <CgUnblock />
-          </button>
-        </li>
+        {blockList?.map((name) => {
+          return (
+            <li key={name}>
+              {name}
+              <button
+                onClick={() => {
+                  setUnBlockAccount(name);
+                  SettingUser();
+                  ChangeState();
+                }}
+              >
+                debloquer
+                <CgUnblock />
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

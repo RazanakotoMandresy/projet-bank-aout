@@ -5,7 +5,20 @@ import Epargne from "../Epargne/Epargne";
 import Unblock from "../BlockPPl/Unblock";
 import DeleteAccount from "../DeleteAccount/DeleteAccount";
 
-const SettingContent = ({ choiseParams }) => {
+const SettingContent = ({ props }) => {
+  const {
+    removeAllEp,
+    deleteMyAcc,
+    blockAccount,
+    unblockAccount,
+    userData,
+    choiseParams,
+    SettingUser,
+    setRemoveAllEp,
+    setDelMyAcc,
+    setBlockAccount,
+    setUnBlockAccount,
+  } = props;
   if (choiseParams == "depot") {
     return <Depot />;
   }
@@ -16,10 +29,24 @@ const SettingContent = ({ choiseParams }) => {
     return <Epargne />;
   }
   if (choiseParams == "unblock") {
-    return <Unblock />;
+    return (
+      <Unblock
+        userData={userData}
+        setUnBlockAccount={setUnBlockAccount}
+        unblockAccount={unblockAccount}
+        SettingUser={SettingUser}
+      />
+    );
   }
   if (choiseParams == "delete") {
-    return <DeleteAccount />;
+    return (
+      <DeleteAccount
+        userData={userData}
+        SettingUser={SettingUser}
+        setDelMyAcc={setDelMyAcc}
+        deleteMyAcc={deleteMyAcc}
+      />
+    );
   }
   return (
     <div>

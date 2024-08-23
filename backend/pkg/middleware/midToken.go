@@ -23,6 +23,7 @@ func TokenManage(token *jwt.Token, c *gin.Context) (string, error) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": "Failed to create token",
 		})
+		fmt.Println(err)
 		return "", errors.New("failed to create token")
 	}
 	// ovaia header bearer token le cookie teo
@@ -36,6 +37,7 @@ func RequireAuth(c *gin.Context) {
 	tokenString, err := ExtarctToken(c)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println(err)
 		return
 	}
 	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -59,6 +61,8 @@ func ExtractTokenUUID(ctx *gin.Context) (string, error) {
 	tokenString, err := ExtarctToken(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println(err)
+
 		return "", err
 	}
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {

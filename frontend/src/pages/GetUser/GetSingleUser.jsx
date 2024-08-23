@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { GetUserInfo } from "../../logics/AxiosLogics/AxiosLogics";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  GetUserInfo,
+  SettingAxios,
+} from "../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
 import { useParams } from "react-router-dom";
 import { useAppContext } from "../../App";
@@ -14,6 +17,9 @@ const GetSingleUser = () => {
   const { userData } = useAppContext();
   const [userFound, setUserFound] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [blockAcc, setBlockAcc] = useState("");
+  const [unblockAcc, setUnBlock] = useState("");
+  const [switchBlock, setSwitchBlock] = useState(true);
   const getSingleUserFunc = async () => {
     setIsLoading(true);
     try {
@@ -25,10 +31,29 @@ const GetSingleUser = () => {
       setIsLoading(false);
     }
   };
-  console.log(userFound);
+  const blockUnblockPPl = async () => {
+    try {
+      const inputs = { blockAcc, unblockAcc };
+      await SettingAxios(inputs, Authentified);
+      console.log(blockAcc);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const blockFunc = () => {
+    setBlockAcc(userFound.AppUserName);
+    blockUnblockPPl();
+    // setSwitchBlock(!switchBlock);
+  };
+  const unblockFunc = () => {
+    setUnBlock(userFound.AppUserName);
+    blockUnblockPPl();
+    // setSwitchBlock(!switchBlock);
+  };
   useEffect(() => {
     getSingleUserFunc();
   }, [uuid]);
+
   // TODO Loading implementation
   return (
     <>
@@ -40,6 +65,25 @@ const GetSingleUser = () => {
           <h3>{userFound.AppUserName} </h3>
           <h4>{userFound.nameFirstName}</h4>
           <h4>TOTals de votre transaction avec : 400000ar</h4>
+          {switchBlock ? (
+            <button
+              onClick={blockFunc}
+              onDoubleClick={() => {
+                setSwitchBlock(!switchBlock);
+              }}
+            >
+              bloquer
+            </button>
+          ) : (
+            <button
+              onClick={unblockFunc}
+              onDoubleClick={() => {
+                setSwitchBlock(!switchBlock);
+              }}
+            >
+              Debloquer
+            </button>
+          )}
           <button className="more">
             <FiChevronDown />
           </button>

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { url } from "../../logics/funLogic/func";
 import { BiSend } from "react-icons/bi";
 import { connect, sendMsg } from "../../logics/socket/socketLogics";
-// import { WebSocket } from "vite";
-
 const Message = ({ userData, userFound }) => {
   // appeler dans GetUser
 
@@ -17,7 +15,7 @@ const Message = ({ userData, userFound }) => {
   };
   return (
     <div className="message">
-      <button onClick={handleSend}> MESSS</button>
+      {/* <button onClick={handleSend}> MESSS</button> */}
       <h4> {userFound.AppUserName}</h4>
       <ul>
         <li className="send">

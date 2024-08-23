@@ -16,7 +16,6 @@ const Setting = () => {
   const [unblockAccount, setUnBlockAccount] = useState("");
 
   const SettingUser = () => {
-  
     try {
       const inputs = {
         rmEpargne: removeAllEp,

@@ -95,6 +95,21 @@
   height: 120px;
   border-radius: 50%;
 }
+.user .profileUser button {
+  background-color: #fafafa;
+  width: 45%;
+  display: block;
+  margin-left: 25%;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 1s;
+}
+.user .profileUser button:hover {
+  background-color: #484b6a;
+  border-radius: 8px;
+}
 .user .profileUser .more {
   float: inline-end;
   font-size: 18px;

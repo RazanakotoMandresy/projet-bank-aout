@@ -34,16 +34,6 @@ const SettingButton = ({ setChoiseParams }) => {
         <li>
           <button
             onClick={() => {
-              setChoiseParams("epargne");
-              SetSettingState("epargne");
-            }}
-          >
-            parametres de epargnes
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={() => {
               setChoiseParams("unblock");
               SetSettingState("unblock");
             }}

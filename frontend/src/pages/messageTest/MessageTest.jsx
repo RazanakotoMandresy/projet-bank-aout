@@ -7,12 +7,11 @@ const MessageTest = () => {
   const [ws, setWs] = useState(null);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:3000/api/v1/chat/ws");
-    // socket.onopen = () => {
-    //   socket.send(
-    //     JSON.stringify({ type: "auth", token: localStorage.getItem("token") })
-    //   );
-    // };
+    const socket = new WebSocket(
+      `ws://localhost:3000/api/v1/chat/ws?token=${localStorage.getItem(
+        "token"
+      )}`
+    );
     setWs(socket);
 
     socket.onmessage = (event) => {

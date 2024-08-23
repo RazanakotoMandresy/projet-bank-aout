@@ -36,6 +36,7 @@ func RequireAuth(c *gin.Context) {
 	tokenString, err := ExtarctToken(c)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		fmt.Println("1", err)
 		return
 	}
 	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -59,7 +60,7 @@ func ExtractTokenUUID(ctx *gin.Context) (string, error) {
 	tokenString, err := ExtarctToken(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println("1",err)
+		fmt.Println("1", err)
 
 		return "", err
 	}
@@ -83,5 +84,11 @@ func ExtarctToken(ctx *gin.Context) (string, error) {
 	if len(strings.Split(bearerToken, " ")) == 2 {
 		return strings.Split(bearerToken, " ")[1], nil
 	}
-	return "", errors.New("pas de bearer token")
+	bearerTokenQuery := ctx.Query("token")
+	fmt.Println("tokenBearer", bearerTokenQuery)
+	if bearerTokenQuery != "" {
+		fmt.Println("tokenFound dans le query")
+		return bearerTokenQuery, nil
+	}
+	return "", errors.New("pas de bearer token , ni de token query")
 }

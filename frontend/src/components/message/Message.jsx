@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { url } from "../../logics/funLogic/func";
 import { BiSend } from "react-icons/bi";
-import { connect, sendMsg } from "../../logics/socket/socketLogics";
+// import { connect, sendMsg } from "../../logics/socket/socketLogics";
 const Message = ({ userData, userFound }) => {
-  // appeler dans GetUser
-
   const [message, setMessage] = useState("");
   useEffect(() => {
     connect(); // Assuming connect handles connection logic

@@ -29,7 +29,8 @@ func main() {
 	money.TransactionRoutes(router, dbHandler)
 	adminbank.AdminRoutes(router, dbHandler)
 	epargne.EpargneTransaction(router, dbHandler)
-	chatrealtimes.ChatTransaction(router)
+	// websocket ny chatrealtimes
+	chatrealtimes.ChatTransaction(router, dbHandler)
 	// dir misy amzao
 	rootDir, err := os.Getwd()
 	if err != nil {

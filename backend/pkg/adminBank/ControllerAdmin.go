@@ -23,3 +23,4 @@ func AdminRoutes(router *gin.Engine, db *gorm.DB) {
 	routes.GET("/getBank", middleware.RequireAuth, h.GetBankLogAdmin)
 	routes.GET("/getAdminInfo", middleware.RequireAuth, h.GetAdminInfo)
 }
+	

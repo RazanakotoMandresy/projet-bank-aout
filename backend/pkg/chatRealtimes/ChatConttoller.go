@@ -3,6 +3,7 @@ package chatrealtimes
 import (
 	"net/http"
 
+	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"gorm.io/gorm"
@@ -28,5 +29,5 @@ func ChatTransaction(router *gin.Engine, db *gorm.DB) {
 		DB: db,
 	}
 	routes := router.Group("/api/v1/chat")
-	routes.GET("/ws", h.handleWebSocket)
+	routes.GET("/ws", middleware.RequireAuth, h.handleWebSocket)
 }

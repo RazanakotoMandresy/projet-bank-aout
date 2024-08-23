@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./msg.css";
+import { Authentified } from "../../logics/authentification/authentification";
 const MessageTest = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -7,6 +8,11 @@ const MessageTest = () => {
 
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:3000/api/v1/chat/ws");
+    // socket.onopen = () => {
+    //   socket.send(
+    //     JSON.stringify({ type: "auth", token: localStorage.getItem("token") })
+    //   );
+    // };
     setWs(socket);
 
     socket.onmessage = (event) => {

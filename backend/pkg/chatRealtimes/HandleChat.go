@@ -2,10 +2,22 @@ package chatrealtimes
 
 import (
 	"log"
+	// "net/http"
 
+	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
+	"github.com/google/uuid"
+	// "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
+
 func (h handler) handleWebSocket(ctx *gin.Context) {
+	uuidToSend := ctx.Param("uuid")
+	// uuidSendBy ,_ := middleware.ExtractTokenUUID(ctx)
+	uuidSendBy := "dfs"
+	// if err != nil {
+	// 	ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
+	// 	return
+	// }
 	conn, err := upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
 	if err != nil {
 		log.Println("Failed to set websocket upgrade: ", err)
@@ -20,7 +32,8 @@ func (h handler) handleWebSocket(ctx *gin.Context) {
 			log.Println("read:", err)
 			break
 		}
-			
+		newMessage := models.Chat{Content: string(message), SentTo: uuidToSend, SendBy: uuidSendBy ,ID: uuid.New()}
+		h.DB.Create(&newMessage)
 		// Echo du message reçu au client
 		err = conn.WriteMessage(messageType, message)
 		if err != nil {

@@ -1,13 +1,17 @@
 package chatrealtimes
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
+
+type MessageRequest struct {
+	Content string
+	
+}
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -16,35 +20,35 @@ var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
-func reader(conn *websocket.Conn) {
-	for {
-		messageType, p, err := conn.ReadMessage()
-		if err != nil {
-			log.Println(err)
-			return
-		}
-		fmt.Println(string(p))
-
-		if err := conn.WriteMessage(messageType, p); err != nil {
-			log.Println(err)
-			return
-		}
-
-	}
-}
-func serveWs(ctx *gin.Context) {
-	fmt.Println(ctx.Request.Host)
-	// upgrade this connection to a WebSocket
-	// connection
-	ws, err := upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
+func handleWebSocket(w http.ResponseWriter, r *http.Request) {
+	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		log.Println(err)
+		log.Println("Failed to set websocket upgrade: ", err)
+		return
 	}
-	// listen indefinitely for new messages coming
-	// through on our WebSocket connection
-	reader(ws)
+	defer conn.Close()
+
+	for {
+		// Lire le message du client
+		messageType, message, err := conn.ReadMessage()
+		if err != nil {
+			log.Println("read:", err)
+			break
+		}
+
+		log.Printf("recv: %s", message)
+
+		// Echo du message reçu au client
+		err = conn.WriteMessage(messageType, message)
+		if err != nil {
+			log.Println("write:", err)
+			break
+		}
+	}
 }
 func ChatTransaction(router *gin.Engine) {
 	routes := router.Group("/api/v1/chat")
-	routes.GET("/ws", serveWs)
+	routes.GET("/ws", func(ctx *gin.Context) {
+		handleWebSocket(ctx.Writer, ctx.Request)
+	})
 }

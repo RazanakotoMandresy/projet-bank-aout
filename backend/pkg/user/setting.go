@@ -2,7 +2,6 @@ package user
 
 import (
 	"errors"
-	"fmt"
 	"slices"
 
 	"github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/common/models"
@@ -17,7 +16,6 @@ type SettingReq struct {
 	DeleteMyAccount bool   `json:"rmAccount"`
 	BlockAccount    string `json:"blockAcc"`
 	UnBlockAccount  string `json:"unblockAcc"`
-	// UserToBlockNameUUID string `json:"blockNameUUID"`
 	// miandry inspi block unblock
 }
 
@@ -27,6 +25,7 @@ func (h handler) SettingUser(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
+	// uuid uuid anze connecter
 	uuid, err := middleware.ExtractTokenUUID(ctx)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
@@ -59,7 +58,7 @@ func (h handler) SettingUser(ctx *gin.Context) {
 		}
 	}
 	if body.UnBlockAccount != "" {
-		err := unBlockAccount(h, uuid, body.UnBlockAccount)
+		err := unBlockAccount(h, *user, body.UnBlockAccount)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		}
@@ -100,7 +99,7 @@ func blockAccount(h handler, uuid, userBlock string) error {
 	// une deuxieme appuye sur le block va causer un unblock
 	if found {
 		// appeles de unblock
-		unBlockAccount(h, uuid, userBlock)
+		unBlockAccount(h, *user, userBlock)
 		return nil
 	}
 	if user.AppUserName == userToBlock.AppUserName {
@@ -115,18 +114,18 @@ func blockAccount(h handler, uuid, userBlock string) error {
 }
 
 // pour un code plus safe de uuid string no naverina nalefa fa tsy tong de le user minyts
-func unBlockAccount(h handler, uuid, userUnblock string) error {
+func unBlockAccount(h handler, user models.User, userUnblock string) error {
 	userToUnblock, err := h.GetUserSingleUserFunc(userUnblock)
 	// l'iuser ou l'on veut bloquer
 	if err != nil {
 		return err
 	}
 	// user connected
-	user, err := h.GetUserSingleUserFunc(uuid)
-	if err != nil {
-		return nil
-	}
-	// TODO Algo temporaire vu que le code est nulle enleve dans l'array les noms dejas dedans
+	// user, err := h.GetUserSingleUserFunc(uuid)
+	// if err != nil {
+	// 	return nil
+	// }
+	// TODO Algo temporaire vu que le code est nul enleve dans l'array les noms dejas dedans
 	go func() {
 		blockedUser := []string{}
 		for _, appUserName := range user.BlockedAcc {
@@ -137,7 +136,6 @@ func unBlockAccount(h handler, uuid, userUnblock string) error {
 		}
 		user.BlockedAcc = blockedUser
 		h.DB.Save(&user)
-		fmt.Println(user)
 	}()
 	return nil
 }

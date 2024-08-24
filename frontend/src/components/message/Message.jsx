@@ -17,7 +17,6 @@ const Message = ({ userData, userFound, uuid }) => {
     socket.onmessage = (event) => {
       setMessages((prevMessages) => [...prevMessages, event.data]);
     };
-
     return () => {
       socket.close();
     };
@@ -35,7 +34,7 @@ const Message = ({ userData, userFound, uuid }) => {
       <ul>
         {messages.map((msg, index) => {
           return (
-            <li className="send">
+            <li className="send" key={index}>
               <label>
                 <img src={`${url}/${userData.image}`} alt={userData.image} />
                 {msg}
@@ -52,16 +51,17 @@ const Message = ({ userData, userFound, uuid }) => {
         </li>
         {/* TODO tsy mety le reponse  */}
       </ul>
-
-      <input
-        type="text"
-        placeholder="ecriver votre message ........"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button onClick={sendMessage}>
-        <BiSend />
-      </button>
+      <div className="champ">
+        <input
+          type="text"
+          placeholder="ecriver votre message ........"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <button onClick={sendMessage}>
+          <BiSend />
+        </button>
+      </div>
     </div>
   );
 };

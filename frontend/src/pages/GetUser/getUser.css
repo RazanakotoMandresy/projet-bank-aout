@@ -24,14 +24,14 @@
   width: 100%;
   background-color: #d2d3db;
 }
-.user .message form {
+.user .message .champ {
   margin-left: 15%;
   position: fixed;
   margin-top: 10%;
   width: 35%;
   margin-top: 18%;
 }
-.user .message form button {
+.user .message .champ button {
   position: fixed;
   margin-top: -43px;
   margin-left: 34%;
@@ -40,7 +40,7 @@
   border: none;
   font-size: 20px;
 }
-.user .message form button:hover {
+.user .message .champ button:hover {
   cursor: pointer;
   background-color: #484b6a;
 }
@@ -49,17 +49,21 @@
 }
 .user .message .send {
   margin: 25px;
-  width: 100%;
   display: block;
+  float: right;
+  border-radius: 15px;
+  width: 100%;
 }
 .user .message .send label {
   background-color: #484b6a;
-  float: right;
-  padding: 25px;
+  float: inline-end;
   width: 40%;
-  border-radius: 15px;
+  padding: 20px;
+  border-radius: 20px;
 }
-.user .message .send img {
+.user .message .send label img {
+  padding: -20px;
+  background-color: #fff;
   float: inline-end;
 }
 .user .message h4 {

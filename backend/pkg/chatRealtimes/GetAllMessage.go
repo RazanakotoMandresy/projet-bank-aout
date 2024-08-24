@@ -17,11 +17,12 @@ func (h handler) GetAllMessage(ctx *gin.Context) {
 	}
 	uuidSentTo := ctx.Param("uuid")
 	// pernd la liste des tous les discusion ou c'es lui l'envoyeur et l'envoyer
-	var user []models.User
-	result := h.DB.Where("send_by = ? AND sentTo = ?", uuidSender, uuidSentTo).Find(&user)
+
+	var chat []models.Chat
+	result := h.DB.Where("send_by = ? AND sent_to = ?", uuidSender, uuidSentTo).Find(&chat)
 	if result.Error != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": result.Error.Error()})
 		return
 	}
-	ctx.JSON(http.StatusOK, user)
+	ctx.JSON(http.StatusOK, &chat)
 }

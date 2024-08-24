@@ -29,5 +29,6 @@ func ChatTransaction(router *gin.Engine, db *gorm.DB) {
 		DB: db,
 	}
 	routes := router.Group("/api/v1/chat")
-	routes.GET("/ws", middleware.RequireAuth, h.handleWebSocket)
+	routes.GET("/ws/:uuid", middleware.RequireAuth, h.handleWebSocket)
+	router.GET("/:uuid", middleware.RequireAuth, h.GetAllMessage)
 }

@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { url } from "../../logics/funLogic/func";
 import { BiSend } from "react-icons/bi";
 // import { connect, sendMsg } from "../../logics/socket/socketLogics";
-const Message = ({ userData, userFound }) => {
+const Message = ({ userData, userFound, uuid }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [ws, setWs] = useState(null);
-
   useEffect(() => {
     const socket = new WebSocket(
-      `ws://localhost:3000/api/v1/chat/ws?token=${localStorage.getItem(
+      `ws://localhost:3000/api/v1/chat/ws/${uuid}?token=${localStorage.getItem(
         "token"
       )}`
     );

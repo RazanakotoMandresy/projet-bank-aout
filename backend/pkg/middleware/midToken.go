@@ -85,6 +85,7 @@ func ExtarctToken(ctx *gin.Context) (string, error) {
 		return strings.Split(bearerToken, " ")[1], nil
 	}
 	bearerTokenQuery := ctx.Query("token")
+	fmt.Println("tokenQueryy" , bearerTokenQuery)
 	if bearerTokenQuery != "" {
 		return bearerTokenQuery, nil
 	}

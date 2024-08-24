@@ -59,7 +59,7 @@ const GetSingleUser = () => {
     <>
       <HomeHeader />
       <div className="user">
-        <Message userData={userData} userFound={userFound} />
+        <Message userData={userData} userFound={userFound} uuid={uuid} />
         <div className="profileUser">
           <img src={`${url}/${userFound.image}`} alt={userFound.image} />
           <h3>{userFound.AppUserName} </h3>

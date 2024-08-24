@@ -41,7 +41,23 @@
   color: #484b6a;
 }
 /* right */
-
+.navbar .menuNav {
+  display: none;
+}
+.navbar .menuNav button {
+  background: none;
+  border: none;
+  background: #484b6a;
+  font-size: 15px;
+  padding: 4px 12px 0 12px;
+  border-radius: 15px;
+}
+.navbar .menuNav button:hover {
+  background-color: #9394a5;
+}
+.navbar .clickedMenu {
+  display: none;
+}
 /* centre */
 .navbar .cent {
   width: 30%;
@@ -96,4 +112,62 @@
 }
 .navbar .cent .searchBtn:hover {
   background-color: #484b6a;
+}
+/* resoponsive */
+@media only screen and (max-width: 1670px) {
+  .navbar .cent {
+    padding: 8px;
+  }
+  .navbar .cent li a {
+    padding: 0 4px 0 4px;
+    font-size: 13px;
+  }
+  .navbar .cent li a:hover {
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+  .navbar .right li .register {
+    padding: 7px;
+  }
+  .navbar .right {
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 950px) {
+  .navbar {
+    height: 50px;
+  }
+  .navbar .cent {
+    display: none;
+  }
+  .navbar .right {
+    margin-top: 2px;
+  }
+  .navbar .menuNav {
+    display: inline;
+    float: left;
+  }
+  .navbar .clickedMenu {
+    background-color: #9394a5;
+    position: fixed;
+    width: 25%;
+    padding: 5px;
+    border-radius: 15px;
+    text-align: center;
+    display: block;
+  }
+  .navbar .clickedMenu li {
+    display: block;
+    margin: 1%;
+  }
+  .navbar .clickedMenu li :hover {
+    background-color: #fafafa;
+    padding: 3px;
+  }
+  .navbar .logo {
+    float: none;
+    font-size: 13px;
+    margin: 7px;
+    position: relative;
+  }
 }

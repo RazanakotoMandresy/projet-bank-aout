@@ -1,34 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
-// import { useAppContext } from "../../App";
 import InputSearch from "../InputForSearch/InputSearch";
+import CenterNav from "./centerNavbar/CenterNav";
+import { BiMenu } from "react-icons/bi";
 const Navbar = ({ connected }) => {
-  // const { userData } = useAppContext();
   // TODO implementing a real workflow
-  // if
+  const [menu, setMenu] = useState(false);
   return (
     <div className="navbar">
       <ul>
         <li className="logo">
-          <Link to={"/"} reloadDocument="true" > E-Bank Mada </Link>
+          <Link to={"/"} reloadDocument="true">
+            E-Bank Mada
+          </Link>
         </li>
+        <li className="menuNav">
+          {/* montr le menun vetical  */}
+          <button onClick={() => setMenu(!menu)}>
+            <BiMenu />
+          </button>
+        </li>
+        
+        {menu ? (
+          <div className="clickedMenu">
+            <CenterNav />
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="cent">
-          {connected ? (
-            <InputSearch />
-          ) : (
-            <>
-              <li>
-                <Link to={"/info"}> plus d'info </Link>
-              </li>
-              <li>
-                <Link to={"/func"}>fonctionnalités</Link>
-              </li>
-              <li>
-                <Link to={"/contactes"}> contactes</Link>
-              </li>
-            </>
-          )}
+          {/* Centernav non connecter Input Search Connecter */}
+          {connected ? <InputSearch /> : <CenterNav />}
         </div>
         <div className="right">
           {connected ? (

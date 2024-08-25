@@ -29,3 +29,20 @@
   background-color: #fefefe;
   border: 1px solid #d2d3db;
 }
+@media only screen and (max-width: 800px) {
+  .head ul .left {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  .head ul .right {
+    font-size: 10px;
+    margin-top: 15px;
+    padding: 3px;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .head ul .left {
+    font-size: 15px;
+    margin-top: 15px;
+  }
+}

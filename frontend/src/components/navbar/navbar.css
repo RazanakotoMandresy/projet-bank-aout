@@ -185,6 +185,9 @@
     border-radius: 15px;
     text-align: center;
     display: block;
+    margin-left: 30%;
+    margin-right: 30%;
+    font-size: 11px;
   }
   .navbar .clickedMenu li {
     display: block;
@@ -202,5 +205,10 @@
   }
   .navbar .clickedSearch {
     display: inline;
+  }
+}
+@media only screen and (max-width: 880px) {
+  .navbar .clickedMenu {
+    font-size: 15px;
   }
 }

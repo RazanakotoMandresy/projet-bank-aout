@@ -26,13 +26,16 @@ const ProfileHome = () => {
             </span>
           </button>
           <button>
-            <span></span>
-            transferer de l'argents <BiCreditCard />
+            transferer de l'argents{" "}
+            <span>
+              <BiCreditCard />
+            </span>
           </button>
           <button>
             voir la liste de vos transaction
-            <span></span>
-            <BsPeopleFill />
+            <span>
+              <BsPeopleFill />
+            </span>
           </button>
         </div>
         <Link to={"/setting"}>

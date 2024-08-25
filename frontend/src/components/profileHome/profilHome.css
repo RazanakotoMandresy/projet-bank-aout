@@ -26,6 +26,7 @@
   padding: 10px;
   border-radius: 25px;
 }
+
 .profileH .parmProfil a:hover {
   background-color: #484b6a;
   color: #fafafa;
@@ -36,17 +37,21 @@
   text-decoration: none;
   margin: 10px;
   background-color: #d2d3db;
-  width: 75%;
+  width: 78%;
   margin-left: auto;
   margin-right: auto;
   color: #484b6a;
   padding: 10px;
   border-radius: 25px;
 }
+.parmProfil  span {
+    float: inline-end;
+}
+/* .parmProfil */
 /* responsive manip button mess... */
 @media only screen and (max-width: 1290px) {
   .profileH {
-    font-size: 1vw;
+    font-size: 11px;
   }
   .profileH img {
     width: 70px;

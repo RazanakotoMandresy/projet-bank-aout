@@ -5,7 +5,6 @@ import { GetTopTrans } from "../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
 const TopEnvoye = () => {
   const [topTrans, setTopTrans] = useState([]);
-
   const getTopTrans = async () => {
     try {
       const { data } = await GetTopTrans(Authentified);
@@ -14,7 +13,6 @@ const TopEnvoye = () => {
       console.log(error);
     }
   };
-
   useEffect(() => {
     getTopTrans();
   }, []);

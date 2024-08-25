@@ -5,6 +5,13 @@
 }
 .profileH {
   text-align: center;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #fafafa;
+  color: #484b6a;
+  width: 25%;
+  position: fixed;
+  margin: 9.5% 0 0 2%;
 }
 .profileH .parmProfil a {
   display: block;
@@ -12,7 +19,7 @@
   text-decoration: none;
   margin: 10px;
   background-color: #d2d3db;
-  width: 50%;
+  width: 72%;
   margin-left: auto;
   margin-right: auto;
   color: #484b6a;
@@ -22,4 +29,40 @@
 .profileH .parmProfil a:hover {
   background-color: #484b6a;
   color: #fafafa;
+}
+.parmProfil .onlyResponsive button {
+  border: none;
+  display: none;
+  font-size: 20px;
+  text-decoration: none;
+  margin: 10px;
+  background-color: #d2d3db;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  color: #484b6a;
+  padding: 10px;
+  border-radius: 25px;
+}
+/* responsive manip button mess... */
+@media only screen and (max-width: 1290px) {
+  .profileH {
+    font-size: 1vw;
+  }
+  .profileH img {
+    width: 70px;
+    height: 70px;
+  }
+  .profileH .parmProfil a{
+    font-size: 15px;
+  }
+}
+@media only screen and (max-width: 900px){
+  .profileH img {
+    width: 50px;
+    height: 50px;
+  }
+  .profileH .parmProfil a{
+    font-size: 12px;
+  }
 }

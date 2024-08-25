@@ -81,4 +81,8 @@
   .messages {
     margin: 11% 0 0 70%;
   }
+  .messages ul li img {
+    height: 35px;
+    width: 35px;
+  }
 }

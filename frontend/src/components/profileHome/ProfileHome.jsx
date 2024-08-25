@@ -20,21 +20,32 @@ const ProfileHome = () => {
         {/* div only responsive rehefa responsive ihany compose ana boutton messages , pour voir la listes des messages que l'on a envoyee */}
         <div className="onlyResponsive">
           <button>
-            voirs tous vos messages <BiLogoMessenger />
+            voirs tous vos messages
+            <span>
+              <BiLogoMessenger />
+            </span>
           </button>
           <button>
+            <span></span>
             transferer de l'argents <BiCreditCard />
           </button>
           <button>
             voir la liste de vos transaction
+            <span></span>
             <BsPeopleFill />
           </button>
         </div>
         <Link to={"/setting"}>
-          Paramètres globaux <FiSettings />
+          Paramètres globaux
+          <span>
+            <FiSettings />
+          </span>
         </Link>
         <Link to={`/profile`}>
-          Éditer votre profil <FiEdit />
+          Éditer votre profil
+          <span>
+            <FiEdit />
+          </span>
         </Link>
       </div>
     </div>

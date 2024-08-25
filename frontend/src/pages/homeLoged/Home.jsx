@@ -3,15 +3,17 @@ import TopEnvoye from "../../components/topEnvoye/TopEnvoye";
 import CenterHomeLoged from "../../components/centerHomeLoged/CenterHomeLoged";
 import ProfileHome from "../../components/profileHome/ProfileHome";
 import Messages from "../../components/HomeMessages/Messages";
-
+import "./home.css";
 const Home = () => {
   return (
     <div className="Home">
       <HomeHeader />
       <ProfileHome />
-      <CenterHomeLoged />
-      <TopEnvoye />
-      <Messages />
+      <div className="homeResponsive">
+        <CenterHomeLoged />
+        <TopEnvoye />
+        <Messages />
+      </div>
     </div>
   );
 };

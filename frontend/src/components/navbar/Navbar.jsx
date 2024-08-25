@@ -3,10 +3,11 @@ import "./navbar.css";
 import { Link } from "react-router-dom";
 import InputSearch from "../InputForSearch/InputSearch";
 import CenterNav from "./centerNavbar/CenterNav";
-import { BiMenu } from "react-icons/bi";
+import { BiMenu, BiSearchAlt } from "react-icons/bi";
 const Navbar = ({ connected }) => {
   // TODO implementing a real workflow
   const [menu, setMenu] = useState(false);
+  const [newSearch, setNewSeach] = useState(false);
   return (
     <div className="navbar">
       <ul>
@@ -20,8 +21,19 @@ const Navbar = ({ connected }) => {
           <button onClick={() => setMenu(!menu)}>
             <BiMenu />
           </button>
+          <button onClick={() => setNewSeach(!newSearch)}>
+            <BiSearchAlt />
+          </button>
         </li>
-        
+        {/* search responsive */}
+        {newSearch ? (
+          <div className="clickedSearch">
+            <InputSearch />
+          </div>
+        ) : (
+          <></>
+        )}
+        {/* le menu cliquer anaty responsivite */}
         {menu ? (
           <div className="clickedMenu">
             <CenterNav />

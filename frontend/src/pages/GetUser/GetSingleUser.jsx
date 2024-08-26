@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
+  GetAllMessages,
   GetUserInfo,
   SettingAxios,
 } from "../../logics/AxiosLogics/AxiosLogics";
@@ -20,6 +21,7 @@ const GetSingleUser = () => {
   const [blockAcc, setBlockAcc] = useState("");
   const [unblockAcc, setUnBlock] = useState("");
   const [switchBlock, setSwitchBlock] = useState(true);
+  const [allMessages, setAllMessages] = useState([]);
   const getSingleUserFunc = async () => {
     setIsLoading(true);
     try {
@@ -50,8 +52,17 @@ const GetSingleUser = () => {
     blockUnblockPPl();
     // setSwitchBlock(!switchBlock);
   };
+  const getAllMessages = async () => {
+    try {
+      const { data } = await GetAllMessages(uuid, Authentified);
+      setAllMessages(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     getSingleUserFunc();
+    getAllMessages();
   }, [uuid]);
 
   // TODO Loading implementation
@@ -59,7 +70,13 @@ const GetSingleUser = () => {
     <>
       <HomeHeader />
       <div className="user">
-        <Message userData={userData} userFound={userFound} uuid={uuid} />
+        <Message
+          userData={userData}
+          userFound={userFound}
+          uuid={uuid}
+          allMessages={allMessages}
+          setAllMessages={setAllMessages}
+        />
         <div className="profileUser">
           <img src={`${url}/${userFound.image}`} alt={userFound.image} />
           <h3>{userFound.AppUserName} </h3>

@@ -8,6 +8,7 @@ const Login = ({ ChangeBtn }) => {
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [connected, setConnected] = useState("");
   const login = async (e) => {
     e.preventDefault();
     const logUser = { Email, password };
@@ -16,6 +17,7 @@ const Login = ({ ChangeBtn }) => {
       localStorage.setItem("token", data.token);
       setEmail("");
       setPassword("");
+      setConnected(data.AppUserName);
       setRedirect(true);
     } catch (error) {
       console.log(error);
@@ -23,7 +25,7 @@ const Login = ({ ChangeBtn }) => {
   };
   // TODO important mijery auth workFlow
   if (redirect) {
-    return <Navigate to="/" />;
+    return <Navigate to={`/?c=${connected}`} />;
   }
   return (
     <>

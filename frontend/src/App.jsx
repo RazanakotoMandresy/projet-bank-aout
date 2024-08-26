@@ -28,8 +28,8 @@ export const useAppContext = () => useContext(UserContext);
 function App() {
   const [userData, setUserData] = useState({});
   const [connected, setConnected] = useState(false);
-
-  const getUser = useCallback(async () => {
+  const query = new URLSearchParams(location.search).get("c");
+  const getUser = async () => {
     try {
       const { data } = await GetUser(Authentified);
       setUserData(data);
@@ -37,10 +37,10 @@ function App() {
     } catch (error) {
       console.log("vous pouvez vous conneter sur login");
     }
-  }, [connected]);
+  }
   useEffect(() => {
     getUser();
-  }, []);
+  }, [query]);
   return (
     <div>
       <UserContext.Provider value={{ userData }}>

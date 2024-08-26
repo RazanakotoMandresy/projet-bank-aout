@@ -20,7 +20,7 @@ const SearchResult = () => {
   useEffect(() => {
     ResSearch();
   }, [query]);
-  return (
+  return ( 
     <div className="searchRes">
       <ul>
         {user.map((usr) => {

@@ -40,5 +40,5 @@ func (h handler) Login(ctx *gin.Context) {
 		"exp":  time.Now().Add(time.Hour * 24 * 30).Unix(),
 	})
 	tokenString, _ := middleware.TokenManage(token, ctx)
-	ctx.JSON(http.StatusCreated, gin.H{"token": tokenString})
+	ctx.JSON(http.StatusCreated, gin.H{"token": tokenString, "AppUserName": users.AppUserName})
 }

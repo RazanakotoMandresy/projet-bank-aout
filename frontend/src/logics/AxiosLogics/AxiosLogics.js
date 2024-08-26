@@ -46,3 +46,6 @@ export const DepotAxios = async (inputs, authentified) => {
 export const RetaitAxios = async (inputs, authentified) => {
   return await AxiosInstances.put("/transaction/retrait", inputs, authentified);
 };
+export const GetAllMessages = async (uuid, authentified) => {
+  return await AxiosInstances.get(`/chat/${uuid}`, authentified);
+};

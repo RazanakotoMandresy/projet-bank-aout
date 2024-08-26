@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { url } from "../../logics/funLogic/func";
 import { BiSend } from "react-icons/bi";
-// import { connect, sendMsg } from "../../logics/socket/socketLogics";
-const Message = ({ userData, userFound, uuid }) => {
+const Message = ({
+  userData,
+  userFound,
+  uuid,
+  allMessages,
+  setAllMessages,
+}) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [ws, setWs] = useState(null);
+  // const [allMsg, setAllMsg] = useState(allMessages);
+  // console.log("me", allMsg);
   useEffect(() => {
     const socket = new WebSocket(
       `ws://localhost:3000/api/v1/chat/ws/${uuid}?token=${localStorage.getItem(
@@ -13,9 +20,10 @@ const Message = ({ userData, userFound, uuid }) => {
       )}`
     );
     setWs(socket);
-
     socket.onmessage = (event) => {
-      setMessages((prevMessages) => [...prevMessages, event.data]);
+      // console.log("evee", event)
+      setMessages((prevMsg) => [...prevMsg, event.data]);
+      // setAllMessages((prevMsg) => [...prevMsg, event.data]);
     };
     return () => {
       socket.close();
@@ -32,6 +40,17 @@ const Message = ({ userData, userFound, uuid }) => {
     <div className="message">
       <h4> {userFound.AppUserName}</h4>
       <ul>
+        {allMessages.map((msg) => {
+          return (
+            <li className="send" key={msg.ID}>
+              <label>
+                <img src={`${url}/${userData.image}`} alt={userData.image} />
+                {msg.Content}
+              </label>
+            </li>
+          );
+        })}
+        {/* message on socket provisoire  ftsn */}
         {messages.map((msg, index) => {
           return (
             <li className="send" key={index}>
@@ -42,6 +61,7 @@ const Message = ({ userData, userFound, uuid }) => {
             </li>
           );
         })}
+
         <li className="receive">
           <label>
             <img src={`${url}/${userFound.image}`} alt={userFound.image} />

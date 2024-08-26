@@ -22,7 +22,6 @@ const TopEnvoye = () => {
         {topTrans.map((usrTopInfo) => {
           return (
             <li key={usrTopInfo.sentTo}>
-              {console.log(usrTopInfo)}
               <img
                 src={`http://localhost:3000/${usrTopInfo.SentToImg}`}
                 alt=""

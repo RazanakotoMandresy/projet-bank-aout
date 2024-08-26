@@ -8,7 +8,6 @@ import { BiCreditCard, BiLogoMessenger, BiMoneyWithdraw } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 const ProfileHome = () => {
   const { userData } = useAppContext();
-  console.log(userData)
   return (
     <div className="profileH">
       <h2>Ar {userData.money} </h2>

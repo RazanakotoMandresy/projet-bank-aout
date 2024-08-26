@@ -6,13 +6,11 @@ const Message = ({
   userFound,
   uuid,
   allMessages,
-  setAllMessages,
+  receiveAllMsgs,
 }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [ws, setWs] = useState(null);
-  // const [allMsg, setAllMsg] = useState(allMessages);
-  // console.log("me", allMsg);
   useEffect(() => {
     const socket = new WebSocket(
       `ws://localhost:3000/api/v1/chat/ws/${uuid}?token=${localStorage.getItem(
@@ -21,9 +19,7 @@ const Message = ({
     );
     setWs(socket);
     socket.onmessage = (event) => {
-      // console.log("evee", event)
       setMessages((prevMsg) => [...prevMsg, event.data]);
-      // setAllMessages((prevMsg) => [...prevMsg, event.data]);
     };
     return () => {
       socket.close();
@@ -40,6 +36,16 @@ const Message = ({
     <div className="message">
       <h4> {userFound.AppUserName}</h4>
       <ul>
+        {receiveAllMsgs.map((msg) => {
+          return (
+            <li className="receive" key={msg.ID}>
+              <label>
+                <img src={`${url}/${userFound.image}`} alt={userFound.image} />
+                {msg.Content}
+              </label>
+            </li>
+          );
+        })}
         {allMessages.map((msg) => {
           return (
             <li className="send" key={msg.ID}>
@@ -61,15 +67,6 @@ const Message = ({
             </li>
           );
         })}
-
-        <li className="receive">
-          <label>
-            <img src={`${url}/${userFound.image}`} alt={userFound.image} />
-            Bonjour, je n'ai malheureusement pas la possibilité d'envoyer cette
-            somme aujourd'hui. Mais peut-être demain.
-          </label>
-        </li>
-        {/* TODO tsy mety le reponse  */}
       </ul>
       <div className="champ">
         <input

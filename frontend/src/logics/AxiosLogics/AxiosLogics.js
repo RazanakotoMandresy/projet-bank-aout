@@ -49,3 +49,6 @@ export const RetaitAxios = async (inputs, authentified) => {
 export const GetAllMessages = async (uuid, authentified) => {
   return await AxiosInstances.get(`/chat/${uuid}`, authentified);
 };
+export const ReciveAllMessages = async (uuid, authentified) => {
+  return await AxiosInstances.get(`/chat/rec/${uuid}`, authentified);
+};

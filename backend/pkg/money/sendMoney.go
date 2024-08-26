@@ -1,7 +1,6 @@
 package money
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 	"slices"
@@ -136,19 +135,14 @@ func getTotals(money pq.Int32Array) int32 {
 		totals += money[i]
 	}
 	return totals
-}
+}	
 
 // user req que se soit uuid na appUserName
 func (h handler) GetUserByuuid(userReq string) (*models.User, error) {
 	var users models.User
-	result := h.DB.First(&users, "uuid = ?", userReq)
-	if result.Error != nil {
-		err := fmt.Errorf("utilisateur avec l'uuid %v n'est pas dans %v , le resultats est %v recherche si c'est un appUserName", userReq, users, result)
-		fmt.Println(err)
-		res := h.DB.First(&users, "app_user_name = ?", userReq)
-		if res.Error != nil {
-			return nil, errors.New("user pas dans uuid et AppUserName")
-		}
+	res := h.DB.Where("uuid = ? OR app_user_name = ?", userReq, userReq).First(&users)
+	if res.Error != nil {
+		return nil, fmt.Errorf(" %v pas dans uuid et AppUserName", userReq)
 	}
 	return &users, nil
 }

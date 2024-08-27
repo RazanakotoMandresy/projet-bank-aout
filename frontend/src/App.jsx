@@ -29,7 +29,10 @@ function App() {
   const [userData, setUserData] = useState({});
   const [connected, setConnected] = useState(false);
   const query = new URLSearchParams(location.search).get("c");
+
   const getUser = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     try {
       const { data } = await GetUser(Authentified);
       setUserData(data);
@@ -40,7 +43,7 @@ function App() {
   }
   useEffect(() => {
     getUser();
-  }, [query]);
+  }, []);
   return (
     <div>
       <UserContext.Provider value={{ userData }}>

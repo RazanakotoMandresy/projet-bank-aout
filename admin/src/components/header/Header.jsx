@@ -19,14 +19,14 @@ const Header = ({ props }) => {
           <FiSearch />
         </label>
       </div>
-      <button
+      {/* <button
         onClick={() => {
           changeMode();
         }}
         className="mode"
       >
         {Mode ? <FiSun /> : <FiMoon />}
-      </button>
+      </button> */}
       {!logedBool ? (
         <Link to={"/login"} reloadDocument={true}>
           Login

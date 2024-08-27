@@ -2,11 +2,14 @@
 import React, { useState } from "react";
 import { RetaitAxios } from "../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
+import Errors from "../error/Errors";
 
 const Retrait = () => {
   const [lieux, setLieux] = useState("");
   const [values, setValue] = useState(Number);
   const [passwords, setPasswords] = useState("");
+  const [error, setError] = useState("");
+
   const retait = async (e) => {
     e.preventDefault();
     try {
@@ -16,6 +19,7 @@ const Retrait = () => {
       setPasswords("");
     } catch (error) {
       console.log(error);
+      setError(error?.response?.data?.err);
     }
   };
   return (
@@ -46,6 +50,7 @@ const Retrait = () => {
           value={passwords}
           onChange={(e) => setPasswords(e.target.value)}
         />
+        <Errors error={error}/>
         <button> confirmer </button>
       </form>
     </div>

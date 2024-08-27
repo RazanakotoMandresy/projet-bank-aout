@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import "./depot.css";
 import { DepotAxios } from "../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
+import Errors from "../error/Errors";
 const Depot = () => {
   const [lieux, setLieux] = useState("");
   const [values, setValue] = useState(Number);
   const [passwords, setPasswords] = useState("");
+  const [error, setError] = useState("");
   const depot = async (e) => {
     e.preventDefault();
     try {
@@ -15,6 +17,7 @@ const Depot = () => {
       setValue(0);
       setPasswords("");
     } catch (error) {
+      setError(error?.response?.data?.err);
       console.log(error);
     }
   };
@@ -49,6 +52,7 @@ const Depot = () => {
           value={passwords}
           onChange={(e) => setPasswords(e.target.value)}
         />
+        <Errors error={error} />
         <button type="submit">confirmer</button>
       </form>
     </div>

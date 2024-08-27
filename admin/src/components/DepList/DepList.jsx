@@ -11,12 +11,12 @@ const DepList = ({ depList }) => {
           {depList.map((list) => {
             return (
               <li key={list.ID}>
-                <Link to={`/${list.ID}`}>
+                {/* <Link to={`/${list.ID}`}> */}
                   lieux : {list.Lieux} argent {list.Money}
                   <label>
                     <FiCreditCard />
                   </label>
-                </Link>
+                {/* </Link> */}
               </li>
             );
           })}

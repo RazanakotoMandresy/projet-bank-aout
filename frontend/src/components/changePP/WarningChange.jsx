@@ -3,8 +3,7 @@ import "./warning.css";
 const WarningChange = () => {
   return (
     <div className="warning">
-      Vous etes sur de changer votre photos en
-      <img src="defaultPP.jpg" alt="def" />
+      Vous etes sur de changer votre photos de profil?
       <div className="conf">
         <button type="button" id="annuler">
           Annuler

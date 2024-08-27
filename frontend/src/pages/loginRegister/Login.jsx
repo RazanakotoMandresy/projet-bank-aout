@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import "./log.css";
 import ImageH1 from "../NotLoged/ImageH1";
 import { LoginFunc } from "../../logics/AxiosLogics/AxiosLogics";
-import { Navigate, useAsyncValue, useNavigation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Errors from "../../components/error/Errors";
 
 const Login = ({ ChangeBtn }) => {
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [connected, setConnected] = useState("");
+  const [error, setError] = useState("");
   const login = async (e) => {
     e.preventDefault();
     const logUser = { Email, password };
@@ -20,7 +22,8 @@ const Login = ({ ChangeBtn }) => {
       setConnected(data.AppUserName);
       setRedirect(true);
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data);
+      setError("mots de passes incorrectes ou email");
     }
   };
   // TODO important mijery auth workFlow
@@ -55,6 +58,7 @@ const Login = ({ ChangeBtn }) => {
               setPassword(e.target.value);
             }}
           />
+          <Errors error={error}/>
           <button type="submit">Se connecter</button>
         </form>
       </div>

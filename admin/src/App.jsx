@@ -29,9 +29,6 @@ const App = () => {
     }
   };
   const changeLog = () => {
-    setTimeout(() => {
-      console.log("timeout");
-    }, 1000);
     setLogedBool(!logedBool);
   };
   // if there is no connected user , auto on login
@@ -39,7 +36,9 @@ const App = () => {
     getLogedAdmin();
   }, []);
   const headerProps = { changeMode, Mode, connected, logedBool, changeLog };
-  const LogRegProps = { changeLog };
+  if (connected == null) {
+      return <Login/>
+  }
   return (
     <div>
       <Header props={headerProps} />

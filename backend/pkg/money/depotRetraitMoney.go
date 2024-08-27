@@ -34,6 +34,7 @@ func (h handler) Depot(ctx *gin.Context) {
 
 	if body.Lieux == "" || body.Value == 0 {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "Lieux et value sont obligatoire"})
+		return
 	}
 	moneyReq := body.Value
 	var bank models.Bank
@@ -86,6 +87,7 @@ func (h handler) Retrait(ctx *gin.Context) {
 
 	if body.Lieux == "" || body.Value == 0 {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": "Lieux et value sont obligatoire"})
+		return
 	}
 	moneyReq := body.Value
 	var bank models.Bank
@@ -107,7 +109,7 @@ func (h handler) Retrait(ctx *gin.Context) {
 	}
 
 	if err := middleware.IsTruePassword(userTosend.Password, body.Passwords); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": err})
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": err.Error()})
 		return
 	}
 	userTosend.Moneys = (userTosend.Moneys - moneyReq)

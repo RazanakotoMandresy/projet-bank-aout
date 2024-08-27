@@ -12,6 +12,7 @@ import { url } from "../../logics/funLogic/func";
 import "./getUser.css";
 import HomeHeader from "../../components/HomeHeader/HomeHeader";
 import Message from "../../components/message/Message";
+import Errors from "../../components/error/Errors";
 const GetSingleUser = () => {
   // le params peut etre un uuid ou bien un appUserName
   const { uuid } = useParams();
@@ -24,6 +25,7 @@ const GetSingleUser = () => {
   const [switchBlock, setSwitchBlock] = useState(true);
   const [allMessages, setAllMessages] = useState([]);
   const [receiveAllMgs, setReceiveAllMsgs] = useState([]);
+  const [error, setError] = useState("");
   const getSingleUserFunc = async () => {
     // setIsLoading(true);
     try {
@@ -31,7 +33,8 @@ const GetSingleUser = () => {
       setUserFound(data);
     } catch (error) {
       console.log(error);
-    } 
+      setError(error?.response?.data?.err);
+    }
   };
   const blockUnblockPPl = async () => {
     try {
@@ -40,6 +43,7 @@ const GetSingleUser = () => {
       console.log(blockAcc);
     } catch (error) {
       console.log(error);
+      setError(error?.response?.data?.err);
     }
   };
   const blockFunc = () => {
@@ -56,6 +60,7 @@ const GetSingleUser = () => {
       setAllMessages(data);
     } catch (error) {
       console.log(error);
+      setError(error?.response?.data);
     }
   };
   const receiveAllMessages = async () => {
@@ -90,7 +95,7 @@ const GetSingleUser = () => {
           <img src={`${url}/${userFound.image}`} alt={userFound.image} />
           <h3>{userFound.AppUserName} </h3>
           <h4>{userFound.nameFirstName}</h4>
-          <h4>total de votre transaction avec : 400000ar</h4>
+          <h4>total de votre transaction avec : {userFound.total}</h4>
           {switchBlock ? (
             <button
               onClick={blockFunc}
@@ -110,6 +115,7 @@ const GetSingleUser = () => {
               Debloquer
             </button>
           )}
+          <Errors error={error} />
           {/* abondon */}
           {/* <button className="more">
             <FiChevronDown />

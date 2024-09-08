@@ -43,7 +43,6 @@ func (h handler) UpdateInfo(ctx *gin.Context) {
 	user.Updated_at = time.Now()
 	// save des modif
 	result := h.DB.Save(&user)
-
 	if result.Error != nil {
 		if result.Error.Error() == "ERROR: duplicate key value violates unique constraint \"uni_users_app_user_name\" (SQLSTATE 23505)" {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": fmt.Sprintf("l'appUserName avec %v est deja utiliser par un autre utilisateur ", body.AppUserName)})

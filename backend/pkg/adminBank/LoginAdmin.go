@@ -1,7 +1,6 @@
 package adminbank
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -20,7 +19,6 @@ func (h handler) LoginAdmin(ctx *gin.Context) {
 	body := new(BankLogRequest)
 	if err := ctx.Bind(&body); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println("0")
 		return
 	}
 	if body.Name == "" || body.Passwords == "" {
@@ -31,13 +29,11 @@ func (h handler) LoginAdmin(ctx *gin.Context) {
 	GetHashedAdminPassword := h.DB.First(&admin, admin)
 	if GetHashedAdminPassword.Error != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, GetHashedAdminPassword.Error.Error())
-		fmt.Println("1")
 		return
 	}
 	err := middleware.IsTruePassword(admin.Passwords, body.Passwords)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		fmt.Println("2")
 		return
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
@@ -47,7 +43,6 @@ func (h handler) LoginAdmin(ctx *gin.Context) {
 	})
 	tokenString, err := middleware.TokenManage(token, ctx)
 	if err != nil {
-		fmt.Println("3")
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err})
 		return
 	}

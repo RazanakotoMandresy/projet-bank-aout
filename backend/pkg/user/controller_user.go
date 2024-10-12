@@ -28,3 +28,4 @@ func RegisterRoutes(router *gin.Engine, db *gorm.DB) {
 	routes.PATCH("/", middleware.RequireAuth, h.UpdateInfo)
 	routes.PATCH("/setting", middleware.RequireAuth, h.SettingUser)
 }
+	

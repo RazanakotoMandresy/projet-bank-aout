@@ -3,7 +3,6 @@ module github.com/RazanakotoMandresy/bank-app-aout/backend
 go 1.22.3
 
 require (
-	github.com/dustin/go-broadcast v0.0.0-20211018055107-71439988bd91
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/google/uuid v1.6.0

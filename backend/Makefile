@@ -1,4 +1,4 @@
 build:
-	@go build -o  bin/backend .
+	@go build -C cmd/app -o ../../bin/backend .
 run:build
 	./bin/backend

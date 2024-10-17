@@ -7,7 +7,7 @@ import "./App.css";
 import Header from "./components/header/Header";
 import { GetAdminInfo } from "./utils/axiosUtils/AxiosLogics";
 import { Authentified } from "./utils/auth/Auth";
-// TODO dark mode (install styled components (Maybe))
+
 const App = () => {
   const [Mode, setMode] = useState(Boolean);
   const [connected, setConnected] = useState(null);

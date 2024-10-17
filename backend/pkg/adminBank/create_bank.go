@@ -31,8 +31,7 @@ func (h handler) CreateBank(ctx *gin.Context) {
 		})
 		return
 	}
-	// code defensif sur le role meme si il est impossible qu'il soit appele satria ny uuid an'i admin ihany ny getevana
-	// TODO Renforcement
+	// check roles
 	if admin.Role != "admin" {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"err": "vous n'avez pas le role necessaire ",

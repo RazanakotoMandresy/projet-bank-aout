@@ -1,8 +1,8 @@
 import "./profile.css";
-import ImageH1 from "../NotLoged/ImageH1";
+import ImageH1 from "../page_not_logged/ImageH1";
 import { useAppContext } from "../../App";
 import ProfileToModified from "./ProfileToModified";
-import ChangePP from "../../components/changePP/ChangePP";
+import ChangePP from "../../components/change_pp/ChangePP";
 
 const Profile = () => {
   const { userData } = useAppContext();

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { RetaitAxios } from "../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
-import Errors from "../error/Errors";
+import Errors from "../errors/Errors";
 
 const Retrait = () => {
   const [lieux, setLieux] = useState("");

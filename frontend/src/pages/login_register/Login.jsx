@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./log.css";
-import ImageH1 from "../NotLoged/ImageH1";
+import ImageH1 from "../page_not_logged/ImageH1";
 import { LoginFunc } from "../../logics/AxiosLogics/AxiosLogics";
 import { Navigate } from "react-router-dom";
-import Errors from "../../components/error/Errors";
+import Errors from "../../components/errors/Errors";
 
 const Login = ({ ChangeBtn }) => {
   const [Email, setEmail] = useState("");

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
-import InputSearch from "../InputForSearch/InputSearch";
+import InputSearch from "../input_search/InputSearch";
 import CenterNav from "./centerNavbar/CenterNav";
 import { BiMenu, BiSearchAlt } from "react-icons/bi";
 const Navbar = ({ connected }) => {

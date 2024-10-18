@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import HomeHeader from "../../components/HomeHeader/HomeHeader";
+import HomeHeader from "../../components/home_header/HomeHeader";
 import "./setting.css";
-import SettingButton from "../../components/settingButtons/SettingButton";
-import SettingContent from "../../components/settingContent/SettingContent";
+import SettingButton from "../../components/setting_options/SettingButton";
+import SettingContent from "../../components/setting_content/SettingContent";
 import { GetSettingState } from "../../logics/localstorageLog/LocalstorageLog";
 import { useAppContext } from "../../App";
 import { SettingAxios } from "../../logics/AxiosLogics/AxiosLogics";
@@ -14,7 +14,6 @@ const Setting = () => {
   const [deleteMyAcc, setDelMyAcc] = useState(false);
   const [blockAccount, setBlockAccount] = useState("");
   const [unblockAccount, setUnBlockAccount] = useState("");
-
   const SettingUser = () => {
     try {
       const inputs = {
@@ -24,7 +23,7 @@ const Setting = () => {
         blockAcc: blockAccount,
       };
       const { data } = SettingAxios(inputs, Authentified);
-      console.log(data)
+      console.log(data);
     } catch (error) {
       console.log(error);
     }

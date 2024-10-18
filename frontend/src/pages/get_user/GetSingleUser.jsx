@@ -10,24 +10,21 @@ import { useParams } from "react-router-dom";
 import { useAppContext } from "../../App";
 import { url } from "../../logics/funLogic/func";
 import "./getUser.css";
-import HomeHeader from "../../components/HomeHeader/HomeHeader";
+import HomeHeader from "../../components/home_header/HomeHeader";
 import Message from "../../components/message/Message";
-import Errors from "../../components/error/Errors";
+import Errors from "../../components/errors/Errors";
 const GetSingleUser = () => {
   // le params peut etre un uuid ou bien un appUserName
   const { uuid } = useParams();
   const { userData } = useAppContext();
   const [userFound, setUserFound] = useState({});
-  // const [isLoading, setIsLoading] = useState(false);
-  // TODO Loading but after the
   const [blockAcc, setBlockAcc] = useState("");
   const [unblockAcc, setUnBlock] = useState("");
-  const [switchBlock, setSwitchBlock] = useState(true);
+  const [switchBlock, setSwitchBlock] = useState(Boolean);
   const [allMessages, setAllMessages] = useState([]);
   const [receiveAllMgs, setReceiveAllMsgs] = useState([]);
   const [error, setError] = useState("");
   const getSingleUserFunc = async () => {
-    // setIsLoading(true);
     try {
       const { data } = await GetUserInfo(uuid, Authentified);
       setUserFound(data);
@@ -116,10 +113,6 @@ const GetSingleUser = () => {
             </button>
           )}
           <Errors error={error} />
-          {/* abondon */}
-          {/* <button className="more">
-            <FiChevronDown />
-          </button> */}
         </div>
       </div>
     </>

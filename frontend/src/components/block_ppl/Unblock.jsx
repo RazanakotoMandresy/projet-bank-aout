@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { CgUnblock } from "react-icons/cg";
-import {
-  ChangeState,
-  GetChangeState,
-} from "../../logics/localstorageLog/LocalstorageLog";
+import { ChangeState } from "../../logics/localstorageLog/LocalstorageLog";
 const Unblock = ({ userData, SettingUser, setUnBlockAccount }) => {
   const [blockList, setBlockList] = useState([]);
   const blockListFunc = async () => {
     try {
       setBlockList(userData.BlockedAcc);
-      console.log("first");
     } catch (error) {
       console.log(error);
     }

@@ -1,8 +1,8 @@
 import React from "react";
-import Depot from "../DepotRetrait/Depot";
-import Retrait from "../DepotRetrait/Retrait";
-import Unblock from "../BlockPPl/Unblock";
-import DeleteAccount from "../DeleteAccount/DeleteAccount";
+import Depot from "../depot_retrait/Depot";
+import Retrait from "../depot_retrait/Retrait";
+import Unblock from "../block_ppl/Unblock";
+import DeleteAccount from "../delete_account/DeleteAccount";
 
 const SettingContent = ({ props }) => {
   const {

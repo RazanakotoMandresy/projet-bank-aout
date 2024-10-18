@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ImageH1 from "../NotLoged/ImageH1";
+import ImageH1 from "../page_not_logged/ImageH1";
 import "./log.css";
 import { RegisterFunc } from "../../logics/AxiosLogics/AxiosLogics";
 

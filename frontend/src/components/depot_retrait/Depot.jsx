@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./depot.css";
 import { DepotAxios } from "../../logics/AxiosLogics/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
-import Errors from "../error/Errors";
+import Errors from "../errors/Errors";
 const Depot = () => {
   const [lieux, setLieux] = useState("");
   const [values, setValue] = useState(Number);

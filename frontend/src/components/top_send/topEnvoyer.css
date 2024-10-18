@@ -6,6 +6,7 @@
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   width: 30%;
   color: #9394a5;
+  min-height: 120px;
 }
 .envoyee ul li img {
   height: 70px;

@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { FiEdit, FiSave } from "react-icons/fi";
 import { UpdateUserProfile } from "../../logics/axios_logic/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
@@ -64,8 +64,11 @@ const ProfileToModified = ({ userData }) => {
               setResidance(e.target.value);
             }}
           />
-          <button>
-            <FiSave />
+          <button className="save">
+            enregister les modifications
+            <span>
+              <FiSave />
+            </span>
           </button>
         </form>
       )}

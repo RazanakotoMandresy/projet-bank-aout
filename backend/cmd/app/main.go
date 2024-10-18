@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	epargne "github.com/RazanakotoMandresy/bank-app-aout/backend/pkg/Epargne"
@@ -39,5 +40,8 @@ func main() {
 	// serve depuis ou prendre les images et donne l'url
 	router.Static("./upload", rootDir+"/upload")
 	router.Static("./imgDef", rootDir+"/imgDef")
-	router.Run(port)
+	if err := router.Run(port); err != nil {
+		log.Fatal("an error occured during running the router", err)
+	}
+
 }

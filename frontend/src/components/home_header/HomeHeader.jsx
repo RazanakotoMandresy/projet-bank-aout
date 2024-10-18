@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FiSettings } from "react-icons/fi";
 import "./HomeHeader.css";
 import { useAppContext } from "../../App";
-import { GetDate } from "../../logics/funLogic/func";
+import { GetDate } from "../../logics/func_logic/func";
 import { Link } from "react-router-dom";
 
 const HomeHeader = () => {

@@ -1,6 +1,6 @@
 // same css as for depot
 import React, { useState } from "react";
-import { RetaitAxios } from "../../logics/AxiosLogics/AxiosLogics";
+import { RetaitAxios } from "../../logics/axios_logic/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
 import Errors from "../errors/Errors";
 

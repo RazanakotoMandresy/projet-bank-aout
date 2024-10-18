@@ -1,6 +1,6 @@
 import React, {  useState } from "react";
 import { FiEdit, FiSave } from "react-icons/fi";
-import { UpdateUserProfile } from "../../logics/AxiosLogics/AxiosLogics";
+import { UpdateUserProfile } from "../../logics/axios_logic/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
 
 const ProfileToModified = ({ userData }) => {

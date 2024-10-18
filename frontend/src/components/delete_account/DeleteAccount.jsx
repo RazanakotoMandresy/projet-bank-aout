@@ -1,7 +1,7 @@
 import React from "react";
 import { BsTrash2 } from "react-icons/bs";
 import "./deleteAcc.css";
-import { url } from "../../logics/funLogic/func";
+import { url } from "../../logics/func_logic/func";
 const DeleteAccount = ({ userData, SettingUser, setDelMyAcc, deleteMyAcc }) => {
   return (
     <div className="deleteAcc">

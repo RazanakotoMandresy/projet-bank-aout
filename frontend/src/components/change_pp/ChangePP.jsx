@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PostPPfunc } from "../../logics/AxiosLogics/AxiosLogics";
+import { PostPPfunc } from "../../logics/axios_logic/AxiosLogics";
 import { AuthentifiedMultipart } from "../../logics/authentification/authentification";
 import { FiCamera } from "react-icons/fi";
 import WarningChange from "./WarningChange";

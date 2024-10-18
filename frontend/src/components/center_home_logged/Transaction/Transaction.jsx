@@ -4,7 +4,7 @@ import { FiSend } from "react-icons/fi";
 import {
   GetUserInfo,
   SendMoneyFunc,
-} from "../../../logics/AxiosLogics/AxiosLogics";
+} from "../../../logics/axios_logic/AxiosLogics";
 import { Authentified } from "../../../logics/authentification/authentification";
 import Confirm from "./Confirm";
 const Transaction = () => {

@@ -3,7 +3,7 @@ import { FiEdit, FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import "./profilHome.css";
 import { useAppContext } from "../../App";
-import { url } from "../../logics/funLogic/func";
+import { url } from "../../logics/func_logic/func";
 import { BiCreditCard, BiLogoMessenger, BiMoneyWithdraw } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 const ProfileHome = () => {

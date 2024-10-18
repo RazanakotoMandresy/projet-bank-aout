@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { url } from "../../logics/funLogic/func";
+import { url } from "../../logics/func_logic/func";
 import { BiSend } from "react-icons/bi";
 const Message = ({
   userData,

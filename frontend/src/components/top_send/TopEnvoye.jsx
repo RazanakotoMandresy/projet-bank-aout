@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./topEnvoyer.css";
 import { Link } from "react-router-dom";
-import { GetTopTrans } from "../../logics/AxiosLogics/AxiosLogics";
+import { GetTopTrans } from "../../logics/axios_logic/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
 const TopEnvoye = () => {
   const [topTrans, setTopTrans] = useState([]);

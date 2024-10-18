@@ -14,7 +14,7 @@ import Login from "./pages/login_register/Login";
 import Home from "./pages/home_logged/Home";
 import Profile from "./pages/profile/Profile";
 import "./App.css";
-import { GetUser } from "./logics/AxiosLogics/AxiosLogics";
+import { GetUser } from "./logics/axios_logic/AxiosLogics";
 import { Authentified } from "./logics/authentification/authentification";
 import Setting from "./pages/Setting/Setting";
 import Fonctionnalitees from "./pages/page_not_logged/Fonctionnalites/Fonctionnalitees";

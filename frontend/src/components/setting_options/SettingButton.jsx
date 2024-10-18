@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { SetSettingState } from "../../logics/localstorageLog/LocalstorageLog";
+import { SetSettingState } from "../../logics/localstorage/LocalstorageLog";
 
 const SettingButton = ({ setChoiseParams }) => {
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ImageH1 from "../page_not_logged/ImageH1";
 import "./log.css";
-import { RegisterFunc } from "../../logics/AxiosLogics/AxiosLogics";
+import { RegisterFunc } from "../../logics/axios_logic/AxiosLogics";
 
 import { Navigate } from "react-router-dom";
 const Register = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./log.css";
 import ImageH1 from "../page_not_logged/ImageH1";
-import { LoginFunc } from "../../logics/AxiosLogics/AxiosLogics";
+import { LoginFunc } from "../../logics/axios_logic/AxiosLogics";
 import { Navigate } from "react-router-dom";
 import Errors from "../../components/errors/Errors";
 

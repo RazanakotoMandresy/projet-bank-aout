@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./SearchResult.css";
-import { SearchRes } from "../../logics/AxiosLogics/AxiosLogics";
+import { SearchRes } from "../../logics/axios_logic/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
-import { url } from "../../logics/funLogic/func";
+import { url } from "../../logics/func_logic/func";
 const SearchResult = () => {
   const [user, setUser] = useState([]);
   const location = useLocation();
@@ -20,7 +20,7 @@ const SearchResult = () => {
   useEffect(() => {
     ResSearch();
   }, [query]);
-  return ( 
+  return (
     <div className="searchRes">
       <ul>
         {user.map((usr) => {

@@ -3,9 +3,9 @@ import HomeHeader from "../../components/home_header/HomeHeader";
 import "./setting.css";
 import SettingButton from "../../components/setting_options/SettingButton";
 import SettingContent from "../../components/setting_content/SettingContent";
-import { GetSettingState } from "../../logics/localstorageLog/LocalstorageLog";
+import { GetSettingState } from "../../logics/localstorage/LocalstorageLog";
 import { useAppContext } from "../../App";
-import { SettingAxios } from "../../logics/AxiosLogics/AxiosLogics";
+import { SettingAxios } from "../../logics/axios_logic/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
 const Setting = () => {
   const [choiseParams, setChoiseParams] = useState(GetSettingState);

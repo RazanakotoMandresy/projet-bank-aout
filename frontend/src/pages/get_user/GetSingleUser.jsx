@@ -4,11 +4,11 @@ import {
   GetUserInfo,
   ReciveAllMessages,
   SettingAxios,
-} from "../../logics/AxiosLogics/AxiosLogics";
+} from "../../logics/axios_logic/AxiosLogics";
 import { Authentified } from "../../logics/authentification/authentification";
 import { useParams } from "react-router-dom";
 import { useAppContext } from "../../App";
-import { url } from "../../logics/funLogic/func";
+import { url } from "../../logics/func_logic/func";
 import "./getUser.css";
 import HomeHeader from "../../components/home_header/HomeHeader";
 import Message from "../../components/message/Message";
